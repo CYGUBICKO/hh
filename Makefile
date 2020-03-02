@@ -1,7 +1,6 @@
 # Household characteristics data
 ## Examining WASH raw data
 
-
 ### Hooks for the editor to set the default target
 
 ## https:cygubicko.github.io/projects
@@ -20,8 +19,8 @@ Sources += Makefile rmd.mk
 ## Loading data and defining some important functions
 ## ln -s ~/Dropbox/aphrc/hh_amen_xtics/data/ data ##
 ## ln -s ~/Dropbox/aphrc/hh_amen_xtics/docs/ docs ##
+## ln -s ~/Dropbox/aphrc/wash/data washdata ##
 Ignore += data docs
-
 
 ######################################################################
 
@@ -32,11 +31,17 @@ globalFunctions.Rout: globalFunctions.R
 ## loadData.rda: loadData.R
 loadData.Rout: data/NUHDSS_hhamenitiescharacteristics_anon.dta loadData.R
 
-# Some cleaning
-cleaning.Rout: cleaning.R
+shortData.Rout: shortData.R
 
+# Some cleaning (using shortData temporarily)
+cleaning.Rout: cleaning.R
 cleaning_plots.Rout: cleaning_plots.R
 
+## mergeWash may not be necessary, since hh data seems to have the derived variables
+## Or maybe we can play _just_ with washdata
+mergeWash.Rout: washdata/NUHDSS_Wash.dta mergeWash.R
+
+## compare Steve-calculated with aphrc-calculated variables
 
 ######################################################################
 

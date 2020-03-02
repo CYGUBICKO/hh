@@ -10,7 +10,8 @@ library(DT)
 library(tibble)
 library(tidyr)
 
-load("loadData.rda")
+load("shortData.rda")
+## load("loadData.rda")
 load("globalFunctions.rda")
 
 #### ---- Filter completed interviews ----
@@ -80,9 +81,12 @@ replacements <- c(1, 0, NA)
 working_df <- (working_df
 	%>% recodeLabs(garbage_vars, patterns, replacements, insert = TRUE)
 )
-table(working_df[, "garbagedisposal_new"], useNA = "always")
 
-prop.table(table(working_df[, "garbagedisposal_new"]))
+with(working_df, {
+	table(garbagedisposal, garbagedisposal_new)
+	table(drinkwatersource, drinkwatersource_new)
+	table(toilet_5plusyrs, toilet_5plusyrs_new)
+})
 
 save(file = "cleaning.rda"
 	, working_df
