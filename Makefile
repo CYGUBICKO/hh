@@ -38,7 +38,8 @@ cleaning.Rout: cleaning.R
 cleaning_plots.Rout: cleaning_plots.R
 
 ## mergeWash may not be necessary, since hh data seems to have the derived variables
-## Or maybe we can play _just_ with washdata
+## Or maybe we can play _just_ with washdata?
+## See notes
 mergeWash.Rout: washdata/NUHDSS_Wash.dta mergeWash.R
 
 ## compare Steve-calculated with aphrc-calculated variables
