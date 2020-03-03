@@ -1,0 +1,118 @@
+
+R version 3.6.3 (2020-02-29) -- "Holding the Windsock"
+Copyright (C) 2020 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> #### ---- Project: APHRC Wash Data ----
+> #### ---- Task: Cleaning raw data ----
+> #### ---- Fit switch data ----
+> #### ---- By: Steve and Jonathan ----
+> #### ---- Date: 2020 Mar 01 (Sun) ----
+> 
+> library(data.table)
+> library(dplyr)
+> library(tidyr)
+> library(tibble)
+> 
+> library(ggplot2)
+> theme_set(theme_bw() +
++ 	theme(panel.spacing=grid::unit(0,"lines")))
+> library(scales)
+> 
+> load("mergeWash.rda")
+> 
+> summaryFunc <- function(var){
++ 	summary_df <- (full_df
++ 		%>% filter(grepl("^improve|^unimprove", .data[[var]], ignore.case = TRUE))
++ 		%>% mutate(intvwyear = as.numeric(intvwyear))
++ 		%>% mutate_at(var, function(x)ifelse(grepl("^improve", x, ignore.case = TRUE), 1, 0))
++ 		%>% select(var, intvwyear)
++ 		%>% rename("temp_var" = var)
++ 		%>% group_by(intvwyear)
++ 		%>% summarise(prop = mean(temp_var, na.rm = TRUE))
++ 		%>% mutate(services = var, overall = mean(prop))
++ 	)
++ 	return(summary_df)
++ }
+> 
+> #### ---- Overall service proportion per year ----
+> 
+> ## Wash
+> wash_prop <- lapply(c("cat_hhwatersource", "cat_hhgarbagedisposal", "cat_hhtoilettype"), summaryFunc)
+> wash_prop_df <- (bind_rows(wash_prop)
++ 	%>% mutate(services = gsub("cat\\_hh", "", services)
++ 		, df = "wash"
++ 	)
++ )
+> 
+> ## HH
+> hh_prop <- lapply(c("drinkwatersource_new", "garbagedisposal_new", "toilet_5plusyrs_new"), summaryFunc)
+> hh_prop_df <- (bind_rows(hh_prop)
++ 	%>% mutate(services = gsub("drink|\\_new", "", services)
++ 		, services = ifelse(grepl("toilet\\_", services), "toilettype", services)
++ 		, df = "hh"
++ 	)
++ )
+> 
+> 
+> ### Combine wash and HH
+> prop_df <- bind_rows(wash_prop_df, hh_prop_df)
+> prop_df
+# A tibble: 84 x 5
+   intvwyear  prop services    overall df   
+       <dbl> <dbl> <chr>         <dbl> <chr>
+ 1         1 0.949 watersource   0.914 wash 
+ 2         2 0.968 watersource   0.914 wash 
+ 3         3 0.984 watersource   0.914 wash 
+ 4         4 0.981 watersource   0.914 wash 
+ 5         5 0.981 watersource   0.914 wash 
+ 6         6 0.912 watersource   0.914 wash 
+ 7         7 0.941 watersource   0.914 wash 
+ 8         8 0.963 watersource   0.914 wash 
+ 9         9 0.879 watersource   0.914 wash 
+10        10 0.861 watersource   0.914 wash 
+# … with 74 more rows
+> 
+> ## SB -> JD: Should the denominator be the number of HH?
+> 
+> prop_plot <- (ggplot(prop_df, aes(x = intvwyear, y = prop, colour = services, lty=df))
++ 	+ geom_point()
++ 	+ geom_line()
++ 	+ geom_hline(aes(yintercept = overall, colour = services, lty = df))
++ #	+ geom_text(aes(x = max(intvwyear)-1, y = overall, label = paste0("Overall = ", scales::percent(overall)))
++ #		, vjust = -1.5
++ #		, show.legend = FALSE
++ #	)
++ 	+ labs(x = "Years"
++ 		, y = "Proportions of\nimproved services"
++ 		, colour = "Services"
++ 	)
++ 	+ scale_y_continuous(labels = percent, limits = c(0,1))
++ 	+ scale_colour_discrete(breaks = c("watersource"
++ 			, "garbagedisposal"
++ 			, "toilettype"
++ 		)
++ 	)
++ #	+ facet_wrap(~df)
++ 	+ theme(legend.position = "bottom"
++ 		, plot.title = element_text(hjust = 0.5)
++ 	)
++ )
+> print(prop_plot)
+> 
+> 
+> 

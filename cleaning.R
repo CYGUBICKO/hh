@@ -10,9 +10,9 @@ library(DT)
 library(tibble)
 library(tidyr)
 
-load("loadData.rda")
+#load("loadData.rda")
 load("globalFunctions.rda")
-#load("shortData.rda")
+load("shortData.rda")
 load("generateLabels.rda")
 
 #### ---- Filter completed interviews ----
