@@ -33,9 +33,12 @@ loadData.Rout: data/NUHDSS_hhamenitiescharacteristics_anon.dta loadData.R
 
 shortData.Rout: shortData.R
 
+# Generate files to recode labels (JD way)
+generateLabels.Rout: generateLabels.R
+generateLabels.xlsx: generateLabels.Rout;
+
 # Some cleaning (using shortData temporarily)
 cleaning.Rout: cleaning.R
-cleaning_plots.Rout: cleaning_plots.R
 
 ## mergeWash may not be necessary, since hh data seems to have the derived variables
 ## Or maybe we can play _just_ with washdata?
@@ -43,6 +46,17 @@ cleaning_plots.Rout: cleaning_plots.R
 mergeWash.Rout: washdata/NUHDSS_Wash.dta mergeWash.R
 
 ## compare Steve-calculated with aphrc-calculated variables
+
+### Wash data specific
+compareCalculations.Rout: compareCalculations.R
+compareCalculations.xlsx: compareCalculations.Rout;
+
+### HH - WASH comparison
+hhWashcompare.Rout: hhWashcompare.R
+hhWashcompare.xlsx: hhWashcompare.Rout;
+
+# Compare HH and WASH proportions
+cleaning_plots.Rout: cleaning_plots.R
 
 ######################################################################
 
