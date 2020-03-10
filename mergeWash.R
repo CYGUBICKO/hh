@@ -147,6 +147,12 @@ allcat_diff_tab <- (full_df
 )
 allcat_diff_tab
 
+#### Preview some cases with differences
+water_int_diff <- (full_df
+	%>% filter(water_diff==1)
+	%>% select(hhid_anon, drinkwatersource.hh, drinkwatersource.wash, water_diff)
+)
+
 ### Count the number of interviews with different entries in improved vs unimproved vars 
 ### for hh and wash
 full_df <- (full_df
@@ -191,11 +197,23 @@ hh_wash_tabs <- list(allcat_diff_tab = allcat_diff_tab
 	, water_hh_wash = water_hh_wash
 	, toilet_hh_wash = toilet_hh_wash
 	, garbage_hh_wash = garbage_hh_wash
+	, water_int_diff = water_int_diff
 	, bincat_diff_tab = bincat_diff_tab
 	, water_hh_wash_bin = water_hh_wash_bin
 	, toilet_hh_wash_bin = toilet_hh_wash_bin
 	, garbage_hh_wash_bin = garbage_hh_wash_bin
 )
+
+## Wealth index
+
+wealthindex_summary <- (full_df
+	%>% select(wealthindex.hh, wealthindex.wash)
+	%>% mutate_at(names(.), as.numeric)
+	%>% summarise_all(list(~ min(., na.rm = TRUE), ~ median(., na.rm = TRUE), ~max(., na.rm = TRUE)))
+	%>% data.frame()
+)
+wealthindex_summary
+
 
 save(file = "mergeWash.rda" 
 	, water_tabs
