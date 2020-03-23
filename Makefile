@@ -35,7 +35,7 @@ shortData.Rout: shortData.R
 
 # Generate files to recode labels (JD way)
 generateLabels.Rout: generateLabels.R
-generateLabels.xlsx: generateLabels.Rout;
+## generateLabels.xlsx: generateLabels.Rout;
 
 # Some cleaning (using shortData temporarily)
 cleaning.Rout: cleaning.R
