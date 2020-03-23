@@ -5,8 +5,8 @@
 
 library(openxlsx)
 
-load("shortData.rda")
-## load("loadData.rda")
+# load("shortData.rda")
+load("loadData.rda")
 
 ### ---- Generate labels codebook ----
 
@@ -18,7 +18,7 @@ genlabsCodes <- function(df, var, oldpatterns, newlabs){
 	for (p in seq_along(oldpatterns)){
 		lab_df[["newlabs"]] <- ifelse(grepl(oldpatterns[[p]],  lab_df[["oldlabs"]])
 			, newlabs[[p]]
-			, lab_df[["newlabs"]]
+			, as.character(lab_df[["newlabs"]])
 		)
 	}
 	colnames(lab_df) <- c(var, paste0(var, "_new"))
@@ -69,9 +69,94 @@ toilet_labs <- genlabsCodes(df = working_df
 	, newlabs = newlabs
 )
 
+### Main material of the floor
+floor_vars <- "floormaterial"
+oldpatterns <- c("^natural\\:"
+	, "^rudimentary\\:"
+	, "^finished\\:"
+	, "^other"
+	, "^NIU|^miss|refused|^don"
+)
+newlabs <- c("Natural", "Rudimentary", "Finished", "Other", NA)
+
+floor_labs <- genlabsCodes(df = working_df
+	, var = floor_vars
+	, oldpatterns = oldpatterns
+	, newlabs = newlabs
+)
+
+### Main material of the roof
+roof_vars <- "roofmaterial"
+oldpatterns <- c("^natural\\:"
+	, "^rudimentary\\:"
+	, "^finished\\:"
+	, "^other"
+	, "^NIU|^miss|refused|^don"
+)
+newlabs <- c("Natural", "Rudimentary", "Finished", "Other", NA)
+
+roof_labs <- genlabsCodes(df = working_df
+	, var = roof_vars
+	, oldpatterns = oldpatterns
+	, newlabs = newlabs
+)
+
+### Main material of the wall
+wall_vars <- "wallmaterial"
+oldpatterns <- c("^natural\\:"
+	, "^rudimentary\\:"
+	, "^finished\\:"
+	, "^other"
+	, "^NIU|^miss|refused|^don"
+)
+newlabs <- c("Natural", "Rudimentary", "Finished", "Other", NA)
+
+wall_labs <- genlabsCodes(df = working_df
+	, var = wall_vars
+	, oldpatterns = oldpatterns
+	, newlabs = newlabs
+)
+
+### Main source of cooking fuel
+cook_vars <- "cookingfuel"
+oldpatterns <- c("^electricity\\:"
+	, "charcoal"
+	, "^animal|^crop"
+	, "^other"
+	, "^NIU|^miss|refused|^don"
+)
+newlabs <- c("electricity", "charcoal", "animal/crop residue", "others", NA)
+
+cook_labs <- genlabsCodes(df = working_df
+	, var = cook_vars
+	, oldpatterns = oldpatterns
+	, newlabs = newlabs
+)
+
+### Main source of lighting
+light_vars <- "lighting"
+oldpatterns <- c("^electricity\\:"
+	, "charcoal|firewood"
+	, "^other"
+	, "^NIU|^miss|refused|^don"
+)
+newlabs <- c("electricity", "charcoal/firewood", "others", NA)
+
+light_labs <- genlabsCodes(df = working_df
+	, var = light_vars
+	, oldpatterns = oldpatterns
+	, newlabs = newlabs
+)
+
+## Save .xlsx file for all
 all_labs <- list(water_labs = water_labs
 	, garbage_labs = garbage_labs
 	, toilet_labs = toilet_labs
+	, floor_labs = floor_labs
+	, roof_labs = roof_labs
+	, wall_labs = wall_labs
+	, cook_labs = cook_labs
+	, light_labs = light_labs
 )
 write.xlsx(all_labs, file = "generateLabels.xlsx", row.names = FALSE)
 
@@ -79,4 +164,9 @@ save(file = "generateLabels.rda"
 	, water_labs
 	, garbage_labs
 	, toilet_labs
+	, floor_labs
+	, roof_labs
+	, wall_labs
+	, cook_labs
+	, light_labs
 )

@@ -10,9 +10,9 @@ library(DT)
 library(tibble)
 library(tidyr)
 
-#load("loadData.rda")
+load("loadData.rda")
 load("globalFunctions.rda")
-load("shortData.rda")
+#load("shortData.rda")
 load("generateLabels.rda")
 
 #### ---- Filter completed interviews ----
@@ -51,6 +51,44 @@ working_df <- left_join(working_df
 	, by = "garbagedisposal"
 )
 
+#### Material of the floor
+working_df <- left_join(working_df
+	, floor_labs
+	, by = "floormaterial"
+)
+
+#### Material of the roof
+working_df <- left_join(working_df
+	, roof_labs
+	, by = "roofmaterial"
+)
+
+#### Material of the wall
+working_df <- left_join(working_df
+	, wall_labs
+	, by = "wallmaterial"
+)
+
+#### Main source of cooking fuel
+working_df <- left_join(working_df
+	, cook_labs
+	, by = "cookingfuel"
+)
+
+#### Main source of lighting
+working_df <- left_join(working_df
+	, light_labs
+	, by = "lighting"
+)
+
+#### Tabs
+with(working_df, {
+	table(lighting, useNA = "always")
+})
+
+with(working_df, {
+	table(lighting_new, useNA = "always")
+})
 save(file = "cleaning.rda"
 	, working_df
 )
