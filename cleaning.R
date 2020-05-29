@@ -10,9 +10,9 @@ library(DT)
 library(tibble)
 library(tidyr)
 
-load("loadData.rda")
+#load("loadData.rda")
 load("globalFunctions.rda")
-#load("shortData.rda")
+load("shortData.rda")
 load("generateLabels.rda")
 
 #### ---- Filter completed interviews ----
@@ -79,6 +79,26 @@ working_df <- left_join(working_df
 working_df <- left_join(working_df
 	, light_labs
 	, by = "lighting"
+)
+
+#### Main Dwelling/rentals
+working_df <- left_join(working_df
+	, rent_labs
+	, by = "rentorown"
+)
+
+#### Household possessions
+hhposes_vars <- grep("^own", colnames(working_df), value = TRUE)
+working_df <- (working_df
+	%>% mutate_at(hhposes_vars, .funs = list(new = function(x){
+		ifelse(grepl("^don|^NIU|^missing", x), NA, as.character(x))
+	}))
+)
+
+#### Household income
+working_df <- left_join(working_df
+	, inc30days_labs
+	, by = "inc30days_total"
 )
 
 #### Tabs

@@ -5,8 +5,8 @@
 
 library(openxlsx)
 
-# load("shortData.rda")
-load("loadData.rda")
+load("shortData.rda")
+# load("loadData.rda")
 
 ### ---- Generate labels codebook ----
 
@@ -23,6 +23,15 @@ genlabsCodes <- function(df, var, oldpatterns, newlabs){
 	}
 	colnames(lab_df) <- c(var, paste0(var, "_new"))
 	return(lab_df)
+}
+
+## Convert charactors/factors to numerics
+factorsNum <- function(x){
+	x <- ifelse(class(x)=="factor"
+		, as.numeric(levels(x))[x]
+		, as.numeric(as.character(x))
+	)
+	return(x)
 }
 
 #### ---- Key variables ----
@@ -148,6 +157,32 @@ light_labs <- genlabsCodes(df = working_df
 	, newlabs = newlabs
 )
 
+### Dwelling/rentals
+rent_vars <- "rentorown"
+oldpatterns <- c("^owned\\:"
+	, "^renting from\\:"
+	, "^free of charge"
+	, "^other"
+	, "^NIU|^miss|refused|^don"
+)
+newlabs <- c("Owned", "Rental", "Free", "Others", NA)
+
+rent_labs <- genlabsCodes(df = working_df
+	, var = rent_vars
+	, oldpatterns = oldpatterns
+	, newlabs = newlabs
+)
+
+### Household income
+inc30days_vars <- "inc30days_total"
+oldpatterns <- c("^NIU|^miss|refused|^don")
+newlabs <- c(NA)
+
+inc30days_labs <- genlabsCodes(df = working_df
+	, var = inc30days_vars
+	, oldpatterns = oldpatterns
+	, newlabs = newlabs
+)
 ## Save .xlsx file for all
 all_labs <- list(water_labs = water_labs
 	, garbage_labs = garbage_labs
@@ -157,6 +192,8 @@ all_labs <- list(water_labs = water_labs
 	, wall_labs = wall_labs
 	, cook_labs = cook_labs
 	, light_labs = light_labs
+	, rent_labs = rent_labs
+	, inc30days_labs = inc30days_labs
 )
 write.xlsx(all_labs, file = "generateLabels.xlsx", row.names = FALSE)
 
@@ -169,4 +206,6 @@ save(file = "generateLabels.rda"
 	, wall_labs
 	, cook_labs
 	, light_labs
+	, rent_labs
+	, inc30days_labs
 )
