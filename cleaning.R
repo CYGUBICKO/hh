@@ -91,8 +91,9 @@ working_df <- left_join(working_df
 hhposes_vars <- grep("^own", colnames(working_df), value = TRUE)
 working_df <- (working_df
 	%>% mutate_at(hhposes_vars, .funs = list(new = function(x){
-		ifelse(grepl("^don|^NIU|^missing", x), NA, as.character(x))
-	}))
+			ifelse(grepl("^don|^NIU|^missing", x), NA, as.character(x))
+		})
+	)
 )
 
 #### Household income
@@ -101,6 +102,22 @@ working_df <- left_join(working_df
 	, by = "inc30days_total"
 )
 
+#### Household expenditure in KES
+hhexpense_vars <- grep("^expend\\_", colnames(working_df), value = TRUE)
+working_df <- (working_df
+	%>% mutate_at(hhexpense_vars, .funs = list(new = function(x){
+			ifelse(grepl("^don|^NIU|^missing", x), NA, factorsNum(x))
+		})
+	)
+)
+
+#### Grow crops
+working_df <- left_join(working_df
+	, grewcrops_labs
+	, by = "grewcrops"
+)
+
+warnings()
 #### Tabs
 with(working_df, {
 	table(lighting, useNA = "always")

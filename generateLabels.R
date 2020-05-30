@@ -183,6 +183,18 @@ inc30days_labs <- genlabsCodes(df = working_df
 	, oldpatterns = oldpatterns
 	, newlabs = newlabs
 )
+
+### Grow crops
+grewcrops_vars <- "grewcrops"
+oldpatterns <- c("^NIU|^miss|refused|^don")
+newlabs <- c(NA)
+
+grewcrops_labs <- genlabsCodes(df = working_df
+	, var = grewcrops_vars
+	, oldpatterns = oldpatterns
+	, newlabs = newlabs
+)
+
 ## Save .xlsx file for all
 all_labs <- list(water_labs = water_labs
 	, garbage_labs = garbage_labs
@@ -194,10 +206,12 @@ all_labs <- list(water_labs = water_labs
 	, light_labs = light_labs
 	, rent_labs = rent_labs
 	, inc30days_labs = inc30days_labs
+	, grewcrops_labs = grewcrops_labs
 )
 write.xlsx(all_labs, file = "generateLabels.xlsx", row.names = FALSE)
 
 save(file = "generateLabels.rda"
+	, factorsNum
 	, water_labs
 	, garbage_labs
 	, toilet_labs
@@ -208,4 +222,5 @@ save(file = "generateLabels.rda"
 	, light_labs
 	, rent_labs
 	, inc30days_labs
+	, grewcrops_labs
 )
