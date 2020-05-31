@@ -39,6 +39,8 @@ generateLabels.Rout: generateLabels.R
 
 # Some cleaning (using shortData temporarily)
 cleaning.Rout: cleaning.R
+cleaning_tables.Rout: cleaning_tables.R
+cleaning_tables.xlsx: cleaning_tables.Rout;
 
 ## mergeWash may not be necessary, since hh data seems to have the derived variables
 ## Or maybe we can play _just_ with washdata?

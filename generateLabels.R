@@ -5,8 +5,8 @@
 
 library(openxlsx)
 
-load("shortData.rda")
-# load("loadData.rda")
+# load("shortData.rda")
+load("loadData.rda")
 
 ### ---- Generate labels codebook ----
 
@@ -23,15 +23,6 @@ genlabsCodes <- function(df, var, oldpatterns, newlabs){
 	}
 	colnames(lab_df) <- c(var, paste0(var, "_new"))
 	return(lab_df)
-}
-
-## Convert charactors/factors to numerics
-factorsNum <- function(x){
-	x <- ifelse(class(x)=="factor"
-		, as.numeric(levels(x))[x]
-		, as.numeric(as.character(x))
-	)
-	return(x)
 }
 
 #### ---- Key variables ----
@@ -195,6 +186,48 @@ grewcrops_labs <- genlabsCodes(df = working_df
 	, newlabs = newlabs
 )
 
+### 5.11: Food in the last 30 days
+foodeaten30days_vars <- "foodeaten30days"
+oldpatterns <- c("^had enough"
+	, "^didn\\'t have enough"
+	, "^NIU|^miss|refused|^don"
+)
+newlabs <- c("Had enough", "Didn't have enough", NA)
+
+foodeaten30days_labs <- genlabsCodes(df = working_df
+	, var = foodeaten30days_vars
+	, oldpatterns = oldpatterns
+	, newlabs = newlabs
+)
+
+### 5.12: HH gone hungry because no money to buy food
+hh30days_nofoodmoney_vars <- "30days_nofoodmoney"
+oldpatterns <- c("^often|^sometimes"
+	, "^never"
+	, "^NIU|^miss|refused|^don"
+)
+newlabs <- c("Yes", "No", NA)
+
+hh30days_nofoodmoney_labs <- genlabsCodes(df = working_df
+	, var = hh30days_nofoodmoney_vars
+	, oldpatterns = oldpatterns
+	, newlabs = newlabs
+)
+
+### Respondent ladder
+selfrating_vars <- "selfrating"
+oldpatterns <- c("^very poor"
+	, "^very rich"
+	, "^NIU|^miss|refused|^don"
+)
+newlabs <- c("1", "10", NA)
+
+selfrating_labs <- genlabsCodes(df = working_df
+	, var = selfrating_vars
+	, oldpatterns = oldpatterns
+	, newlabs = newlabs
+)
+
 ## Save .xlsx file for all
 all_labs <- list(water_labs = water_labs
 	, garbage_labs = garbage_labs
@@ -207,11 +240,13 @@ all_labs <- list(water_labs = water_labs
 	, rent_labs = rent_labs
 	, inc30days_labs = inc30days_labs
 	, grewcrops_labs = grewcrops_labs
+	, foodeaten30days_labs = foodeaten30days_labs
+	, hh30days_nofoodmoney_labs = hh30days_nofoodmoney_labs
+	, selfrating_labs = selfrating_labs
 )
 write.xlsx(all_labs, file = "generateLabels.xlsx", row.names = FALSE)
 
 save(file = "generateLabels.rda"
-	, factorsNum
 	, water_labs
 	, garbage_labs
 	, toilet_labs
@@ -223,4 +258,7 @@ save(file = "generateLabels.rda"
 	, rent_labs
 	, inc30days_labs
 	, grewcrops_labs
+	, foodeaten30days_labs
+	, hh30days_nofoodmoney_labs
+	, selfrating_labs
 )
