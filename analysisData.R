@@ -10,6 +10,7 @@ library(tidyr)
 load("cleaning.rda")
 load("globalFunctions.rda")
 
+
 #### Proportion of missingness to drop variables
 drop_miss <- 30	# Drop all variables with more than 30% missing
 drop_vars <- c(miss_df_temp$variable[miss_df_temp$miss_prop>=drop_miss], "expend_total_USD_per_new")
