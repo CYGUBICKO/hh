@@ -10,9 +10,9 @@ library(DT)
 library(tibble)
 library(tidyr)
 
-# load("loadData.rda")
+load("loadData.rda")
 load("globalFunctions.rda")
-load("shortData.rda")
+# load("shortData.rda")
 load("generateLabels.rda")
 
 #### ---- Filter completed interviews ----
@@ -29,6 +29,17 @@ working_df <- (working_df
 all_varnames <- names(working_df)
 id_vars <- grep("_anon$", all_varnames, value = TRUE) # hhid_anon, individualid_anon
 print(id_vars)
+
+## Demographic variables
+working_df <- (working_df
+	%>% mutate(hhid_anon_new = hhid_anon
+		, intvwyear_new = intvwyear
+		, slumarea_new = slumarea
+		, ageyears_new = ifelse(grepl("^don|^NIU|^missing|^refuse", ageyears), NA, as.numeric(as.character(ageyears))) 
+		, gender_new = ifelse(grepl("^don|^NIU|^missing|^refuse", gender), NA, as.character(gender)) 
+		, numpeople_total_new = ifelse(grepl("^don|^NIU|^missing|^refuse", numpeople_total), NA, as.numeric(as.character(numpeople_total))) 
+	)
+)
 
 ## Wash vars
 ### Merge the labs df with the main df
@@ -49,6 +60,11 @@ working_df <- left_join(working_df
 working_df <- left_join(working_df
 	, garbage_labs
 	, by = "garbagedisposal"
+)
+
+#### Drop cases with missing WaSH vars
+working_df <- (working_df
+	%>% filter(!is.na(drinkwatersource_new) & !is.na(toilet_5plusyrs_new) & !is.na(garbagedisposal_new))
 )
 
 ##### WASH tabs
@@ -257,7 +273,8 @@ selfrating_tabs <- sapply(working_df[, tab_vars, drop = FALSE], function(x){tabl
 
 ### Missing proportion for the cleaned variables
 clean_vars <- grep("\\_new$", colnames(working_df), value = TRUE)
-miss_df <- (missPropFunc(working_df[, clean_vars])
+miss_df_temp <- missPropFunc(working_df[, clean_vars])
+miss_df <- (miss_df_temp
 	%>% arrange(desc(miss_count))
 )
 
@@ -287,4 +304,5 @@ all_tabs <- c(all_tabs, hhposes_tabs, hhexpense_tabs, prob_tabs, numprob_tabs)
 save(file = "cleaning.rda"
 	, working_df
 	, all_tabs
+	, miss_df_temp
 )
