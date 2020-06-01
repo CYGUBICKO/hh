@@ -73,9 +73,11 @@ wash_tabs <- t(sapply(working_df[, tab_vars], function(x){table(x, useNA = "alwa
 wash_tabs <- data.frame(wash_tabs)
 
 #### Material of the floor
-working_df <- left_join(working_df
-	, floor_labs
-	, by = "floormaterial"
+working_df <- (left_join(working_df
+		, floor_labs
+		, by = "floormaterial"
+	)
+	%>% mutate(floormaterial_new = as.factor(floormaterial_new))
 )
 
 ##### Floor tabs
@@ -84,9 +86,11 @@ floor_tabs <- sapply(working_df[, tab_vars, drop = FALSE], function(x){table(x, 
 floor_tabs <- data.frame(floor_tabs)
 
 #### Material of the roof
-working_df <- left_join(working_df
-	, roof_labs
-	, by = "roofmaterial"
+working_df <- (left_join(working_df
+		, roof_labs
+		, by = "roofmaterial"
+	)
+	%>% mutate_at("roofmaterial_new", as.factor)
 )
 
 ##### Roof tabs
@@ -95,11 +99,12 @@ roof_tabs <- sapply(working_df[, tab_vars, drop = FALSE], function(x){table(x, u
 roof_tabs <- data.frame(roof_tabs)
 
 #### Material of the wall
-working_df <- left_join(working_df
-	, wall_labs
-	, by = "wallmaterial"
+working_df <- (left_join(working_df
+		, wall_labs
+		, by = "wallmaterial"
+	)
+	%>% mutate_at("wallmaterial_new", as.factor)
 )
-
 ##### Wall tabs
 tab_vars <- "wallmaterial_new"
 wall_tabs <- sapply(working_df[, tab_vars, drop = FALSE], function(x){table(x, useNA = "always")})
@@ -107,9 +112,11 @@ wall_tabs <- data.frame(wall_tabs)
 
 
 #### Main source of cooking fuel
-working_df <- left_join(working_df
-	, cook_labs
-	, by = "cookingfuel"
+working_df <- (left_join(working_df
+		, cook_labs
+		, by = "cookingfuel"
+	)
+	%>% mutate_at("cookingfuel_new", as.factor)
 )
 
 ##### Cooking tabs
@@ -118,9 +125,11 @@ cooking_tabs <- sapply(working_df[, tab_vars, drop = FALSE], function(x){table(x
 cooking_tabs <- data.frame(cooking_tabs)
 
 #### Main source of lighting
-working_df <- left_join(working_df
-	, light_labs
-	, by = "lighting"
+working_df <- (left_join(working_df
+		, light_labs
+		, by = "lighting"
+	)
+	%>% mutate_at("lighting_new", as.factor)
 )
 
 ##### Lighting tabs
@@ -129,9 +138,11 @@ lighting_tabs <- sapply(working_df[, tab_vars, drop = FALSE], function(x){table(
 lighting_tabs <- data.frame(lighting_tabs)
 
 #### Main Dwelling/rentals
-working_df <- left_join(working_df
-	, rent_labs
-	, by = "rentorown"
+working_df <- (left_join(working_df
+		, rent_labs
+		, by = "rentorown"
+	)
+	%>% mutate_at("rentorown_new", as.factor)
 )
 
 ##### Dwelling tabs
@@ -155,9 +166,16 @@ hhposes_tabs <- sapply(working_df[, tab_vars, drop = FALSE], function(x){as.data
 )
 
 #### Household income
-working_df <- left_join(working_df
-	, inc30days_labs
-	, by = "inc30days_total"
+working_df <- (left_join(working_df
+		, inc30days_labs
+		, by = "inc30days_total"
+	)
+	%>% mutate_at("inc30days_total_new", function(x){
+		factor(x
+			, levels = c("<KES 1,000", "KES 1,000-2,499", "KES 2,500-4,999", "KES 5,000-7,499", "KES 7,500-9,999", "KES 10,000-14,999", "KES 15,000-19,999", "KES 20,000+")
+			, labels = c("<KES 1,000", "KES 1,000-2,499", "KES 2,500-4,999", "KES 5,000-7,499", "KES 7,500-9,999", "KES 10,000-14,999", "KES 15,000-19,999", "KES 20,000+")
+		)
+	})
 )
 
 #### Household income tabs
