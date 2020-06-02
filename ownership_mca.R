@@ -10,15 +10,10 @@ library(FactoMineR)
 library(factoextra)
 library(ggplot2)
 
-load("analysisData.rda")
+load("ownership_imputeMCA.rda")
 
-# Ownership variables
-ownership_df <- (working_df
-	%>% select(!!ownership_group_vars)
-)
-head(ownership_df)
 
-ownership_mca <- MCA(ownership_df, graph = FALSE)
+ownership_mca <- MCA(ownership_df, tab.disj = ownership_imputed$tab.disj, graph = FALSE)
 head(ownership_mca$eig)
 
 ownership_plot <- fviz_screeplot(ownership_mca, addlabels = TRUE)

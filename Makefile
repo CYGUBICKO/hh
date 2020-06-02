@@ -67,6 +67,7 @@ analysis_variables.xlsx: analysis_variables.Rout;
 
 # MCA
 ## Ownership
+ownership_impute.Rout: ownership_impute.R
 ownership_mca.Rout: ownership_mca.R
 
 ## Shocks/problems
@@ -76,6 +77,7 @@ problems_mca.Rout: problems_mca.R
 ## Expenditure
 expenditure_pca.Rout: expenditure_pca.R
 
+# temp_files/cleaning.R
 
 ######################################################################
 

@@ -7,23 +7,7 @@ library(openxlsx)
 
 # load("shortData.rda")
 load("loadData.rda")
-
-### ---- Generate labels codebook ----
-
-## oldpatterns: exact old label or grep-like pattern within each group. Similar cats are separated by | 
-## Details: oldpatterns and newlabs are in the same order
-
-genlabsCodes <- function(df, var, oldpatterns, newlabs){
-	lab_df <- data.frame(oldlabs = unique(df[[var]]), newlabs = unique(df[[var]]))
-	for (p in seq_along(oldpatterns)){
-		lab_df[["newlabs"]] <- ifelse(grepl(oldpatterns[[p]],  lab_df[["oldlabs"]])
-			, newlabs[[p]]
-			, as.character(lab_df[["newlabs"]])
-		)
-	}
-	colnames(lab_df) <- c(var, paste0(var, "_new"))
-	return(lab_df)
-}
+load("globalFunctions.rda")
 
 #### ---- Key variables ----
 
@@ -75,7 +59,7 @@ oldpatterns <- c("^natural\\:"
 	, "^rudimentary\\:"
 	, "^finished\\:"
 	, "^other"
-	, "^NIU|^miss|refused|^don"
+	, "^NIU|refused|^don"
 )
 newlabs <- c("Natural", "Rudimentary", "Finished", "Other", NA)
 
@@ -91,7 +75,7 @@ oldpatterns <- c("^natural\\:"
 	, "^rudimentary\\:"
 	, "^finished\\:"
 	, "^other"
-	, "^NIU|^miss|refused|^don"
+	, "^NIU|refused|^don"
 )
 newlabs <- c("Natural", "Rudimentary", "Finished", "Other", NA)
 
@@ -107,7 +91,7 @@ oldpatterns <- c("^natural\\:"
 	, "^rudimentary\\:"
 	, "^finished\\:"
 	, "^other"
-	, "^NIU|^miss|refused|^don"
+	, "^NIU|refused|^don"
 )
 newlabs <- c("Natural", "Rudimentary", "Finished", "Other", NA)
 
@@ -123,7 +107,7 @@ oldpatterns <- c("^electricity\\:"
 	, "charcoal"
 	, "^animal|^crop"
 	, "^other"
-	, "^NIU|^miss|refused|^don"
+	, "^NIU|refused|^don"
 )
 newlabs <- c("electricity", "charcoal", "animal/crop residue", "others", NA)
 
@@ -138,7 +122,7 @@ light_vars <- "lighting"
 oldpatterns <- c("^electricity\\:"
 	, "charcoal|firewood"
 	, "^other"
-	, "^NIU|^miss|refused|^don"
+	, "^NIU|refused|^don"
 )
 newlabs <- c("electricity", "charcoal/firewood", "others", NA)
 
@@ -154,7 +138,7 @@ oldpatterns <- c("^owned\\:"
 	, "^renting from\\:"
 	, "^free of charge"
 	, "^other"
-	, "^NIU|^miss|refused|^don"
+	, "^NIU|refused|^don"
 )
 newlabs <- c("Owned", "Rental", "Free", "Others", NA)
 
@@ -166,7 +150,7 @@ rent_labs <- genlabsCodes(df = working_df
 
 ### Household income
 inc30days_vars <- "inc30days_total"
-oldpatterns <- c("^NIU|^miss|refused|^don")
+oldpatterns <- c("^NIU|refused|^don")
 newlabs <- c(NA)
 
 inc30days_labs <- genlabsCodes(df = working_df
@@ -177,7 +161,7 @@ inc30days_labs <- genlabsCodes(df = working_df
 
 ### Grow crops
 grewcrops_vars <- "grewcrops"
-oldpatterns <- c("^NIU|^miss|refused|^don")
+oldpatterns <- c("^NIU|refused|^don")
 newlabs <- c(NA)
 
 grewcrops_labs <- genlabsCodes(df = working_df
@@ -190,7 +174,7 @@ grewcrops_labs <- genlabsCodes(df = working_df
 foodeaten30days_vars <- "foodeaten30days"
 oldpatterns <- c("^had enough"
 	, "^didn\\'t have enough"
-	, "^NIU|^miss|refused|^don"
+	, "^NIU|refused|^don"
 )
 newlabs <- c("Had enough", "Didn't have enough", NA)
 
@@ -204,7 +188,7 @@ foodeaten30days_labs <- genlabsCodes(df = working_df
 hh30days_nofoodmoney_vars <- "30days_nofoodmoney"
 oldpatterns <- c("^often|^sometimes"
 	, "^never"
-	, "^NIU|^miss|refused|^don"
+	, "^NIU|refused|^don"
 )
 newlabs <- c("Yes", "No", NA)
 
@@ -218,9 +202,10 @@ hh30days_nofoodmoney_labs <- genlabsCodes(df = working_df
 selfrating_vars <- "selfrating"
 oldpatterns <- c("^very poor"
 	, "^very rich"
-	, "^NIU|^miss|refused|^don"
+	, "^miss"
+	, "^NIU|refused|^don"
 )
-newlabs <- c("1", "10", NA)
+newlabs <- c("1", "10", "999999", NA)
 
 selfrating_labs <- genlabsCodes(df = working_df
 	, var = selfrating_vars

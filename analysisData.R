@@ -53,10 +53,22 @@ working_df <- (working_df
 	%>% mutate_at(c(ownership_group_vars, problems_group_vars), as.factor)
 )
 
+#### Compare complete cases with all cases
+working_df_complete <- (working_df
+	%>% na.omit()
+)
+nrow(working_df_complete)
+nrow(working_df)
+
+## Create indicator for cases to drop based on don't know, NIU and refused
+working_df_complete <- (working_df_complete
+	%>% mutate(impute_cases = ifelse(imputeCase(., patterns = "missing:impute"), 1, 0))
+)
 
 save(file = "analysisData.rda"
 	, var_groups_df
 	, working_df
+	, working_df_complete
 	, ownership_group_vars
 	, expenditure_group_vars
 	, problems_group_vars
