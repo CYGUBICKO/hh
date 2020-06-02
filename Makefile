@@ -39,8 +39,6 @@ generateLabels.Rout: generateLabels.R
 
 # Some cleaning (using shortData temporarily)
 cleaning.Rout: cleaning.R
-cleaning_tables.Rout: cleaning_tables.R
-cleaning_tables.xlsx: cleaning_tables.Rout;
 
 ## mergeWash may not be necessary, since hh data seems to have the derived variables
 ## Or maybe we can play _just_ with washdata?
@@ -59,23 +57,6 @@ hhWashcompare.xlsx: hhWashcompare.Rout;
 
 # Compare HH and WASH proportions
 cleaning_plots.Rout: cleaning_plots.R
-
-# Select variables to be used for analysis only
-analysisData.Rout: analysisData.R
-analysis_variables.Rout: analysis_variables.R
-analysis_variables.xlsx: analysis_variables.Rout;
-
-# MCA
-## Ownership
-ownership_mca.Rout: ownership_mca.R
-
-## Shocks/problems
-problems_mca.Rout: problems_mca.R
-
-# PCA
-## Expenditure
-expenditure_pca.Rout: expenditure_pca.R
-
 
 ######################################################################
 
