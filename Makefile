@@ -11,7 +11,7 @@ current: target
 
 ms = makestuff
 Sources += $(wildcard *.R *.Rmd)
-Sources += Makefile rmd.mk notes.md
+Sources += Makefile rmd.mk
 
 ######################################################################
 
