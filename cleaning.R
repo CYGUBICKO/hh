@@ -154,7 +154,7 @@ rentorown_tabs <- data.frame(rentorown_tabs)
 hhposes_vars <- grep("^own", colnames(working_df), value = TRUE)
 working_df <- (working_df
 	%>% mutate_at(hhposes_vars, .funs = list(new = function(x){
-			ifelse(grepl("^don|^NIU|^missing|^refuse", x), NA, as.character(x))
+			ifelse(grepl("^don|^NIU|^refuse", x), NA, as.character(x))
 		})
 	)
 )
@@ -172,8 +172,8 @@ working_df <- (left_join(working_df
 	)
 	%>% mutate_at("inc30days_total_new", function(x){
 		factor(x
-			, levels = c("<KES 1,000", "KES 1,000-2,499", "KES 2,500-4,999", "KES 5,000-7,499", "KES 7,500-9,999", "KES 10,000-14,999", "KES 15,000-19,999", "KES 20,000+")
-			, labels = c("<KES 1,000", "KES 1,000-2,499", "KES 2,500-4,999", "KES 5,000-7,499", "KES 7,500-9,999", "KES 10,000-14,999", "KES 15,000-19,999", "KES 20,000+")
+			, levels = c("<KES 1,000", "KES 1,000-2,499", "KES 2,500-4,999", "KES 5,000-7,499", "KES 7,500-9,999", "KES 10,000-14,999", "KES 15,000-19,999", "KES 20,000+", "missing:impute")
+			, labels = c("<KES 1,000", "KES 1,000-2,499", "KES 2,500-4,999", "KES 5,000-7,499", "KES 7,500-9,999", "KES 10,000-14,999", "KES 15,000-19,999", "KES 20,000+", "missing:impute")
 		)
 	})
 )
@@ -187,7 +187,9 @@ inc30days_total_tabs <- data.frame(inc30days_total_tabs)
 hhexpense_vars <- grep("^expend\\_", colnames(working_df), value = TRUE)
 working_df <- (working_df
 	%>% mutate_at(hhexpense_vars, .funs = list(new = function(x){
-			ifelse(grepl("^don|^NIU|^missing|^refuse", x), NA, as.numeric(as.character(x)))
+			ifelse(grepl("^don|^NIU|^refuse", x), NA
+				, ifelse(grepl("^miss", x), 999999, as.numeric(as.character(x)))
+			)
 		})
 	)
 )
@@ -212,8 +214,8 @@ grewcrops_tabs <- data.frame(grewcrops_tabs)
 #### No. of meals served in 2 days
 b4special_vars <- "b4specevent2days_meals"
 working_df <- (working_df
-	%>% mutate(b4specevent2days_meals_new = ifelse(grepl("^don|^NIU|^missing|^refuse", b4specevent2days_meals)
-			, NA, as.numeric(as.character(b4specevent2days_meals))
+	%>% mutate(b4specevent2days_meals_new = ifelse(grepl("^don|^NIU|^refuse", b4specevent2days_meals), NA
+			, ifelse(grepl("^miss", b4specevent2days_meals), 999999, as.numeric(as.character(b4specevent2days_meals)))
 		)
 	)
 )
@@ -249,7 +251,7 @@ hh30days_nofoodmoney_tabs <- data.frame(hh30days_nofoodmoney_tabs)
 prob_vars <- grep("^prob\\_", colnames(working_df), value = TRUE)
 working_df <- (working_df
 	%>% mutate_at(prob_vars, .funs = list(new = function(x){
-			ifelse(grepl("^don|^NIU|^missing|^refuse", x), NA, as.character(x))
+			ifelse(grepl("^don|^NIU|^refuse", x), NA, as.character(x))
 		})
 	)
 )
@@ -263,7 +265,9 @@ prob_tabs <- data.frame(prob_tabs)
 numprob_vars <- grep("^numprob\\_", colnames(working_df), value = TRUE)
 working_df <- (working_df
 	%>% mutate_at(numprob_vars, .funs = list(new = function(x){
-			ifelse(grepl("^don|^NIU|^missing|^refuse", x), NA, as.numeric(as.character(x)))
+			ifelse(grepl("^don|^NIU|^refuse", x), NA
+				, ifelse(grepl("^miss", x), 999999, as.numeric(as.character(x)))
+			)
 		})
 	)
 )
