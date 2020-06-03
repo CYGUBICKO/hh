@@ -12,8 +12,10 @@ library(ggplot2)
 
 load("ownership_imputeMCA.rda")
 
+head(ownership_imputed_df)
 
-ownership_mca <- MCA(ownership_df, tab.disj = ownership_imputed$tab.disj, graph = FALSE)
+quit()
+ownership_mca <- MCA(ownership_imputed_df, graph = FALSE)
 head(ownership_mca$eig)
 
 ownership_plot <- fviz_screeplot(ownership_mca, addlabels = TRUE)
