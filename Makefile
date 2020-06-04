@@ -38,6 +38,8 @@ generateLabels.Rout: generateLabels.R
 
 # Some cleaning (using shortData temporarily)
 cleaning.Rout: cleaning.R
+cleaning_tables.Rout: cleaning_tables.R
+# cleaning_tables.xlsx: cleaning_tables.Rout;
 
 ## mergeWash may not be necessary, since hh data seems to have the derived variables
 ## Or maybe we can play _just_ with washdata?
@@ -60,8 +62,7 @@ cleaning_plots.Rout: cleaning_plots.R
 # Select variables to be used for analysis only
 analysisData.Rout: analysisData.R
 analysis_variables.Rout: analysis_variables.R
-Ignore += analysis_variables.xlsx
-analysis_variables.xlsx: analysis_variables.Rout;
+# analysis_variables.xlsx: analysis_variables.Rout;
 
 # MCA
 ## Ownership
