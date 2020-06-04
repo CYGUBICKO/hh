@@ -60,6 +60,7 @@ cleaning_plots.Rout: cleaning_plots.R
 # Select variables to be used for analysis only
 analysisData.Rout: analysisData.R
 analysis_variables.Rout: analysis_variables.R
+Ignore += analysis_variables.xlsx
 analysis_variables.xlsx: analysis_variables.Rout;
 
 # MCA
