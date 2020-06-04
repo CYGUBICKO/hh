@@ -2,7 +2,7 @@
 ## Examining WASH raw data
 
 ### Hooks for the editor to set the default target
-## https:cygubicko.github.io/projects
+## https:cygubicko.github.io/hh
 
 current: target
 -include target.mk
