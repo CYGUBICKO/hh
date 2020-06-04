@@ -74,7 +74,10 @@ problems_mca.Rout: problems_mca.R
 ## Expenditure
 expenditure_pca.Rout: expenditure_pca.R
 
-## Data 
+## Data documentation
+dataprep_doc.html: dataprep_doc.rmd
+
+# ../wash/washdataAnalysis_report.rmd
 
 # temp_files/cleaning.R
 
