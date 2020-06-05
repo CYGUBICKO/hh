@@ -2,7 +2,7 @@
 ## Examining WASH raw data
 
 ### Hooks for the editor to set the default target
-## https:cygubicko.github.io/projects
+## https:cygubicko.github.io/hh
 
 current: target
 -include target.mk
@@ -10,7 +10,7 @@ current: target
 ######################################################################
 
 ms = makestuff
-Sources += $(wildcard *.R *.Rmd)
+Sources += $(wildcard *.R *.rmd *.md)
 Sources += Makefile rmd.mk
 
 ######################################################################
@@ -40,6 +40,8 @@ Ignore += generateLabels.xlsx cleaning_tables.xlsx
 
 # Some cleaning (using shortData temporarily)
 cleaning.Rout: cleaning.R
+cleaning_tables.Rout: cleaning_tables.R
+# cleaning_tables.xlsx: cleaning_tables.Rout;
 
 ## mergeWash may not be necessary, since hh data seems to have the derived variables
 ## Or maybe we can play _just_ with washdata?
@@ -62,8 +64,7 @@ cleaning_plots.Rout: cleaning_plots.R
 # Select variables to be used for analysis only
 analysisData.Rout: analysisData.R
 analysis_variables.Rout: analysis_variables.R
-Ignore += analysis_variables.xlsx
-analysis_variables.xlsx: analysis_variables.Rout;
+# analysis_variables.xlsx: analysis_variables.Rout;
 
 # MCA
 ## Ownership
@@ -77,7 +78,10 @@ problems_mca.Rout: problems_mca.R
 ## Expenditure
 expenditure_pca.Rout: expenditure_pca.R
 
-## Data 
+## Data documentation
+dataprep_doc.html: dataprep_doc.rmd
+
+# ../wash/washdataAnalysis_report.rmd
 
 # temp_files/cleaning.R
 

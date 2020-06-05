@@ -1,0 +1,204 @@
+---
+title: 'Report: WaSH data preparation'
+author: "Steve and Jonathan"
+date: " `r as.Date(Sys.time())` "
+output:
+  html_document:
+    fig_caption: yes
+---
+
+
+```{r setup, include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(echo = FALSE
+	, warning = FALSE
+	, message = FALSE
+	, fig.width = 10
+	, fig.height = 10
+	, results = "asis")
+options(width = 12)
+
+library(ggplot2)
+theme_set(theme_bw() +
+	theme(panel.spacing=grid::unit(0,"lines")))
+
+library(forcats)
+library(ggpubr)
+
+library(dplyr)
+library(DT)
+library(scales)
+library(dotwhisker)
+library(ggstance)
+library(corrplot)
+library(lme4)
+library(splines)
+
+source("../funs/ggplot_theme.R")
+```
+
+## Concerns with APHRC approach
+
+**Wealth index construction**
+
+- Source of drinking water, type of toilet and toilet facilities, which are the response, were used in the construction of wealth index. [See](./docs/aphrc_wealth_index_construct_Rutstein.pdf).
+
+## Our choices
+
+### Response variables
+
+- Response variables were categorized as `Improved` or `Unproved` based on the following criteria
+
+
+|                                     	| Improved                                                                                                                                                                                   	| Unimproved                                                                                                                                                                                                                                                                                  	|
+|-------------------------------------	|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|
+| <br>Drinking water source           	| <br>Piped water into dwelling, plot or yard<br>Public tap/standpipe<br>Tube well / borehole<br>Protected dug well with hand pump<br>Protected spring<br>Rainwater collection from the roof 	| Unprotected dug well<br>Unprotected spring<br>Small water vendor (cart with small tank or drum)<br>Bottled water<br>Tanker truck<br>Rainwater collection from surface run off. Surface water (river, dam, lake, pond, stream, canal, irrigation channels)<br>Protected dug well with bucket 	|
+| Toilet facility type                	| Flush / pour flush to piped sewer system or septic tank or pit latrine<br>VIP latrine<br>Pit latrine with slab<br>Composting toilet                                                        	| Flush / pour flush to elsewhere e.g. to open drain<br>Pit latrine without slab (slab with holes) /open pit<br>Bucket<br>Hanging toilet / hanging latrine<br>No facilities or bush or field                                                                                                  	|
+| <br>Garbage disposal method<br><br> 	| Garbage dump<br>Private pits<br>Public pits<br>Proper garbage disposal services<br>Other organized groups such as the national youth service                                               	| In the river<br>On the road, railway line/station<br>In drainage/sewage/trench<br>Vacant/abandoned house/plot/field<br>No designated place/all over<br>Street boys/urchins<br>Burning<br>Other                                                                                              	|
+
+****
+
+\vspace*{2xm}
+
+See summary tables in `compareCalculations.xlsx` in the Makefile
+
+
+### Predictors
+
+**Demographics**
+
+- `age`
+- `gender`
+
+- `slumarea`
+
+	Slum area (Korogocho and Viwandani)
+
+- `hhsize` 
+
+	Number of household members (in this + other structure)
+
+- `intvwyear`
+
+	The interview year. The baseline survey that defined the initial population for the NUHDSS was carried in `2002`. Subsequent interviews were conducted until 2015. As such, we exclude `2002` interviews in our analysis.
+
+**Dwelling index**
+	
+- The following household amenities questions are used to compute dwelling index
+
+	- **Main material of the floor**, broadly recoded into:
+		- Finished (cement/concrete (tiles/slab), vinyl (PVC)/asphalt strips, polished wood/tiles/carpet, asbestos sheet)
+		- Natural (earth/mud/dung/sand)
+		- Rudimentary (wood planks, carton/plastic sheets, gunny bags, woven mat (sisal/nylon))
+	
+	- **Main material of the roof**, recoded into:
+		- Finished (tiles, asbestos sheet, cement/concrete/stone)
+		- Natural (cement/concrete/stone)
+		- Rudimentary (iron sheets (corrugated), metal sheets/tin, wood/timber, plastic sheets, cardboard sheets)
+		- Others
+
+	- **Main material of the wall**, recoded into:
+		- Finished (stone/quarry stones, concrete blocks/slab, wood/timber, burnt bricks, asbestos sheet)
+		- Natural (dirt/mud/dung)
+		- Rudimentary (iron sheets/mabati, cemented mud, tin/metal sheets, cardboard sheets, carton/plastic, unspecified, plywood/chipboard)
+		- Others
+
+	- **Main source of cooking fuel**, recoded into:
+		- kerosene/paraffin
+		- electricity (KPLC, electricity:other source)
+		- charcoal (charcoal, briquettes/mud charcoal)
+		- gas
+		- firewood
+		- others (plastics/gunny bags/cartons/papers, other)
+		- animal/crop residue (animal waste, crop residue/saw dust)
+
+	- **Main source of lightling**
+		- kerosene/paraffin
+		- electricity (KPLC, electricity:other source)
+		- charcoal/firewood (charcoal, firewood)
+		- candles
+		- gas
+		- others (flashlight/phone/rechargable/solar lamps, plastics/gunny bags/cartons/papers, doesn't light the house at all, other)
+
+	- **Place of dwelling ownership**
+		- Rental (from individual, from government, from parastatal, from private company, from local authority)
+		- Owned (inherited, constructed, purchased)
+		- Free
+		- Others (belongs to/rent paid by relative/friend, belongs to/rent paid by employer, caretaker/security, belongs to/rent paid by religious entity)
+
+- Dwelling index is derived from the first principal component score of the Multiple Correspondence Analysis (MCA) on these variables.
+
+
+**Assets ownership index**
+
+- Assets information on whether the household owned any (yes/no), either the household or elsewhere, of the following household assets
+
+	|	<!-- -->			|	<!-- -->						|			<!---->					|<!----> 					|
+	|--------------	|------------------------	|--------------------------	|---------------------	|
+	| Vehicle      	| Sewing machine         	| Torch                    	|Livestock or poultry	|
+	| Motorcycle   	| Electric iron          	| Kerosene lamp with glass 	|Grow crops					|
+	| Bicycle      	| Fan                    	| Kerosene stove           	|								|
+	| Refrigerator 	| Telephone/mobile phone 	| wall clock               	|								|
+	| Television   	| Electric/gas stove     	| Mattress                 	|								|
+	| Radio/stereo 	| Sofa set               	| Blankets                 	|								|
+	| DVD/VCD/VCR  	| Table                  	| Bed                      	|								|
+	----------------------------------------------------------------------
+
+- Logistic PCA is performed and first PC scores are used as a proxy for assets ownership index.
+
+
+**Household income**
+
+- Estimated total income for the household in the last 30 days. 
+	- < KES 1,000
+	- KES 1,000-2,499
+	- KES 2,500-4,999
+	- KES 5,000-7,499
+	- KES 7,500-9,999
+	- KES 10,000-14,999
+	- KES 15,000-19,999
+	- KES 20,000+
+
+**Expenditure index**
+
+- Amount (KES) spent on the following, in the last 7 days, constitutes household expenditure:
+	- Food
+	- Energy
+	- Water
+	- Rent
+
+- PCA is performed and first PC is used as a proxy for expenditure index.
+
+**Household food consumption**
+
+- How do you describe the food eaten by your household in the last 30 days?
+	- Had enough (not always foods wanted, foods wanted)
+	- Didn't have enough (didn't have enough:sometimes, didn't have enough:often)
+
+
+**Shocks index (JD: Count instead?)**
+
+- Whether the household experienced any of the following shocks/problems in the last year (yes/no)?
+	
+	|	<!-- -->			|	<!-- -->						|			<!---->					|
+	|--------------	|------------------------	|--------------------------	|
+	| Fire	      	| Eviction		         	| Rape	                    	|
+	| Floods		   	| Demolition	          	| Stabbing						 	|
+	| Mugging      	| Severe illness          	| Lay-off			           	|
+	| Theft			 	| Death						 	|				               	|
+	----------------------------------------------------------------------
+	
+
+**Household self rating**
+
+- On a scale of 1 (poorest) - 10 (richest), how does the household compare to others in the community.
+
+
+## Missing data
+
+- APHRC categorized missing data as follows ([See](./docs/ddi-documentation-english-54.pdf)):
+	- `missing:impute`: Missing information and can be imputed
+	- `refused`: Assigned to any variable where the respondent refused to answer or participate
+	- `Don't know`: Assigned to any variables where the respondent did not know the answer
+	- `NIU (not in universe)`: Assigned to any variable where the unit (in this case, household) is not in the universe/are not eligible to answer the question
+
+
