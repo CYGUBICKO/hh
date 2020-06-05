@@ -15,6 +15,7 @@ Sources += Makefile rmd.mk
 
 ######################################################################
 
+Ignore += washdata
 ## Loading data and defining some important functions
 ## ln -s ~/Dropbox/aphrc/hh_amen_xtics/data/ data ##
 ## ln -s ~/Dropbox/aphrc/hh_amen_xtics/docs/ docs ##
@@ -34,6 +35,7 @@ shortData.Rout: shortData.R
 
 # Generate files to recode labels (JD way)
 generateLabels.Rout: generateLabels.R
+Ignore += generateLabels.xlsx cleaning_tables.xlsx
 ## generateLabels.xlsx: generateLabels.Rout;
 
 # Some cleaning (using shortData temporarily)
