@@ -20,7 +20,7 @@ load("washPredEffects.rda")
 
 ### Plot effects
 plotEffects <- function(df, var, xlabs){
-	pos <- position_dodge(0.2)
+	pos <- position_dodge(0.5)
 	p1 <- (ggplot(df, aes_string(x = var, y = "fit", group = "services"))
 		+ scale_color_discrete(breaks = c("toilettype", "garbagedposal", "watersource"))
 		+ labs(x = xlabs
@@ -52,6 +52,11 @@ plotEffects <- function(df, var, xlabs){
 				, size = 2/5
 				, position = pos
 			)
+		#	+ coord_flip()
+			+ labs(y = xlabs
+				, x = "Probability of\nimproved service"
+				, colour = "Services"
+			)
 			+ facet_wrap(~services)
 			+ facet_theme
 		)
@@ -73,18 +78,6 @@ pyrservice_plot <- (ggplot(pyrservice_effect_df, aes(x = services, y = fit))
 	)
 )
 print(pyrservice_plot)
-
-pos <- position_dodge(0.2)
-p2 <- (ggplot(pyrservice_effect_df, aes(y = services, x = fit))
-	+ geom_point(position = pos)
-	+ ggstance::geom_linerangeh(aes(xmin = lower, xmax = upper)
-		, size = 2/5
-		, position = pos
-	)
-	+ facet_wrap(~services, scales = "free_x")
-	+ facet_theme
-)
-print(p2)
 
 ### Other remaining predictors
 pred_vars <- names(pyrmod_effect_df)[!names(pyrmod_effect_df) %in% "services"]
