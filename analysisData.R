@@ -25,6 +25,12 @@ working_df <- (working_df
 # Variable groups
 all_vars <- colnames(working_df)
 
+## Dwelling
+dwelling_group_vars <- c("floormaterial", "roofmaterial"
+	, "wallmaterial", "cookingfuel", "lighting", "rentorown"
+)
+dwelling_group_vars <- paste0(dwelling_group_vars, "_new")
+
 ## Ownership
 ownership_group_vars <- grep("^ownhere\\_|^ownelse\\_|^ownlivestock|^grewcrops\\_", all_vars, value = TRUE)
 
@@ -48,28 +54,45 @@ var_groups_df <- (data.frame(variables = colnames(working_df))
 )
 head(var_groups_df)
 
-## Factor the binary variables
+## Factor the binary variables and count the number of NAs per case
 working_df <- (working_df
 	%>% mutate_at(c(ownership_group_vars, problems_group_vars), as.factor)
+	%>% mutate(totalNA = round(rowSums(is.na(.)|.=="missing:impute"|.==999999)/ncol(.) * 100, 3))
 )
+
+miss_percase_df <- as.data.frame(table(working_df$totalNA))
+head(miss_percase_df)
+
+miss_peryear_df <- table(working_df$totalNA, working_df$intvwyear_new)
+head(miss_peryear_df)
 
 #### Compare complete cases with all cases
 working_df_complete <- (working_df
 	%>% na.omit()
 )
-nrow(working_df_complete)
-nrow(working_df)
+
+### Number of cases to impute missing
+impute_na <- nrow(working_df) - nrow(working_df_complete)
 
 ## Create indicator for cases to drop based on don't know, NIU and refused
 working_df_complete <- (working_df_complete
 	%>% mutate(impute_cases = ifelse(imputeCase(., patterns = "missing:impute"), 1, 0))
+   %>% mutate_at(colnames(.), function(x)na_if(x, "missing:impute"))
+   %>% mutate_at(colnames(.), function(x)na_if(x, "999999"))
+   %>% droplevels()
+	%>% na.omit()
+	%>% data.frame()
 )
 
 save(file = "analysisData.rda"
 	, var_groups_df
 	, working_df
 	, working_df_complete
+	, dwelling_group_vars
 	, ownership_group_vars
 	, expenditure_group_vars
 	, problems_group_vars
+	, miss_percase_df
+	, miss_peryear_df
+	, impute_na
 )

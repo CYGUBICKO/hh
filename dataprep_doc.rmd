@@ -33,6 +33,7 @@ library(corrplot)
 library(lme4)
 library(splines)
 
+load("analysis_variables.rda")
 source("../funs/ggplot_theme.R")
 ```
 
@@ -201,4 +202,32 @@ See summary tables in `compareCalculations.xlsx` in the Makefile
 	- `Don't know`: Assigned to any variables where the respondent did not know the answer
 	- `NIU (not in universe)`: Assigned to any variable where the unit (in this case, household) is not in the universe/are not eligible to answer the question
 
+- To handle missing data:
+	- Any entry falling in any of the missing data category outlined above is recoded as `NA` 
+	- All variables with at least $30\%$ missing values are excluded and then any case with missing values in any of the remaining variables are excluded
 
+- The table below shows the percentage of missingness per case. Complete cases used for analysis are `r miss_percase_df$Freq[miss_percase_df$Var1==0]`, representing `r percent(miss_percase_df$Freq[miss_percase_df$Var1==0]/sum(miss_percase_df$Freq))` of all the cases.
+
+\vspace*{2cm}
+****
+
+```{r}
+colnames(miss_percase_df) <- c("Percent miss per case", "Number of cases")
+datatable(miss_percase_df, rownames = FALSE)
+```
+
+\vspace*{2cm}
+****
+
+- For the selected variables, most missing cases are in the years $2002 - 2005$, consequently, exclusion criteria above excludes these years. 
+
+\vspace*{2cm}
+****
+
+```{r}
+tab_freq <- (as.data.frame(miss_peryear_df)
+	%>% tidyr::spread(Var2, Freq)
+	%>% data.table::setnames("Var1", "Percent Miss")
+)
+datatable(tab_freq, options = list(pageLength = 20), rownames = FALSE)
+```

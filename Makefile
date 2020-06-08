@@ -64,20 +64,60 @@ analysisData.Rout: analysisData.R
 analysis_variables.Rout: analysis_variables.R
 # analysis_variables.xlsx: analysis_variables.Rout;
 
-# MCA
-## Ownership
-ownership_impute.Rout: ownership_impute.R
-ownership_mca.Rout: ownership_mca.R
+# Logestic PCA
 
-## Shocks/problems
-problems_mca.Rout: problems_mca.R
+## Dwelling index
+dwelling_pca.Rout: dwelling_pca.R
+
+## Assets ownership index
+ownership_pca.Rout: ownership_pca.R
+
+## Shocks/problems index
+problems_pca.Rout: problems_pca.R
 
 # PCA
-## Expenditure
+## Expenditure index
 expenditure_pca.Rout: expenditure_pca.R
+
+# Select variables to be used in analysis and add indices variables - New wash data
+washData.Rout: washData.R
+
+
+######################################################################
+
+# WASH Analysis
+
+## Data reshaping incorporating previous year as a variable
+washdataInspect.Rout: washdataInspect.R
+washdataInspect_plots.Rout: washdataInspect_plots.R
+
+## Recategorise previous status variables (*P$)
+washdataStatusPcats.Rout: washdataStatusPcats.R
 
 ## Data documentation
 dataprep_doc.html: dataprep_doc.rmd
+
+## Restructured data for hhid-year-services
+longDFunc.Rout: longDFunc.R
+washModeldata.Rout: washModeldata.R
+
+## Previous year model
+### Scaled variable (hhsize and year)
+washModelfit_pglmerS.Rout: washModelfit_pglmerS.R
+
+washModelfit_tmbS.Rout: washModelfit_tmbS.R
+
+
+## Tidy model estimates
+washTidyestimates.Rout: washTidyestimates.R
+
+## Effect size plots
+washEffectsize_plots.Rout: washEffectsize_plots.R
+
+### Wash predictor effects
+washPredEffects.Rout: washPredEffects.R
+washPredEffects_plots.Rout: washPredEffects_plots.R
+
 
 # ../wash/washdataAnalysis_report.rmd
 
