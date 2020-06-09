@@ -19,7 +19,7 @@ Sources += Makefile rmd.mk
 ## ln -s ~/Dropbox/aphrc/hh_amen_xtics/data/ data ##
 ## ln -s ~/Dropbox/aphrc/hh_amen_xtics/docs/ docs ##
 ## ln -s ~/Dropbox/aphrc/wash/data washdata ##
-Ignore += data docs
+Ignore += data docs washdata
 
 ######################################################################
 
@@ -33,6 +33,7 @@ loadData.Rout: data/NUHDSS_hhamenitiescharacteristics_anon.dta loadData.R
 shortData.Rout: shortData.R
 
 # Generate files to recode labels (JD way)
+Ignore += generateLabels.xlsx cleaning_tables.xlsx
 generateLabels.Rout: generateLabels.R
 ## generateLabels.xlsx: generateLabels.Rout;
 
