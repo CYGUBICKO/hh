@@ -190,7 +190,7 @@ working_df <- (left_join(working_df
 		factor(x
 			, levels = c("<KES 1,000", "KES 1,000-2,499", "KES 2,500-4,999", "KES 5,000-7,499", "KES 7,500-9,999", "KES 10,000-14,999", "KES 15,000-19,999", "KES 20,000+", "missing:impute")
 			, labels = c("<1,000", "1,000-2,499", "2,500-4,999", "5,000-7,499", "7,500-9,999", "10,000-14,999", "15,000-19,999", "20,000+", "missing:impute")
-			, ordered = TRUE
+#			, ordered = TRUE
 		)
 	})
 )
