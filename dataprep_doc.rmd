@@ -313,6 +313,32 @@ print(consec_noyr0_plot)
 
 - and then a single model fitted. We use this approach.
 
+## Distribution of services
+
+- The Figure below shows the proportion of households with improved services over years. The dotted lines represent the household average for each service over the entire study period.
+
+
+```{R distributions1, fig.width = 7, fig.height = 8}
+print(prop_plot)
+```
+
+### No. of interviews completed by HH
+
+- If every household was interviewed per year, we would expect $10$ interviews per household. On the contrary, over $40\%$ of the households only had $1$ interview over the entire study period.
+- Denominator is number of HH (expected number of interviews per year)
+
+```{R fig.width = 5, fig.height = 5}
+print(n_interviews_plot)
+```
+
+### No. of interviews per year
+
+- The Figure below shows the percentage of interviews per year.
+	- We may need to seek for clarification on low percentage in $2003$ 
+
+```{R fig.width = 5, fig.height = 5}
+print(year_plot)
+```
 
 ## Current vs previous year service status (JD: Status Quo?)
 
@@ -326,3 +352,36 @@ print(consec_noyr0_plot)
 ```{R fig.width = 5, fig.height = 5}
 print(status_quo_plot)
 ```
+
+## Modelling 
+
+- A single model fitted with service status in the previous year categorized as described above.
+- A total of `r nint_all` were done between $2006 - 2015$.
+- There are `r nhhid` households, interviewed in at least one of the interview years.
+
+### Variables
+
+- As described above with additional random effect term
+	- `(services-1|hhid)`
+- Fitted in `glmmTMB`. `lme4` is too slow.
+
+
+## Results
+
+### Effect sizes
+
+<a href="./git_push/washEffectsize_plots.Rout.pdf" target="_blank">Click here to open</a>
+
+
+### Predictions
+
+- Plots are on the scale of the logit scale, but the vertical axis is labelled on the response scale. This preserves the (linear) structure of the model while permitting interpretation on the probability scale. **(Steve -> JD: Converting everything to response scale make the CI too narrow)**
+
+**Logit scale**
+
+<a href="./git_push/washPredEffects_plots.Rout.pdf" target="_blank">Click here to open</a>
+
+
+**Response scale**
+
+<a href="./git_push/washPredEffects_Resp_plots.Rout.pdf" target="_blank">Click here to open</a>

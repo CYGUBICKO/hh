@@ -305,6 +305,7 @@ status_quo_plot <- (ggplot(consec_temp_df, aes(x = reorder(SQ, -prop), y = prop,
 print(status_quo_plot)
 
 save(file = "washdataInspect_plots.rda" 
+	, base_year
 	, nhhid
 	, nint_all
 	, prevcases_df_summary
