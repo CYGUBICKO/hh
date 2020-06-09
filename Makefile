@@ -33,7 +33,7 @@ loadData.Rout: data/NUHDSS_hhamenitiescharacteristics_anon.dta loadData.R
 shortData.Rout: shortData.R
 
 # Generate files to recode labels (JD way)
-Ignore += generateLabels.xlsx cleaning_tables.xlsx
+Ignore += generateLabels.xlsx cleaning_tables.xlsx analysis_variables.xlsx
 generateLabels.Rout: generateLabels.R
 ## generateLabels.xlsx: generateLabels.Rout;
 
@@ -65,7 +65,7 @@ analysisData.Rout: analysisData.R
 analysis_variables.Rout: analysis_variables.R
 # analysis_variables.xlsx: analysis_variables.Rout;
 
-# Logestic PCA
+# Logistic PCA
 
 ## Dwelling index
 dwelling_pca.Rout: dwelling_pca.R
