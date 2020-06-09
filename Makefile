@@ -127,8 +127,6 @@ washPredEffects_Resp_plots.Rout: washPredEffects_Resp_plots.R
 
 ## Data documentation
 dataprep_doc.html: dataprep_doc.rmd
-Sources += dataprep_doc.html
-
 
 ######################################################################
 
