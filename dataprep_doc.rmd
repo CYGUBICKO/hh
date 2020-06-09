@@ -14,6 +14,7 @@ knitr::opts_chunk$set(echo = FALSE
 	, message = FALSE
 	, fig.width = 10
 	, fig.height = 10
+	, fig.align="center"
 	, results = "asis")
 options(width = 12)
 
@@ -34,14 +35,15 @@ library(lme4)
 library(splines)
 
 load("analysis_variables.rda")
-source("../funs/ggplot_theme.R")
+source("../funs/ggplot_theme.R"); ggtheme()
+load("washdataInspect_plots.rda")
 ```
 
 ## Concerns with APHRC approach
 
-**Wealth index construction**
+**Construction of indices**
 
-- Source of drinking water, type of toilet and toilet facilities, which are the response, were used in the construction of wealth index. [See](./docs/aphrc_wealth_index_construct_Rutstein.pdf).
+- Source of drinking water, type of toilet and toilet facilities, which are the response, were used in the construction of indices e.g., wealth index. [See](./docs/aphrc_wealth_index_construct_Rutstein.pdf).
 
 ## Our choices
 
@@ -126,7 +128,7 @@ See summary tables in `compareCalculations.xlsx` in the Makefile
 		- Free
 		- Others (belongs to/rent paid by relative/friend, belongs to/rent paid by employer, caretaker/security, belongs to/rent paid by religious entity)
 
-- Dwelling index is derived from the first principal component score of the Multiple Correspondence Analysis (MCA) on these variables.
+- Dwelling index is derived from the first principal component score of logistic PCA based on dummy indicator variables generated from these variables.
 
 
 **Assets ownership index**
@@ -158,6 +160,8 @@ See summary tables in `compareCalculations.xlsx` in the Makefile
 	- KES 10,000-14,999
 	- KES 15,000-19,999
 	- KES 20,000+
+
+- **Steve -> JD**: Should handle this as ordered factors?
 
 **Expenditure index**
 
@@ -230,4 +234,95 @@ tab_freq <- (as.data.frame(miss_peryear_df)
 	%>% data.table::setnames("Var1", "Percent Miss")
 )
 datatable(tab_freq, options = list(pageLength = 20), rownames = FALSE)
+```
+
+\vspace*{2cm}
+****
+
+## Multiple interviews per household per year
+
+- According to APHRC, there should be only 1 interview per household per year. However, we found a few cases which had multiple interviews. See the table below
+
+
+```{r}
+tab_freq <- (as.data.frame(tab_intperyear)
+	%>% data.table::setnames(c("Var1", "Freq"), c("Interviews per HH per year", "Total"))
+)
+datatable(tab_freq, options = list(pageLength = 20), rownames = FALSE)
+```
+
+\vspace*{2cm}
+****
+
+- In households where there are more than 1 interviews, we select the last interview based on interview date.
+
+
+\vspace*{2cm}
+****
+
+## Incorporating service status in the previous year
+
+- There are two ways we can incorporate service status in the service previous year:
+	- Have two separate models: model with first observation data only; and model excluding the first year data
+	- Or, a single model but categorize the service status in the previous year
+
+**Two separate models**
+
+- To understand what data we're losing in our gain-loss model, and think about whether we should consider imputing data for missing years, we want to know for each household how many surveys have data which can't be used in the gain-loss model because the previous year is missing.
+- The first observation for any household is used in the baseline model (and never has a previous year), so we don't count these as missing.
+- For example, in the Table below, household 1 has 2 consecutive interviews, so `nprev_miss2` (truly missing previous interviews) is 0.  Household 818 has 5 interviews in total, but there is are gas between years 3 \& 5, 5 \& 7 and 7 \& 9, so `nprev_miss2` is 3. 
+
+\vspace*{2cm}
+****
+
+```{R}
+datatable(prevcases_df_summary, rownames = FALSE, options = list(pageLength = 8))
+```
+
+
+\vspace*{2cm}
+****
+
+- Figure below shows the distribution of all interviews missing at least 1 interview in the previous year (first year interviews included), representing `r percent_miss_consec` of all the cases. 
+
+
+```{R fig.width = 5, fig.height = 5}
+print(consec_all_plot)
+```
+
+\vspace*{2cm}
+****
+
+- Ignoring the first year interviews (`r percent_year0` which can be modeled separately), the proportion of interviews we are actually dropping due to missing preceding year interviews are `r percent_miss_consec_noyr0 `(about `r percent_miss_consec_noyr0_all` of all the interviews).
+
+```{R, fig.width = 5, fig.height = 5}
+print(consec_noyr0_plot)
+```
+
+\vspace*{2cm}
+****
+
+
+**A single model**
+
+- To handle missing data problems in our gain-loss model, and to avoid fitting a separate base year model, service status in the previous year are categorized as follows:
+	- **Base year**: First household specific observational year
+	- **Not observed**: Immediate preceding year not observed
+	- **Unimproved**: Observed but unimproved service
+	- **Improved**: Observed improved service
+
+- and then a single model fitted. We use this approach.
+
+
+## Current vs previous year service status (JD: Status Quo?)
+
+- We track service transitions from the previous year to the current year (within households):
+	- **All -**: Service not improved both in the previous and in the current year
+	- **All +**: Improved service both in the previous and current year
+	- **No prev.**: Had no service in the previous year (missing interview in the previous year)
+	- **Gain**: Unimproved service in the previous year but improved service in the current year
+	- **Loss**: Improved service in the previous year but unimproved service in the current year
+
+```{R fig.width = 5, fig.height = 5}
+print(status_quo_plot)
 ```

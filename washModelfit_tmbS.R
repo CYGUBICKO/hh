@@ -4,7 +4,6 @@
 #### ---- By: Steve and Jonathan ----
 #### ---- Date: 2019 Dec 24 (Tue) ----
 
-library(splines)
 library(dplyr)
 library(glmmTMB)
 
@@ -23,14 +22,14 @@ pyearmodData_scaled <- (prevyearmodData
 ## Model formula
 fixed_effects <- paste0(c("-1"
 		, "services" 
-		, "(ns(age, 3)"
+		, "(poly(age, degree=2, raw=TRUE)"
 		, "hhsize"
 		, "year"
 		, "selfrating"
 		, "dwelling_index"
 		, "ownership_index"
 		, "shocks_index"
-		, "ns(expenditure_index,3)"
+		, "expenditure_index"
 		, "gender"
 		, "slumarea"
 		, "income"
@@ -52,5 +51,8 @@ save(file = "washModelfit_tmbS.rda"
 	, tmb_scaled
 	, pyearmodData_scaled
 	, model_form
+	, scale_mean
+	, scale_scale
+	, base_year
 )
 

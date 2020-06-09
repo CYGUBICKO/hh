@@ -12,7 +12,7 @@ load("washModelfit_tmbS.rda")
 
 ## Which scale to plot the predictions
 ### See ?plot.effects
-linearpredictor <- FALSE
+linearpredictor <- TRUE
 
 ## Previous year model
 pyrmod <- tmb_scaled
@@ -49,4 +49,7 @@ pyrmod_effect_df <- lapply(pred_vars, function(x){
 save(file = "washPredEffects.rda"
 	, pyrservice_effect_df
 	, pyrmod_effect_df
+	, scale_mean
+	, scale_scale
+	, base_year
 )

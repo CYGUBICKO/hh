@@ -62,7 +62,7 @@ print(prevcases_df %>% arrange(desc(nprev_miss1)), n = 50, width = Inf)
 
 ### Save a summary for explannation on the rmd
 prevcases_df_summary <- (prevcases_df
-	%>% filter(hhid %in% c(1,3))
+	%>% filter(hhid %in% c(1,818))
 )
 print(prevcases_df_summary)
 

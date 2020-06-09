@@ -5,7 +5,7 @@
 #### ---- Date: 2019 Dec 24 (Tue) ----
 
 library(dplyr)
-library(lme4)
+library(glmmTMB)
 
 load("washModeldata.rda")
 
@@ -22,14 +22,14 @@ pyearmodData_scaled <- (prevyearmodData
 ## Model formula
 fixed_effects <- paste0(c("-1"
 		, "services" 
-		, "(age"
+		, "(poly(age, degree=2, raw=TRUE)"
 		, "hhsize"
 		, "year"
 		, "selfrating"
 		, "dwelling_index"
 		, "ownership_index"
 		, "shocks_index"
-		, "expenditure_index"
+		, "poly(expenditure_index, degree=2, raw=TRUE)"
 		, "gender"
 		, "slumarea"
 		, "income"
@@ -42,14 +42,13 @@ rand_effects <- "(services-1|hhid)"
 model_form <- as.formula(paste0("status ~ ", fixed_effects, " + ", rand_effects))
 
 ## Fit glmer model
-pglmer_scaled <- glmer(model_form
+tmb_scaled <- glmmTMB(model_form
 	, data = pyearmodData_scaled
 	, family = binomial(link = "logit")
-	, control = glmerControl(optimizer="bobyqa")
 )
 
-save(file = "washModelfit_pglmerS.rda"
-	, pglmer_scaled
+save(file = "washModelfit_poly_tmbS.rda"
+	, tmb_scaled
 	, pyearmodData_scaled
 	, model_form
 	, scale_mean

@@ -74,5 +74,8 @@ prevyearmodData <- model.frame(
 save(file = "washModeldata.rda"
 	, year1modData
 	, prevyearmodData
+	, scale_mean
+	, scale_scale
+	, base_year
 )
 

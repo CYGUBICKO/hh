@@ -95,4 +95,5 @@ save(file = "analysisData.rda"
 	, miss_percase_df
 	, miss_peryear_df
 	, impute_na
+	, tab_intperyear
 )

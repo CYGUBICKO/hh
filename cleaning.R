@@ -21,6 +21,22 @@ load("generateLabels.rda")
 
 working_df <- (working_df
 	%>% filter(intvwresult=="completed")
+	%>% group_by(hhid_anon, intvwyear)
+	%>% mutate(nn = n()
+		, intvwdate = as.Date(intvwdate)
+		, keep = ifelse(nn==1|intvwdate==max(intvwdate), 1, 0)
+	)
+	%>% ungroup()
+)
+
+## More than 1 HH interview per year
+tab_intperyear <- as.data.frame(table(working_df$nn))
+print(tab_intperyear)
+
+## Keep latest interview per HH per year
+working_df <- (working_df
+	%>% filter(keep==1)
+	%>% select(-nn, -keep)
 )
 
 #### ---- Key variables ----
@@ -174,7 +190,7 @@ working_df <- (left_join(working_df
 		factor(x
 			, levels = c("<KES 1,000", "KES 1,000-2,499", "KES 2,500-4,999", "KES 5,000-7,499", "KES 7,500-9,999", "KES 10,000-14,999", "KES 15,000-19,999", "KES 20,000+", "missing:impute")
 			, labels = c("<1,000", "1,000-2,499", "2,500-4,999", "5,000-7,499", "7,500-9,999", "10,000-14,999", "15,000-19,999", "20,000+", "missing:impute")
-#			, ordered = TRUE
+			, ordered = TRUE
 		)
 	})
 )
@@ -328,4 +344,5 @@ save(file = "cleaning.rda"
 	, working_df
 	, all_tabs
 	, miss_df_temp
+	, tab_intperyear
 )

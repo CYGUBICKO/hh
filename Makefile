@@ -94,9 +94,6 @@ washdataInspect_plots.Rout: washdataInspect_plots.R
 ## Recategorise previous status variables (*P$)
 washdataStatusPcats.Rout: washdataStatusPcats.R
 
-## Data documentation
-dataprep_doc.html: dataprep_doc.rmd
-
 ## Restructured data for hhid-year-services
 longDFunc.Rout: longDFunc.R
 washModeldata.Rout: washModeldata.R
@@ -106,6 +103,9 @@ washModeldata.Rout: washModeldata.R
 washModelfit_pglmerS.Rout: washModelfit_pglmerS.R
 
 washModelfit_tmbS.Rout: washModelfit_tmbS.R
+
+### Trying polynomial age and expenditure index
+washModelfit_poly_tmbS.Rout: washModelfit_poly_tmbS.R
 
 
 ## Tidy model estimates
@@ -118,6 +118,8 @@ washEffectsize_plots.Rout: washEffectsize_plots.R
 washPredEffects.Rout: washPredEffects.R
 washPredEffects_plots.Rout: washPredEffects_plots.R
 
+## Data documentation
+dataprep_doc.html: dataprep_doc.rmd
 
 # ../wash/washdataAnalysis_report.rmd
 

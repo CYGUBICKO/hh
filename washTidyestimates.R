@@ -14,6 +14,7 @@ library(data.table)
 library(splines)
 library(glmmTMB)
 
+load("globalFunctions.rda")
 load("washModelfit_tmbS.rda")
 
 tmbScaled <- tmb_scaled
@@ -39,6 +40,17 @@ extract_coefs_df <- (map(list(tmbScaled = tmbScaled)
 #			, parameter
 #		) 
 	)
+)
+
+## Cleam variable names
+pred_vars <- attr(terms(model_form), "term.labels")
+pred_vars <- pred_vars[!grepl("\\|", pred_vars)]
+pred_vars <-  gsub(".*\\:|.*\\(|\\,.*", "", pred_vars)
+pred_vars <- pred_vars[!pred_vars %in% "services"]
+d1 <- genlabsCodes(extract_coefs_df, "parameter", pred_vars, pred_vars) 
+
+extract_coefs_df <- (extract_coefs_df
+	%>% left_join(d1, by = "parameter")
 )
 
 print(extract_coefs_df, n = Inf, width = Inf)

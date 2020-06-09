@@ -4,6 +4,7 @@
 #### ---- By: Steve and Jonathan ----
 #### ---- Date: 2020 Jan 11 (Sat) ----
 
+library(scales)
 library(ggplot2)
 theme_set(theme_bw() +
 	theme(panel.spacing=grid::unit(0,"lines")))
@@ -14,15 +15,20 @@ library(effects)
 library(lme4)
 library(splines)
 
-source("../funs/ggplot_theme.R")
+source("../funs/ggplot_theme.R"); ggtheme()
 load("washPredEffects.rda")
 
 
 ### Plot effects
+logist_format <- function() {
+	function(x) round(plogis(x), 3)
+}
+
 plotEffects <- function(df, var, xlabs){
 	pos <- position_dodge(0.5)
 	p1 <- (ggplot(df, aes_string(x = var, y = "fit", group = "services"))
 		+ scale_color_discrete(breaks = c("toilettype", "garbagedposal", "watersource"))
+		+ scale_y_continuous(labels = logist_format(), breaks = breaks_pretty(4))
 		+ labs(x = xlabs
 			, y = "Probability of\nimproved service"
 			, colour = "Services"
@@ -36,30 +42,32 @@ plotEffects <- function(df, var, xlabs){
 				, size = 0.5
 			)
 			+ guides(fill = FALSE)
-			+ facet_wrap(~services, scales = "free_y")
+#			+ facet_wrap(~services)
+#			+ facet_theme
 		)
 	} else {
-#		p2 <- (p1 + geom_point(size = 0.6)
-#			+ geom_line()
-#			+ geom_errorbar(aes(ymin = lower, ymax = upper), width = 0)
+		p2 <- (p1 + geom_point(size = 0.6)
+			+ geom_line(aes(colour = services))
+			+ geom_errorbar(aes(ymin = lower, ymax = upper, colour = services), width = 0)
 #			+ coord_flip()
 #			+ facet_wrap(~services, scales = "free_x")
 #			+ facet_theme
-#		)
-		p2 <- (ggplot(df %>% rename(xvar = var), aes(y = reorder(xvar, -fit), x = fit, colour = services))
-			+ geom_point(position = pos)
-			+ ggstance::geom_linerangeh(aes(xmin = lower, xmax = upper)
-				, size = 2/5
-				, position = pos
-			)
-		#	+ coord_flip()
-			+ labs(y = xlabs
-				, x = "Probability of\nimproved service"
-				, colour = "Services"
-			)
-			+ facet_wrap(~services)
-			+ facet_theme
 		)
+#		p2 <- (ggplot(df %>% rename(xvar = var), aes(y = xvar, x = fit, colour = services))
+#			+ geom_point(position = pos)
+#			+ scale_x_continuous(labels = logist_format())
+#			+ ggstance::geom_linerangeh(aes(xmin = lower, xmax = upper)
+#				, size = 2/5
+#				, position = pos
+#			)
+#			+ coord_flip()
+#			+ labs(y = xlabs
+#				, x = "Probability of\nimproved service"
+#				, colour = "Services"
+#			)
+#			+ facet_wrap(~services)
+#			+ facet_theme
+#		)
 	}
 	return(p2)
 }
@@ -67,12 +75,12 @@ plotEffects <- function(df, var, xlabs){
 
 ## Previous year model
 ### Service level
-
 pyrservice_plot <- (ggplot(pyrservice_effect_df, aes(x = services, y = fit))
 	+ geom_errorbar(aes(ymin = lower, ymax = upper), width = 0, colour = "steelblue3")
 	+ geom_point(colour = "blue")
 	+ scale_x_discrete(limits = c("toilettype", "garbagedposal", "watersource"))
-	+ scale_y_continuous(limits = c(0.1, 1), breaks = seq(0.1, 1, 0.1))
+	+ scale_y_continuous(labels = logist_format(), breaks = breaks_pretty(4))
+#	+ scale_y_continuous(limits = c(0.1, 1), breaks = seq(0.1, 1, 0.1))
 	+ labs(x = "Service"
 		, y = "Probability of\nimproved service"
 	)
