@@ -1,3 +1,33 @@
+
+2020 Jun 09 (Tue)
+----------------------------------------------------------------------
+
+- Both agreed that we should prioritize on the thesis proposal within the coming weeks.
+	- Steve should talk to Hsien and/or Damazo about the proposal and get some ideas from them, if any.
+- Steve to come up with proposal outline and share with JD
+
+**Steve** 
+
+- Assign numbers to income and if we decide to create wealth index, add it to wealth index or use it separately.
+- We should also look at what APHRC did to compute wealth index and see if there is anything we can borrow or simply make our own wealth index after looking at APHRC's.
+	- Though we already have these, we just need to figure out on how to combine them, e.g., combine dwelling, assets and income indices 
+	- Give justification to or against combining some indices
+- Assign scores (ranked numbers) to dwelling questions and perform normal PCA
+- Simply add the expenditures to get expenditure index
+- Also simply count the shocks
+- Explore on asset ownership (and/or perform logistic PCA)
+
+- Missingness
+	- Include variables eliminated due to missing in the report
+	- Confirm with APHRC what missing categorization means
+	- NIU shouldn't be excluded (structural missing)
+	- Provide a missingness report done per variable
+	- It okay to exclude the 2002 - 2005 data
+
+- Steve to come up with some ideas about PROVIEW data and share with JD before meeting Hsien on Friday.
+
+
+
 2020 Jun 02 (Tue)
 ----------------------------------------------------------------------
 **Steve:**
