@@ -36,7 +36,7 @@ library(splines)
 
 load("analysis_variables.rda")
 source("../funs/ggplot_theme.R"); ggtheme()
-load("washdataInspect_plots.rda")
+# load("washdataInspect_plots.rda")
 ```
 
 ## Concerns with APHRC approach
@@ -216,6 +216,13 @@ See summary tables in `compareCalculations.xlsx` in the Makefile
 ****
 
 ```{r}
+datatable(miss_category_summary_df, rownames = FALSE)
+```
+
+\vspace*{2cm}
+****
+
+```{r}
 colnames(miss_percase_df) <- c("Percent miss per case", "Number of cases")
 datatable(miss_percase_df, rownames = FALSE)
 ```
@@ -276,27 +283,27 @@ datatable(tab_freq, options = list(pageLength = 20), rownames = FALSE)
 ****
 
 ```{R}
-datatable(prevcases_df_summary, rownames = FALSE, options = list(pageLength = 8))
+#datatable(prevcases_df_summary, rownames = FALSE, options = list(pageLength = 8))
 ```
 
 
 \vspace*{2cm}
 ****
 
-- Figure below shows the distribution of all interviews missing at least 1 interview in the previous year (first year interviews included), representing `r percent_miss_consec` of all the cases. 
+- Figure below shows the distribution of all interviews missing at least 1 interview in the previous year (first year interviews included), representing `r # percent_miss_consec` of all the cases. 
 
 
 ```{R fig.width = 5, fig.height = 5}
-print(consec_all_plot)
+# print(consec_all_plot)
 ```
 
 \vspace*{2cm}
 ****
 
-- Ignoring the first year interviews (`r percent_year0` which can be modeled separately), the proportion of interviews we are actually dropping due to missing preceding year interviews are `r percent_miss_consec_noyr0 `(about `r percent_miss_consec_noyr0_all` of all the interviews).
+- Ignoring the first year interviews (`r #percent_year0` which can be modeled separately), the proportion of interviews we are actually dropping due to missing preceding year interviews are `r # percent_miss_consec_noyr0 `(about `r # percent_miss_consec_noyr0_all` of all the interviews).
 
 ```{R, fig.width = 5, fig.height = 5}
-print(consec_noyr0_plot)
+# print(consec_noyr0_plot)
 ```
 
 \vspace*{2cm}
@@ -319,7 +326,7 @@ print(consec_noyr0_plot)
 
 
 ```{R distributions1, fig.width = 7, fig.height = 8}
-print(prop_plot)
+#print(prop_plot)
 ```
 
 ### No. of interviews completed by HH
@@ -328,7 +335,7 @@ print(prop_plot)
 - Denominator is number of HH (expected number of interviews per year)
 
 ```{R fig.width = 5, fig.height = 5}
-print(n_interviews_plot)
+#print(n_interviews_plot)
 ```
 
 ### No. of interviews per year
@@ -337,7 +344,7 @@ print(n_interviews_plot)
 	- We may need to seek for clarification on low percentage in $2003$ 
 
 ```{R fig.width = 5, fig.height = 5}
-print(year_plot)
+#print(year_plot)
 ```
 
 ## Current vs previous year service status (JD: Status Quo?)
@@ -350,14 +357,14 @@ print(year_plot)
 	- **Loss**: Improved service in the previous year but unimproved service in the current year
 
 ```{R fig.width = 5, fig.height = 5}
-print(status_quo_plot)
+#print(status_quo_plot)
 ```
 
 ## Modelling 
 
 - A single model fitted with service status in the previous year categorized as described above.
-- A total of `r nint_all` were done between $2006 - 2015$.
-- There are `r nhhid` households, interviewed in at least one of the interview years.
+- A total of `r #nint_all` were done between $2006 - 2015$.
+- There are `r #nhhid` households, interviewed in at least one of the interview years.
 
 ### Variables
 

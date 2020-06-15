@@ -10,9 +10,8 @@ library(DT)
 library(tibble)
 library(tidyr)
 
-load("loadData.rda")
 load("globalFunctions.rda")
-# load("shortData.rda")
+load("missingCategory_summary.rda")
 load("generateLabels.rda")
 
 #### ---- Filter completed interviews ----
@@ -342,6 +341,7 @@ all_tabs <- c(all_tabs, hhposes_tabs, hhexpense_tabs, prob_tabs, numprob_tabs)
 
 save(file = "cleaning.rda"
 	, working_df
+	, miss_category_summary # Missing summary per missing category
 	, all_tabs
 	, miss_df_temp
 	, tab_intperyear

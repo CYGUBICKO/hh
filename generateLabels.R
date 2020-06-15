@@ -61,7 +61,7 @@ oldpatterns <- c("^natural\\:"
 	, "^other"
 	, "^NIU|refused|^don"
 )
-newlabs <- c("Natural", "Rudimentary", "Finished", "Other", NA)
+newlabs <- c("3", "2", "4", "1", NA)
 
 floor_labs <- genlabsCodes(df = working_df
 	, var = floor_vars
@@ -77,7 +77,7 @@ oldpatterns <- c("^natural\\:"
 	, "^other"
 	, "^NIU|refused|^don"
 )
-newlabs <- c("Natural", "Rudimentary", "Finished", "Other", NA)
+newlabs <- c("3", "2", "4", "1", NA)
 
 roof_labs <- genlabsCodes(df = working_df
 	, var = roof_vars
@@ -93,7 +93,7 @@ oldpatterns <- c("^natural\\:"
 	, "^other"
 	, "^NIU|refused|^don"
 )
-newlabs <- c("Natural", "Rudimentary", "Finished", "Other", NA)
+newlabs <- c("3", "2", "4", "1", NA)
 
 wall_labs <- genlabsCodes(df = working_df
 	, var = wall_vars
@@ -104,12 +104,15 @@ wall_labs <- genlabsCodes(df = working_df
 ### Main source of cooking fuel
 cook_vars <- "cookingfuel"
 oldpatterns <- c("^electricity\\:"
+	, "gas"
+	, "kerosene/paraffin"
 	, "charcoal"
+	, "firewood"
 	, "^animal|^crop"
 	, "^other"
 	, "^NIU|refused|^don"
 )
-newlabs <- c("electricity", "charcoal", "animal/crop residue", "others", NA)
+newlabs <- c("7", "6", "5", "4", "3", "2", "1", NA)
 
 cook_labs <- genlabsCodes(df = working_df
 	, var = cook_vars
@@ -120,11 +123,15 @@ cook_labs <- genlabsCodes(df = working_df
 ### Main source of lighting
 light_vars <- "lighting"
 oldpatterns <- c("^electricity\\:"
-	, "charcoal|firewood"
+	, "gas"
+	, "kerosene/paraffin"
+	, "candles"
+	, "charcoal"
+	, "firewood"
 	, "^other"
 	, "^NIU|refused|^don"
 )
-newlabs <- c("electricity", "charcoal/firewood", "others", NA)
+newlabs <- c("7", "6", "5", "4", "3", "2", "1", NA)
 
 light_labs <- genlabsCodes(df = working_df
 	, var = light_vars
@@ -140,7 +147,7 @@ oldpatterns <- c("^owned\\:"
 	, "^other"
 	, "^NIU|refused|^don"
 )
-newlabs <- c("Owned", "Rental", "Free", "Others", NA)
+newlabs <- c("4", "3", "2", "1", NA)
 
 rent_labs <- genlabsCodes(df = working_df
 	, var = rent_vars

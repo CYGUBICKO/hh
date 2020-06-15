@@ -84,6 +84,11 @@ working_df_complete <- (working_df_complete
 	%>% data.frame()
 )
 
+analysis_vars <- gsub("\\_new.*", "", new_vars)
+miss_category_summary_df <- (miss_category_summary
+	%>% filter(variable %in% analysis_vars)
+)
+
 save(file = "analysisData.rda"
 	, var_groups_df
 	, working_df
@@ -96,4 +101,5 @@ save(file = "analysisData.rda"
 	, miss_peryear_df
 	, impute_na
 	, tab_intperyear
+	, miss_category_summary_df
 )

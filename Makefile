@@ -32,6 +32,9 @@ loadData.Rout: data/NUHDSS_hhamenitiescharacteristics_anon.dta loadData.R
 
 shortData.Rout: shortData.R
 
+## Summary number of missing cases per missing value indicator
+missingCategory_summary.Rout: missingCategory_summary.R
+
 # Generate files to recode labels (JD way)
 Ignore += generateLabels.xlsx cleaning_tables.xlsx analysis_variables.xlsx
 generateLabels.Rout: generateLabels.R

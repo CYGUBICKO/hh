@@ -15,7 +15,7 @@ expenditure_df <- (working_df_complete
 	%>% mutate_at(colnames(.), function(x){drop(scale(x))})
 )
 
-expenditure_pca <- prcomp(expenditure_df, center = TRUE, scale. = FALSE)
+expenditure_pca <- prcomp(expenditure_df, center = TRUE, scale. = TRUE)
 expenditure_pc_df <- summary(expenditure_pca)$x
 expenditure_index <- drop(expenditure_pc_df[,1])
 
