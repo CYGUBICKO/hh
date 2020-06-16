@@ -157,8 +157,17 @@ rent_labs <- genlabsCodes(df = working_df
 
 ### Household income
 inc30days_vars <- "inc30days_total"
-oldpatterns <- c("^NIU|refused|^don")
-newlabs <- c(NA)
+oldpatterns <- c("<KES 1,000"
+	, "KES 1,000-2,499"
+	, "KES 2,500-4,999"
+	, "KES 5,000-7,499"
+	, "KES 7,500-9,999"
+	, "KES 10,000-14,999"
+	, "KES 15,000-19,999"
+	, "KES 20,000+"
+	, "^NIU|refused|^don"
+)
+newlabs <- c("1", "2", "3", "4", "5", "6", "7", "8", NA)
 
 inc30days_labs <- genlabsCodes(df = working_df
 	, var = inc30days_vars

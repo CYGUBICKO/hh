@@ -10,8 +10,8 @@ library(dplyr)
 load("analysisData.rda")
 load("dwelling_pca.rda")
 load("ownership_pca.rda")
-load("problems_pca.rda")	# Renamed to shocks moving forward
-load("expenditure_pca.rda")
+load("problems_index.rda")	# Renamed to shocks moving forward
+load("expenditure_index.rda")
 
 ## Key variables
 response_vars <- c("drinkwatersource_new", "toilet_5plusyrs_new", "garbagedisposal_new")
@@ -19,7 +19,7 @@ demographic_vars <- c("hhid_anon_new", "intvwyear_new"
 	, "slumarea_new", "gender_new", "ageyears_new", "numpeople_total_new"
 )
 other_vars <- c("inc30days_total_new", "foodeaten30days_new", "selfrating_new")
-indices_vars <- c("dwelling_index", "ownership_index", "shocks_index", "expenditure_index")
+indices_vars <- c("dwelling_index", "ownership_index", "shocks_index", "total_expenditure")
 temp_vars <- c(demographic_vars, response_vars, other_vars)
 
 ## Select variables for analysis
@@ -28,7 +28,7 @@ wash_df <- (working_df_complete
 	%>% mutate(dwelling_index = dwelling_index
 		, ownership_index = ownership_index
 		, shocks_index = problems_index
-		, expenditure_index = expenditure_index
+		, total_expenditure = total_expenditure
 	)
 	%>% setnames(., old = temp_vars, new = gsub("\\_new", "", temp_vars))
 	%>% ungroup()

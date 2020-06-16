@@ -40,7 +40,7 @@ year1modData <- model.frame(
 	+ dwelling_index
 	+ ownership_index
 	+ shocks_index
-	+ expenditure_index
+	+ total_expenditure
 	+ hhid
 	, data = year1_df, na.action = na.exclude, drop.unused.levels = TRUE
 )
@@ -65,7 +65,7 @@ prevyearmodData <- model.frame(
 	+ dwelling_index
 	+ ownership_index
 	+ shocks_index
-	+ expenditure_index
+	+ total_expenditure
 	+ hhid
 	+ statusP
 	, data = prev_df, na.action = na.exclude, drop.unused.levels = TRUE

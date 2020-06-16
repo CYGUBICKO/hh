@@ -4,8 +4,6 @@
 #### ---- Date: 2020 May 31 (Sun) ----
 
 library(dplyr)
-library(ggplot2)
-library(caret)
 library(logisticPCA)
 
 ## Use complete dataset
@@ -20,10 +18,11 @@ ownership_df <- (working_df_complete
 mod_mad <- model.matrix(~., ownership_df)[, -1]
 ownership_df <- data.frame(mod_mad)
 
-ownership_pca <- logisticPCA(ownership_df, k = 1, m = 0, main_effects = FALSE)
+ownership_pca <- logisticPCA(ownership_df, k = 2, m = 0)
 ownership_pca
-ownership_index <- drop(ownership_pca$PCs)
+ownership_index <- drop(ownership_pca$PCs[,1])
 
 save(file = "ownership_pca.rda"
 	, ownership_index
+	, ownership_pca
 )

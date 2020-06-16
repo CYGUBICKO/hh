@@ -44,6 +44,7 @@ generateLabels.Rout: generateLabels.R
 cleaning.Rout: cleaning.R
 cleaning_tables.Rout: cleaning_tables.R
 # cleaning_tables.xlsx: cleaning_tables.Rout;
+overall_missing_tables.Rout: overall_missing_tables.R
 
 ## mergeWash may not be necessary, since hh data seems to have the derived variables
 ## Or maybe we can play _just_ with washdata?
@@ -68,20 +69,29 @@ analysisData.Rout: analysisData.R
 analysis_variables.Rout: analysis_variables.R
 # analysis_variables.xlsx: analysis_variables.Rout;
 
-# Logistic PCA
+# PCA
 
 ## Dwelling index
 dwelling_pca.Rout: dwelling_pca.R
+dwelling_pca_plot.Rout.pdf.gp: dwelling_pca_plot.R
+
+# MCA
+dwelling_mca.Rout: dwelling_mca.R
+dwelling_mca_plot.Rout.pdf.gp: dwelling_mca_plot.R
+
+# Logistic PCA
 
 ## Assets ownership index
 ownership_pca.Rout: ownership_pca.R
+ownership_pca_plot.Rout.pdf.gp: ownership_pca_plot.R
 
+# Count
 ## Shocks/problems index
-problems_pca.Rout: problems_pca.R
+problems_index.Rout: problems_index.R
 
 # PCA
 ## Expenditure index
-expenditure_pca.Rout: expenditure_pca.R
+expenditure_index.Rout: expenditure_index.R
 
 # Select variables to be used in analysis and add indices variables - New wash data
 washData.Rout: washData.R
@@ -123,14 +133,14 @@ washEffectsize_plots.Rout: washEffectsize_plots.R
 
 ### Wash predictor effects - predictor scale
 washPredEffects.Rout: washPredEffects.R
-washPredEffects_plots.Rout: washPredEffects_plots.R
+washPredEffects_plots.Rout.pdf.gp: washPredEffects_plots.R
 
 ### Wash predictor effects - response scale
 washPredEffects_Resp.Rout: washPredEffects_Resp.R
-washPredEffects_Resp_plots.Rout: washPredEffects_Resp_plots.R
+washPredEffects_Resp_plots.Rout.pdf.gp: washPredEffects_Resp_plots.R
 
 ## Data documentation
-dataprep_doc.html: dataprep_doc.rmd
+dataprep_doc.html.gp: dataprep_doc.rmd
 
 ######################################################################
 

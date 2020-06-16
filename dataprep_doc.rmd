@@ -35,15 +35,16 @@ library(lme4)
 library(splines)
 
 load("analysis_variables.rda")
+load("overall_missing_tables.rda")
 source("../funs/ggplot_theme.R"); ggtheme()
-# load("washdataInspect_plots.rda")
+load("washdataInspect_plots.rda")
 ```
 
 ## Concerns with APHRC approach
 
 **Construction of indices**
 
-- Source of drinking water, type of toilet and toilet facilities, which are the response, were used in the construction of indices e.g., wealth index. [See](./docs/aphrc_wealth_index_construct_Rutstein.pdf).
+- Source of drinking water, type of toilet and toilet facilities, which are the response, were used in the construction of indices e.g., wealth index. [See](../docs/aphrc_wealth_index_construct_Rutstein.pdf).
 
 ## Our choices
 
@@ -89,46 +90,51 @@ See summary tables in `compareCalculations.xlsx` in the Makefile
 - The following household amenities questions are used to compute dwelling index
 
 	- **Main material of the floor**, broadly recoded into:
-		- Finished (cement/concrete (tiles/slab), vinyl (PVC)/asphalt strips, polished wood/tiles/carpet, asbestos sheet)
-		- Natural (earth/mud/dung/sand)
-		- Rudimentary (wood planks, carton/plastic sheets, gunny bags, woven mat (sisal/nylon))
+		- Finished (cement/concrete (tiles/slab), vinyl (PVC)/asphalt strips, polished wood/tiles/carpet, asbestos sheet) - **4**
+		- Natural (earth/mud/dung/sand) - **3**
+		- Rudimentary (wood planks, carton/plastic sheets, gunny bags, woven mat (sisal/nylon)) - **2**
 	
 	- **Main material of the roof**, recoded into:
-		- Finished (tiles, asbestos sheet, cement/concrete/stone)
-		- Natural (cement/concrete/stone)
-		- Rudimentary (iron sheets (corrugated), metal sheets/tin, wood/timber, plastic sheets, cardboard sheets)
-		- Others
+		- Finished (tiles, asbestos sheet, cement/concrete/stone) - **4**
+		- Natural (cement/concrete/stone) - **3**
+		- Rudimentary (iron sheets (corrugated), metal sheets/tin, wood/timber, plastic sheets, cardboard sheets) - **2**
+		- Others - **1**
 
 	- **Main material of the wall**, recoded into:
-		- Finished (stone/quarry stones, concrete blocks/slab, wood/timber, burnt bricks, asbestos sheet)
-		- Natural (dirt/mud/dung)
-		- Rudimentary (iron sheets/mabati, cemented mud, tin/metal sheets, cardboard sheets, carton/plastic, unspecified, plywood/chipboard)
-		- Others
+		- Finished (stone/quarry stones, concrete blocks/slab, wood/timber, burnt bricks, asbestos sheet) - **4**
+		- Natural (dirt/mud/dung) - **2**
+		- Rudimentary (iron sheets/mabati, cemented mud, tin/metal sheets, cardboard sheets, carton/plastic, unspecified, plywood/chipboard) - **2**
+		- Others - **1**
 
 	- **Main source of cooking fuel**, recoded into:
-		- kerosene/paraffin
-		- electricity (KPLC, electricity:other source)
-		- charcoal (charcoal, briquettes/mud charcoal)
-		- gas
-		- firewood
-		- others (plastics/gunny bags/cartons/papers, other)
-		- animal/crop residue (animal waste, crop residue/saw dust)
+		- electricity (KPLC, electricity:other source) - **7**
+		- gas - **6**
+		- kerosene/paraffin - **5**
+		- charcoal (charcoal, briquettes/mud charcoal) - **4**
+		- firewood - **3**
+		- animal/crop residue (animal waste, crop residue/saw dust) - **2**
+		- others (plastics/gunny bags/cartons/papers, other) - **1**
 
 	- **Main source of lightling**
-		- kerosene/paraffin
-		- electricity (KPLC, electricity:other source)
-		- charcoal/firewood (charcoal, firewood)
-		- candles
-		- gas
-		- others (flashlight/phone/rechargable/solar lamps, plastics/gunny bags/cartons/papers, doesn't light the house at all, other)
+		- electricity (KPLC, electricity:other source) - **7**
+		- gas - **6**
+		- kerosene/paraffin - **5**
+		- candles - **4**
+		- charcoal - **3**
+		- firewood - **2**
+		- others (flashlight/phone/rechargable/solar lamps, plastics/gunny bags/cartons/papers, doesn't light the house at all, other) - **1**
 
 	- **Place of dwelling ownership**
-		- Rental (from individual, from government, from parastatal, from private company, from local authority)
-		- Owned (inherited, constructed, purchased)
-		- Free
-		- Others (belongs to/rent paid by relative/friend, belongs to/rent paid by employer, caretaker/security, belongs to/rent paid by religious entity)
+		- Owned (inherited, constructed, purchased) - **4**
+		- Rental (from individual, from government, from parastatal, from private company, from local authority) - **3**
+		- Free - **2**
+		- Others (belongs to/rent paid by relative/friend, belongs to/rent paid by employer, caretaker/security, belongs to/rent paid by religious entity) - **1**
 
-- Dwelling index is derived from the first principal component score of logistic PCA based on dummy indicator variables generated from these variables.
+- Dwelling index is derived from 
+	- **PCA**: [Click here to open](./dwelling_pca_plot.Rout.pdf)
+	- **MCA**: [Click here to open](./dwelling_mca_plot.Rout.pdf)
+
+the first principal component score of logistic PCA based on dummy indicator variables generated from these variables.
 
 
 **Assets ownership index**
@@ -147,31 +153,31 @@ See summary tables in `compareCalculations.xlsx` in the Makefile
 	----------------------------------------------------------------------
 
 - Logistic PCA is performed and first PC scores are used as a proxy for assets ownership index.
+	- **Logistic PCA**: [Click here to open](./ownership_pca_plot.Rout.pdf)
 
 
 **Household income**
 
 - Estimated total income for the household in the last 30 days. 
-	- < KES 1,000
-	- KES 1,000-2,499
-	- KES 2,500-4,999
-	- KES 5,000-7,499
-	- KES 7,500-9,999
-	- KES 10,000-14,999
-	- KES 15,000-19,999
-	- KES 20,000+
+	- < KES 1,000 - **1**
+	- KES 1,000-2,499 - **2**
+	- KES 2,500-4,999 - **3**
+	- KES 5,000-7,499 - **4**
+	- KES 7,500-9,999 - **5**
+	- KES 10,000-14,999 - **6**
+	- KES 15,000-19,999 - **7**
+	- KES 20,000+ - **8**
 
-- **Steve -> JD**: Should handle this as ordered factors?
+- Simply ranked
 
-**Expenditure index**
+**Total expenditure**
 
 - Amount (KES) spent on the following, in the last 7 days, constitutes household expenditure:
 	- Food
 	- Energy
 	- Water
 	- Rent
-
-- PCA is performed and first PC is used as a proxy for expenditure index.
+- Sum constitutes total expenditure
 
 **Household food consumption**
 
@@ -180,7 +186,7 @@ See summary tables in `compareCalculations.xlsx` in the Makefile
 	- Didn't have enough (didn't have enough:sometimes, didn't have enough:often)
 
 
-**Shocks index (JD: Count instead?)**
+**Shocks index (Simply counted)**
 
 - Whether the household experienced any of the following shocks/problems in the last year (yes/no)?
 	
@@ -210,7 +216,6 @@ See summary tables in `compareCalculations.xlsx` in the Makefile
 	- Any entry falling in any of the missing data category outlined above is recoded as `NA` 
 	- All variables with at least $30\%$ missing values are excluded and then any case with missing values in any of the remaining variables are excluded
 
-- The table below shows the percentage of missingness per case. Complete cases used for analysis are `r miss_percase_df$Freq[miss_percase_df$Var1==0]`, representing `r percent(miss_percase_df$Freq[miss_percase_df$Var1==0]/sum(miss_percase_df$Freq))` of all the cases.
 
 \vspace*{2cm}
 ****
@@ -219,8 +224,19 @@ See summary tables in `compareCalculations.xlsx` in the Makefile
 datatable(miss_category_summary_df, rownames = FALSE)
 ```
 
+- Missing proportion for all the missing categories except `missing:impute`.
+
 \vspace*{2cm}
 ****
+
+```{r}
+datatable(miss_df, rownames = FALSE)
+```
+
+\vspace*{2cm}
+****
+
+- The table below shows the percentage of missingness per case. Complete cases used for analysis are `r miss_percase_df$Freq[miss_percase_df$Var1==0]`, representing `r percent(miss_percase_df$Freq[miss_percase_df$Var1==0]/sum(miss_percase_df$Freq))` of all the cases.
 
 ```{r}
 colnames(miss_percase_df) <- c("Percent miss per case", "Number of cases")
@@ -283,27 +299,27 @@ datatable(tab_freq, options = list(pageLength = 20), rownames = FALSE)
 ****
 
 ```{R}
-#datatable(prevcases_df_summary, rownames = FALSE, options = list(pageLength = 8))
+datatable(prevcases_df_summary, rownames = FALSE, options = list(pageLength = 8))
 ```
 
 
 \vspace*{2cm}
 ****
 
-- Figure below shows the distribution of all interviews missing at least 1 interview in the previous year (first year interviews included), representing `r # percent_miss_consec` of all the cases. 
+- Figure below shows the distribution of all interviews missing at least 1 interview in the previous year (first year interviews included), representing `r percent_miss_consec` of all the cases. 
 
 
 ```{R fig.width = 5, fig.height = 5}
-# print(consec_all_plot)
+print(consec_all_plot)
 ```
 
 \vspace*{2cm}
 ****
 
-- Ignoring the first year interviews (`r #percent_year0` which can be modeled separately), the proportion of interviews we are actually dropping due to missing preceding year interviews are `r # percent_miss_consec_noyr0 `(about `r # percent_miss_consec_noyr0_all` of all the interviews).
+- Ignoring the first year interviews (`r percent_year0` which can be modeled separately), the proportion of interviews we are actually dropping due to missing preceding year interviews are `r  percent_miss_consec_noyr0 `(about `r  percent_miss_consec_noyr0_all` of all the interviews).
 
 ```{R, fig.width = 5, fig.height = 5}
-# print(consec_noyr0_plot)
+print(consec_noyr0_plot)
 ```
 
 \vspace*{2cm}
@@ -326,7 +342,7 @@ datatable(tab_freq, options = list(pageLength = 20), rownames = FALSE)
 
 
 ```{R distributions1, fig.width = 7, fig.height = 8}
-#print(prop_plot)
+print(prop_plot)
 ```
 
 ### No. of interviews completed by HH
@@ -335,7 +351,7 @@ datatable(tab_freq, options = list(pageLength = 20), rownames = FALSE)
 - Denominator is number of HH (expected number of interviews per year)
 
 ```{R fig.width = 5, fig.height = 5}
-#print(n_interviews_plot)
+print(n_interviews_plot)
 ```
 
 ### No. of interviews per year
@@ -344,7 +360,7 @@ datatable(tab_freq, options = list(pageLength = 20), rownames = FALSE)
 	- We may need to seek for clarification on low percentage in $2003$ 
 
 ```{R fig.width = 5, fig.height = 5}
-#print(year_plot)
+print(year_plot)
 ```
 
 ## Current vs previous year service status (JD: Status Quo?)
@@ -357,14 +373,14 @@ datatable(tab_freq, options = list(pageLength = 20), rownames = FALSE)
 	- **Loss**: Improved service in the previous year but unimproved service in the current year
 
 ```{R fig.width = 5, fig.height = 5}
-#print(status_quo_plot)
+print(status_quo_plot)
 ```
 
 ## Modelling 
 
 - A single model fitted with service status in the previous year categorized as described above.
-- A total of `r #nint_all` were done between $2006 - 2015$.
-- There are `r #nhhid` households, interviewed in at least one of the interview years.
+- A total of `r nint_all` were done between $2006 - 2015$.
+- There are `r nhhid` households, interviewed in at least one of the interview years.
 
 ### Variables
 
@@ -386,9 +402,9 @@ datatable(tab_freq, options = list(pageLength = 20), rownames = FALSE)
 
 **Logit scale**
 
-<a href="./git_push/washPredEffects_plots.Rout.pdf" target="_blank">Click here to open</a>
+[Click here to open](./washPredEffects_plots.Rout.pdf)
 
 
 **Response scale**
 
-<a href="./git_push/washPredEffects_Resp_plots.Rout.pdf" target="_blank">Click here to open</a>
+[Click here to open](./washPredEffects_Resp_plots.Rout.pdf)

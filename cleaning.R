@@ -14,30 +14,6 @@ load("globalFunctions.rda")
 load("missingCategory_summary.rda")
 load("generateLabels.rda")
 
-#### ---- Filter completed interviews ----
-
-## Interview termination vars
-
-working_df <- (working_df
-	%>% filter(intvwresult=="completed")
-	%>% group_by(hhid_anon, intvwyear)
-	%>% mutate(nn = n()
-		, intvwdate = as.Date(intvwdate)
-		, keep = ifelse(nn==1|intvwdate==max(intvwdate), 1, 0)
-	)
-	%>% ungroup()
-)
-
-## More than 1 HH interview per year
-tab_intperyear <- as.data.frame(table(working_df$nn))
-print(tab_intperyear)
-
-## Keep latest interview per HH per year
-working_df <- (working_df
-	%>% filter(keep==1)
-	%>% select(-nn, -keep)
-)
-
 #### ---- Key variables ----
 
 ## ID vars
@@ -186,13 +162,23 @@ working_df <- (left_join(working_df
 		, by = "inc30days_total"
 	)
 	%>% mutate_at("inc30days_total_new", function(x){
-		factor(x
-			, levels = c("<KES 1,000", "KES 1,000-2,499", "KES 2,500-4,999", "KES 5,000-7,499", "KES 7,500-9,999", "KES 10,000-14,999", "KES 15,000-19,999", "KES 20,000+", "missing:impute")
-			, labels = c("<1,000", "1,000-2,499", "2,500-4,999", "5,000-7,499", "7,500-9,999", "10,000-14,999", "15,000-19,999", "20,000+", "missing:impute")
-#			, ordered = TRUE
-		)
+		ifelse(grepl("^miss", x), 999999, as.numeric(x))
 	})
 )
+
+#working_df <- (left_join(working_df
+#		, inc30days_labs
+#		, by = "inc30days_total"
+#	)
+#	%>% mutate_at("inc30days_total_new", function(x){
+#		factor(x
+#			, levels = c("<KES 1,000", "KES 1,000-2,499", "KES 2,500-4,999", "KES 5,000-7,499", "KES 7,500-9,999", "KES 10,000-14,999", "KES 15,000-19,999", "KES 20,000+", "missing:impute")
+#			, labels = c("<1,000", "1,000-2,499", "2,500-4,999", "5,000-7,499", "7,500-9,999", "10,000-14,999", "15,000-19,999", "20,000+", "missing:impute")
+##			, ordered = TRUE
+#		)
+#	})
+#)
+
 
 #### Household income tabs
 tab_vars <- paste0("inc30days_total", "_new")

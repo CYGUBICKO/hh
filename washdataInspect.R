@@ -35,7 +35,7 @@ str(wash_df)
 ## Scale numeric variables
 scale_vars <- c("year_scaled", "age", "hhsize_scaled", "selfrating"
 	, "dwelling_index", "ownership_index", "shocks_index"
-	, "expenditure_index"
+	, "total_expenditure"
 )
 
 scaled_df <- scale(wash_df[, scale_vars])
