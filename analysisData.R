@@ -57,7 +57,7 @@ head(var_groups_df)
 ## Factor the binary variables and count the number of NAs per case
 working_df <- (working_df
 	%>% mutate_at(c(ownership_group_vars, problems_group_vars), as.factor)
-	%>% mutate(totalNA = round(rowSums(is.na(.)|.=="missing:impute"|.==999999)/ncol(.) * 100, 3))
+	%>% mutate(totalNA = round(rowSums(is.na(.)|.=="missing:impute"|.==999999|.==9999995|.=="9999995"|.=="999999")/ncol(.) * 100, 3))
 )
 
 miss_percase_df <- as.data.frame(table(working_df$totalNA))

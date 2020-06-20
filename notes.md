@@ -1,3 +1,9 @@
+2020 Jun 16 (Tue)
+----------------------------------------------------------------------
+
+- Remove all the initial years (2002 - 2005)
+- Select only we care about for the analysis and then compute the missingness
+
 
 2020 Jun 09 (Tue)
 ----------------------------------------------------------------------

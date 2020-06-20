@@ -1,0 +1,114 @@
+---
+title: 'Report: Missing data'
+author: "Steve and Jonathan"
+date: " `r as.Date(Sys.time())` "
+output:
+  html_document:
+    fig_caption: yes
+---
+
+
+```{r setup, include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(echo = FALSE
+	, warning = FALSE
+	, message = FALSE
+	, fig.width = 10
+	, fig.height = 10
+	, fig.align="center"
+	, results = "asis")
+options(width = 12)
+
+library(ggplot2)
+theme_set(theme_bw() +
+	theme(panel.spacing=grid::unit(0,"lines")))
+
+library(forcats)
+library(ggpubr)
+
+library(dplyr)
+library(DT)
+library(scales)
+library(dotwhisker)
+library(ggstance)
+library(corrplot)
+library(lme4)
+library(splines)
+
+load("analysis_variables.rda")
+load("overall_missing_tables.rda")
+source("../funs/ggplot_theme.R"); ggtheme()
+
+```
+
+## Missing data
+
+-  $2002 - 2005$ are excluded from the analysis
+- APHRC categorized missing data as follows ([See](./docs/ddi-documentation-english-54.pdf)):
+	- `missing:impute`: Missing information and can be imputed
+	- `refused`: Assigned to any variable where the respondent refused to answer or participate
+	- `Don't know`: Assigned to any variables where the respondent did not know the answer
+	- `NIU (not in universe)`: Assigned to any variable where the unit (in this case, household) is not in the universe/are not eligible to answer the question
+
+- To handle missing data:
+	- Any entry falling in any of the missing data category outlined above is recoded as `NA` 
+	- All variables with at least $30\%$ missing values are marked `Yes (miss_over30percent)` and may be excluded
+
+
+\vspace*{2cm}
+****
+
+
+```{r}
+miss_df2 <- (miss_df
+	%>% arrange(total_prop, desc(miss_over30percent))
+)
+datatable(miss_df2, options = list(pageLength = 50), rownames = FALSE)
+```
+
+\vspace*{2cm}
+****
+
+- The table below shows the percentage of missingness per case. Complete cases used for analysis are `r miss_percase_df$Freq[miss_percase_df$Var1==0]`, representing `r percent(miss_percase_df$Freq[miss_percase_df$Var1==0]/sum(miss_percase_df$Freq))` of all the cases ($2006 - 2015$).
+
+```{r}
+colnames(miss_percase_df) <- c("Percent miss per case", "Number of cases")
+datatable(miss_percase_df, rownames = FALSE)
+```
+
+\vspace*{2cm}
+****
+
+
+\vspace*{2cm}
+****
+
+```{r}
+tab_freq <- (as.data.frame(miss_peryear_df)
+	%>% tidyr::spread(Var2, Freq)
+	%>% select(-c("2002", "2003", "2004", "2005"))
+	%>% data.table::setnames("Var1", "Percent Miss")
+)
+datatable(tab_freq, options = list(pageLength = 20), rownames = FALSE)
+```
+
+\vspace*{2cm}
+****
+
+## Multiple interviews per household per year
+
+- According to APHRC, there should be only 1 interview per household per year. However, we found a few cases which had multiple interviews. See the table below
+
+
+```{r}
+tab_freq <- (as.data.frame(tab_intperyear)
+	%>% data.table::setnames(c("Var1", "Freq"), c("Interviews per HH per year", "Total"))
+)
+datatable(tab_freq, options = list(pageLength = 20), rownames = FALSE)
+```
+
+\vspace*{2cm}
+****
+
+- In households where there are more than 1 interviews, we select the last interview based on interview date.
+
+

@@ -16,9 +16,9 @@ load("loadData.rda")
 #### ---- Filter completed interviews ----
 
 ## Interview termination vars
-
+years_drop <- c("2002", "2003", "2004", "2005")
 working_df <- (working_df
-	%>% filter(intvwresult=="completed")
+	%>% filter(intvwresult=="completed" & (!intvwyear %in% years_drop))
 	%>% group_by(hhid_anon, intvwyear)
 	%>% mutate(nn = n()
 		, intvwdate = as.Date(intvwdate)
@@ -68,7 +68,7 @@ miss_category_summary <- (miss_category_summary
 miss_category_summary <- (codebook
 	%>% full_join(miss_category_summary, by = "variable")
 	%>% rowwise()
-	%>% mutate(Total = sum(miss_impute, refused, dont_know, NIU, NAs))
+	%>% mutate(Total = sum(miss_impute, refused, dont_know, NIU, NAs, na.rm = TRUE))
 	%>% arrange(desc(Total))
 )
 miss_category_summary
