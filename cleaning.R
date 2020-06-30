@@ -145,8 +145,20 @@ rentorown_tabs <- data.frame(rentorown_tabs)
 hhposes_vars <- grep("^own", colnames(working_df), value = TRUE)
 working_df <- (working_df
 	%>% mutate_at(hhposes_vars, .funs = list(new = function(x){
-			ifelse(grepl("^don|^NIU|^refuse", x), NA, as.character(x))
+			ifelse(grepl("^don|^refuse", x), NA, as.character(x))
 		})
+	)
+)
+
+## Recode NIU in livestock ownership follow-up questions to "no"
+hhposes_vars_livestock <- grep("\\_new$", grep("^own\\_", colnames(working_df), value = TRUE), value = TRUE)
+working_df <- (working_df
+	%>% mutate(own_cattle_new = ifelse(ownlivestock_new == "no" & grepl("^NIU", own_cattle_new), "no", own_cattle_new)
+		, own_goatsheep_new = ifelse(ownlivestock_new == "no" & grepl("^NIU", own_goatsheep_new), "no", own_goatsheep_new)
+		, own_pig_new = ifelse(ownlivestock_new == "no" & grepl("^NIU", own_pig_new), "no", own_pig_new)
+		, own_chicken_new = ifelse(ownlivestock_new == "no" & grepl("^NIU", own_chicken_new), "no", own_chicken_new)
+		, own_donkey_new = ifelse(ownlivestock_new == "no" & grepl("^NIU", own_donkey_new), "no", own_donkey_new)
+		, own_other_new = ifelse(ownlivestock_new == "no" & grepl("^NIU", own_other_new), "no", own_other_new)
 	)
 )
 
@@ -162,7 +174,7 @@ working_df <- (left_join(working_df
 		, by = "inc30days_total"
 	)
 	%>% mutate_at("inc30days_total_new", function(x){
-		ifelse(grepl("^miss", x), 999999, as.numeric(x))
+		ifelse(grepl("^miss", x), 9999995, as.numeric(x))
 	})
 )
 
@@ -189,8 +201,9 @@ inc30days_total_tabs <- data.frame(inc30days_total_tabs)
 hhexpense_vars <- grep("^expend\\_", colnames(working_df), value = TRUE)
 working_df <- (working_df
 	%>% mutate_at(hhexpense_vars, .funs = list(new = function(x){
-			ifelse(grepl("^don|^NIU|^refuse", x), NA
-				, ifelse(grepl("^miss", x), 999999, as.numeric(as.character(x)))
+			ifelse(grepl("^other", x), NA
+				, ifelse(grepl("^NIU|^don|^refuse", x), 0
+					,	ifelse(grepl("^miss",x) , 9999995, as.numeric(as.character(x))))
 			)
 		})
 	)
@@ -217,7 +230,7 @@ grewcrops_tabs <- data.frame(grewcrops_tabs)
 b4special_vars <- "b4specevent2days_meals"
 working_df <- (working_df
 	%>% mutate(b4specevent2days_meals_new = ifelse(grepl("^don|^NIU|^refuse", b4specevent2days_meals), NA
-			, ifelse(grepl("^miss", b4specevent2days_meals), 999999, as.numeric(as.character(b4specevent2days_meals)))
+			, ifelse(grepl("^miss", b4specevent2days_meals), 9999995, as.numeric(as.character(b4specevent2days_meals)))
 		)
 	)
 )
@@ -263,18 +276,36 @@ tab_vars <- paste0(prob_vars, "_new")
 prob_tabs <- t(sapply(working_df[, tab_vars, drop = FALSE], function(x){table(x, useNA = "always")}))
 prob_tabs <- data.frame(prob_tabs)
 
-#### Household expenditure in KES
+#### Household number of problems
 numprob_vars <- grep("^numprob\\_", colnames(working_df), value = TRUE)
 working_df <- (working_df
 	%>% mutate_at(numprob_vars, .funs = list(new = function(x){
-			ifelse(grepl("^don|^NIU|^refuse", x), NA
-				, ifelse(grepl("^miss", x), 999999, as.numeric(as.character(x)))
+			ifelse(grepl("^don|^refuse", x), NA
+				, ifelse(grepl("^miss", x), 9999995, as.character(x))
 			)
 		})
 	)
 )
 
-#### HH expenditure tabs
+### Recode NIU in numprobs if problem == "no"
+working_df <- (working_df
+	%>% mutate(numprob_fire_new = ifelse(grepl("^NIU", numprob_fire_new) & prob_fire_new=="no", 0, as.numeric(as.character(numprob_fire_new)))
+		, numprob_flood_new = ifelse(grepl("^NIU", numprob_flood_new) & prob_flood_new=="no", 0, as.numeric(as.character(numprob_flood_new)))
+		, numprob_mugging_new = ifelse(grepl("^NIU", numprob_mugging_new) & prob_mugging_new=="no", 0, as.numeric(as.character(numprob_mugging_new)))
+		, numprob_theft_new = ifelse(grepl("^NIU", numprob_theft_new) & prob_theft_new=="no", 0, as.numeric(as.character(numprob_theft_new)))
+		, numprob_eviction_new = ifelse(grepl("^NIU", numprob_eviction_new) & prob_eviction_new=="no", 0, as.numeric(as.character(numprob_eviction_new)))
+		, numprob_demolition_new = ifelse(grepl("^NIU", numprob_demolition_new) & prob_demolition_new=="no", 0, as.numeric(as.character(numprob_demolition_new)))
+		, numprob_illness_new = ifelse(grepl("^NIU", numprob_illness_new) & prob_illness_new=="no", 0, as.numeric(as.character(numprob_illness_new)))
+		, numprob_death_new = ifelse(grepl("^NIU", numprob_death_new) & prob_death_new=="no", 0, as.numeric(as.character(numprob_death_new)))
+		, numprob_rape_new = ifelse(grepl("^NIU", numprob_rape_new) & prob_rape_new=="no", 0, as.numeric(as.character(numprob_rape_new)))
+		, numprob_stabbing_new = ifelse(grepl("^NIU", numprob_stabbing_new) & prob_stabbing_new=="no", 0, as.numeric(as.character(numprob_stabbing_new)))
+		, numprob_layoff_new = ifelse(grepl("^NIU", numprob_layoff_new) & prob_layoff_new=="no", 0, as.numeric(as.character(numprob_layoff_new)))
+
+	
+	)
+)
+
+#### HH number of problems tabs
 tab_vars <- paste0(numprob_vars, "_new")
 numprob_tabs <- sapply(working_df[, tab_vars, drop = FALSE], function(x){as.data.frame(table(x, useNA = "always"))}
 	, simplify = FALSE
@@ -290,7 +321,7 @@ working_df <- (left_join(working_df
 	%>% mutate(selfrating_new = as.numeric(selfrating_new))
 )
 
-#### HH expenditure tabs
+#### HH self-rating tabs
 tab_vars <- paste0("selfrating", "_new")
 selfrating_tabs <- sapply(working_df[, tab_vars, drop = FALSE], function(x){table(x, useNA = "always")})
 

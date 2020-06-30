@@ -13,7 +13,9 @@ expenditure_df <- (working_df_complete
 	%>% mutate(total_expenditure = rowSums(., na.rm = TRUE))
 )
 str(expenditure_df)
+
 total_expenditure <- drop(expenditure_df[["total_expenditure"]])
+summary(total_expenditure)
 
 save(file = "expenditure_index.rda"
 	, total_expenditure

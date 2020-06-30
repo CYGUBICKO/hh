@@ -1,0 +1,103 @@
+---
+title: 'Report: Variables for analysis'
+author: "Steve and Jonathan"
+date: " `r as.Date(Sys.time())` "
+output:
+  html_document:
+    fig_caption: yes
+---
+
+
+```{r setup, include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(echo = FALSE
+	, warning = FALSE
+	, message = FALSE
+	, fig.width = 10
+	, fig.height = 10
+	, fig.align="center"
+	, results = "asis")
+options(width = 12)
+
+library(ggplot2)
+theme_set(theme_bw() +
+	theme(panel.spacing=grid::unit(0,"lines")))
+
+library(forcats)
+library(ggpubr)
+
+library(dplyr)
+library(DT)
+library(scales)
+library(dotwhisker)
+library(ggstance)
+library(corrplot)
+library(lme4)
+library(splines)
+
+load("analysis_variables.rda")
+load("overall_missing_tables.rda")
+load("washdataInspect_plots.rda")
+source("../funs/ggplot_theme.R"); ggtheme()
+
+```
+
+
+## Missing data
+
+- Questions checked for valid NIUs:
+	- A follow up question with particular skip pattern
+	- Expenditure questions recoded to zero
+- Invalid NIUs (does not fall in any above) recoded to NA
+- Don't knows and refused to answer all recoded to NAs:
+
+- Table below summarizes variables (those with more than 10\% missing already excluded) to be used for the analysis and the missingness proportions after the corrections above.
+
+\vspace*{2cm}
+****
+
+```{r}
+datatable(var_groups_df, options = list(pageLength = 50), rownames = FALSE)
+```
+
+\vspace*{2cm}
+****
+
+
+## Complete cases
+
+- A total of `r nint_all` were done between $2006 - 2015$.
+- There are `r nhhid` households, interviewed in at least one of the interview years.
+- Complete cases for analysis are `r nint_all`, representing `r percent(miss_percase_df$Freq[miss_percase_df$Var1==0]/sum(miss_percase_df$Freq))` of all the cases ($2006 - 2015$).
+
+```{r}
+colnames(miss_percase_df) <- c("Percent miss per case", "Number of cases")
+datatable(miss_percase_df, rownames = FALSE)
+```
+
+\vspace*{2cm}
+****
+
+## Derived predictors
+
+**Dwelling index**:
+
+- **PCA**: [Click here to open](./git_push/dwelling_pca_plot.Rout.pdf)
+
+- **MCA**: [Click here to open](./git_push/dwelling_mca_plot.Rout.pdf)
+
+**Ownership index**
+
+- **Logistic PCA**: [Click here to open](./git_push/ownership_lpca_plot.Rout.pdf)
+
+- **Gaussian PCA**: [Click here to open](./git_push/ownership_gpca_plot.Rout.pdf)
+
+**Total expenditure**
+
+- **Summation**: [Click here to open](./git_push/expenditure_index_plot.Rout.pdf)
+
+
+**Problems/shocks**
+
+- **Summation**: [Click here to open](./git_push/problems_index_plot.Rout.pdf)
+
+

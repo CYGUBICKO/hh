@@ -8,11 +8,12 @@ library(tibble)
 library(tidyr)
 
 load("cleaning.rda")
+load("missing_after_cleaning.rda")
 load("globalFunctions.rda")
 
 
 #### Proportion of missingness to drop variables
-drop_miss <- 30	# Drop all variables with more than 30% missing
+drop_miss <- 10	# Drop all variables with more than 30% missing
 drop_vars <- c(miss_df_temp$variable[miss_df_temp$miss_prop>=drop_miss], "expend_total_USD_per_new")
 
 #### Variables to be used for analysis
@@ -32,27 +33,37 @@ dwelling_group_vars <- c("floormaterial", "roofmaterial"
 dwelling_group_vars <- paste0(dwelling_group_vars, "_new")
 
 ## Ownership
-ownership_group_vars <- grep("^ownhere\\_|^ownelse\\_|^ownlivestock|^grewcrops\\_", all_vars, value = TRUE)
+ownership_group_vars <- grep("^ownhere\\_|^ownelse\\_|^own\\_|^grewcrops\\_", all_vars, value = TRUE)
 
 ## Expenditure
 expenditure_group_vars <- grep("^expend\\_", all_vars, value = TRUE)
 
 ## Problems experienced
-problems_group_vars <- grep("^prob\\_", all_vars, value = TRUE)
+problems_group_vars <- grep("^numprob\\_", all_vars, value = TRUE)
 
 
 # Summary of groups
-var_groups_df <- (data.frame(variables = colnames(working_df))
-	%>% mutate(group = ifelse(variables %in% ownership_group_vars, "Ownership"
-			, ifelse(variables %in% expenditure_group_vars, "Expenditure"
-				, ifelse(variables %in% problems_group_vars, "Shocks/problems"
-					, as.character(variables)
+ignore_vars <- c("ownlivestock_new", grep("^prob\\_", colnames(working_df), value = TRUE))
+var_groups_df <- (data.frame(variable = colnames(working_df)[!colnames(working_df) %in% ignore_vars])
+	%>% mutate(group = ifelse(variable %in% ownership_group_vars, "Ownership"
+			, ifelse(variable %in% expenditure_group_vars, "Expenditure"
+				, ifelse(variable %in% problems_group_vars, "Shocks/problems"
+					, ifelse(variable %in% dwelling_group_vars, "Dwelling"
+						, ifelse(grepl("^drinkwatersource|^toilet|^garbaged", variable), "Response"
+							, ifelse(grepl("^slumarea|^ageyears|^gender|^numpeople|^intvwyear", variable), "Demographic", as.character(variable))))
 				)
 			)
 		)
+		, group = ifelse(grepl("^hhid_anon", group), "id"
+			, ifelse(grepl("^foodeaten30days", group), "Food consumption"
+				, ifelse(grepl("^inc30days_total", group), "Income"
+					, ifelse(grepl("^selfrating", group), "Selff rating",  as.character(group))))
+		)
+		, variable = gsub("\\_new", "", variable)
 	)
+	%>% left_join(miss_after_category_summary, by = "variable")
 )
-head(var_groups_df)
+head(var_groups_df, 200)
 
 ## Factor the binary variables and count the number of NAs per case
 working_df <- (working_df
@@ -78,7 +89,12 @@ impute_na <- nrow(working_df) - nrow(working_df_complete)
 working_df_complete <- (working_df_complete
 	%>% mutate(impute_cases = ifelse(imputeCase(., patterns = "missing:impute"), 1, 0))
    %>% mutate_at(colnames(.), function(x)na_if(x, "missing:impute"))
+   %>% mutate_at(colnames(.), function(x)na_if(x, "999996"))
    %>% mutate_at(colnames(.), function(x)na_if(x, "999999"))
+   %>% mutate_at(colnames(.), function(x)na_if(x, "999997"))
+   %>% mutate_at(colnames(.), function(x)na_if(x, "999998"))
+   %>% mutate_at(colnames(.), function(x)na_if(x, "9999995"))
+   %>% mutate_at(colnames(.), function(x)na_if(x, "NIU (not in universe)"))
    %>% droplevels()
 	%>% na.omit()
 	%>% data.frame()

@@ -12,6 +12,7 @@ load("analysisData.rda")
 ## Dwelling data
 dwelling_df <- (working_df_complete
 	%>% select(!!dwelling_group_vars)
+	%>% mutate_all(as.factor)
 	%>% data.frame()
 )
 

@@ -65,6 +65,7 @@ hhWashcompare.xlsx: hhWashcompare.Rout;
 cleaning_plots.Rout: cleaning_plots.R
 
 # Select variables to be used for analysis only
+missing_after_cleaning.Rout: missing_after_cleaning.R
 analysisData.Rout: analysisData.R
 analysis_variables.Rout: analysis_variables.R
 # analysis_variables.xlsx: analysis_variables.Rout;
@@ -82,16 +83,22 @@ dwelling_mca_plot.Rout.pdf.gp: dwelling_mca_plot.R
 # Logistic PCA
 
 ## Assets ownership index
-ownership_pca.Rout: ownership_pca.R
-ownership_pca_plot.Rout.pdf.gp: ownership_pca_plot.R
+ownership_lpca.Rout: ownership_lpca.R
+ownership_lpca_plot.Rout.pdf.gp: ownership_lpca_plot.R
+
+# Gaussian PCA
+ownership_gpca.Rout: ownership_gpca.R
+ownership_gpca_plot.Rout.pdf.gp: ownership_gpca_plot.R
 
 # Count
 ## Shocks/problems index
 problems_index.Rout: problems_index.R
+problems_index_plot.Rout.pdf.gp: problems_index_plot.R
 
 # PCA
 ## Expenditure index
 expenditure_index.Rout: expenditure_index.R
+expenditure_index_plot.Rout.pdf.gp: expenditure_index_plot.R
 
 # Select variables to be used in analysis and add indices variables - New wash data
 washData.Rout: washData.R
@@ -142,6 +149,7 @@ washPredEffects_Resp_plots.Rout.pdf.gp: washPredEffects_Resp_plots.R
 ## Data documentation
 dataprep_doc.html.gp: dataprep_doc.rmd
 missing_data_report.html.gp: missing_data_report.rmd
+predictors_report.html.gp: predictors_report.rmd
 
 ######################################################################
 

@@ -221,7 +221,7 @@ oldpatterns <- c("^very poor"
 	, "^miss"
 	, "^NIU|refused|^don"
 )
-newlabs <- c("1", "10", "999999", NA)
+newlabs <- c("1", "10", "9999995", NA)
 
 selfrating_labs <- genlabsCodes(df = working_df
 	, var = selfrating_vars

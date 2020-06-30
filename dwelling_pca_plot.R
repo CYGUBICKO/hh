@@ -54,7 +54,7 @@ dwelling_garbage_pc_plot <- (autoplot(dwelling_pca
 	+ geom_vline(xintercept = 0, lty = 2, colour = "gray")
 	+ geom_hline(yintercept = 0, lty = 2, colour = "gray")
 )
-print(dwelling_garbage_pc_plot)
+# print(dwelling_garbage_pc_plot)
 
 ### Garbage disposal
 dwelling_toilet_pc_plot <- (autoplot(dwelling_pca
@@ -73,7 +73,7 @@ dwelling_toilet_pc_plot <- (autoplot(dwelling_pca
 	+ geom_vline(xintercept = 0, lty = 2, colour = "gray")
 	+ geom_hline(yintercept = 0, lty = 2, colour = "gray")
 )
-print(dwelling_toilet_pc_plot)
+# print(dwelling_toilet_pc_plot)
 
 save(file = "dwelling_pca_plot.rda"
 	, dwelling_explained_plot

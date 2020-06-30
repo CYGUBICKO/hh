@@ -14,9 +14,11 @@ load("analysisData.rda")
 ## Shocks/problems data
 problems_df <- (working_df_complete
 	%>% select(!!problems_group_vars)
-	%>% mutate_all(function(x){ifelse(x=="yes", 1, ifelse(x=="no", 0, NA))})
+	%>% mutate_all(function(x){as.numeric(as.character(x))})
 	%>% mutate(shocks = rowSums(., na.rm = TRUE))
 )
+str(problems_df)
+sapply(problems_df, table)
 
 problems_index <- drop(problems_df[["shocks"]])
 summary(problems_index)
