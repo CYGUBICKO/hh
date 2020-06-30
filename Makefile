@@ -21,8 +21,18 @@ Sources += Makefile rmd.mk
 ## ln -s ~/Dropbox/aphrc/wash/data washdata ##
 Ignore += data docs washdata
 
+## cygufuns
+Makefile: funs
+
+funs:
+	git clone https://github.com/cygubicko/funs.git
+
+Ignore += funs
+alldirs += funs
+
 ######################################################################
 
+## Why do you need this?
 # Define all important R-functions in one file
 globalFunctions.Rout: globalFunctions.R
 
