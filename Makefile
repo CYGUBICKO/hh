@@ -147,9 +147,11 @@ washPredEffects_Resp.Rout: washPredEffects_Resp.R
 washPredEffects_Resp_plots.Rout.pdf.gp: washPredEffects_Resp_plots.R
 
 ## Data documentation
-dataprep_doc.html.gp: dataprep_doc.rmd
-missing_data_report.html.gp: missing_data_report.rmd
-predictors_report.html.gp: predictors_report.rmd
+## dataprep_doc.html.gp: dataprep_doc.rmd
+## missing_data_report.html.gp: missing_data_report.rmd
+## predictors_report.html.gp: predictors_report.rmd
+
+## predictors_report.html: predictors_report.rmd
 
 ######################################################################
 
