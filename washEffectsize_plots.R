@@ -7,7 +7,7 @@
 library(ggplot2)
 library(dplyr)
 
-source("../funs/ggplot_theme.R"); ggtheme()
+source("funs/ggplot_theme.R"); ggtheme()
 
 load("washTidyestimates.rda")
 

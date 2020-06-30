@@ -32,6 +32,8 @@ alldirs += funs
 
 ######################################################################
 
+test.Rout: test.R
+
 ## Why do you need this?
 # Define all important R-functions in one file
 globalFunctions.Rout: globalFunctions.R

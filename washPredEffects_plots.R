@@ -15,9 +15,8 @@ library(effects)
 library(lme4)
 library(splines)
 
-source("../funs/ggplot_theme.R"); ggtheme()
+source("funs/ggplot_theme.R"); ggtheme()
 load("washPredEffects.rda")
-
 
 ### Plot effects
 logist_format <- function() {

@@ -36,7 +36,7 @@ library(splines)
 
 load("analysis_variables.rda")
 load("overall_missing_tables.rda")
-source("../funs/ggplot_theme.R"); ggtheme()
+source("funs/ggplot_theme.R"); ggtheme()
 
 ```
 

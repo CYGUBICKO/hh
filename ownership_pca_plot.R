@@ -6,7 +6,7 @@
 library(dplyr)
 library(logisticPCA)
 library(ggplot2)
-source("../funs/ggplot_theme.R"); ggtheme()
+source("funs/ggplot_theme.R"); ggtheme()
 
 ## Use complete dataset
 load("analysisData.rda")

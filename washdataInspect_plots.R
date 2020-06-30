@@ -17,8 +17,8 @@ library(forcats)
 library(ggpubr)
 library(scales)
 
-source("../funs/ggplot_theme.R")
-source("../funs/effectsPlot.R")
+source("funs/ggplot_theme.R")
+source("funs/effectsPlot.R")
 
 load("washdataInspect.rda")
 

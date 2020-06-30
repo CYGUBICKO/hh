@@ -37,7 +37,7 @@ library(splines)
 load("analysis_variables.rda")
 load("overall_missing_tables.rda")
 load("washdataInspect_plots.rda")
-source("../funs/ggplot_theme.R"); ggtheme()
+source("funs/ggplot_theme.R"); ggtheme()
 
 ```
 
@@ -81,23 +81,23 @@ datatable(miss_percase_df, rownames = FALSE)
 
 **Dwelling index**:
 
-- **PCA**: [Click here to open](./git_push/dwelling_pca_plot.Rout.pdf)
+- **PCA**: [Click here to open](./dwelling_pca_plot.Rout.pdf)
 
-- **MCA**: [Click here to open](./git_push/dwelling_mca_plot.Rout.pdf)
+- **MCA**: [Click here to open](./dwelling_mca_plot.Rout.pdf)
 
 **Ownership index**
 
-- **Logistic PCA**: [Click here to open](./git_push/ownership_lpca_plot.Rout.pdf)
+- **Logistic PCA**: [Click here to open](./ownership_lpca_plot.Rout.pdf)
 
-- **Gaussian PCA**: [Click here to open](./git_push/ownership_gpca_plot.Rout.pdf)
+- **Gaussian PCA**: [Click here to open](./ownership_gpca_plot.Rout.pdf)
 
 **Total expenditure**
 
-- **Summation**: [Click here to open](./git_push/expenditure_index_plot.Rout.pdf)
+- **Summation**: [Click here to open](./expenditure_index_plot.Rout.pdf)
 
 
 **Problems/shocks**
 
-- **Summation**: [Click here to open](./git_push/problems_index_plot.Rout.pdf)
+- **Summation**: [Click here to open](./problems_index_plot.Rout.pdf)
 
 

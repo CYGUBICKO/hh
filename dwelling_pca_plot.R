@@ -7,7 +7,7 @@ library(dplyr)
 library(factoextra)
 library(ggplot2)
 library(ggfortify)
-source("../funs/ggplot_theme.R"); ggtheme()
+source("funs/ggplot_theme.R"); ggtheme()
 
 ## Use complete dataset
 load("analysisData.rda")
