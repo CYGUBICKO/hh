@@ -1,8 +1,9 @@
 ---
 title: 'Report: WaSH data preparation'
 author: "Steve and Jonathan"
-date: " `r as.Date(Sys.time())` "
+date: ' `r as.Date(Sys.time())` '
 output:
+  word_document: default
   html_document:
     fig_caption: yes
 ---
@@ -40,13 +41,13 @@ source("funs/ggplot_theme.R"); ggtheme()
 load("washdataInspect_plots.rda")
 ```
 
-## Concerns with APHRC approach
+<!-- ## Concerns with APHRC approach -->
 
-**Construction of indices**
+<!-- **Construction of indices** -->
 
-- Source of drinking water, type of toilet and toilet facilities, which are the response, were used in the construction of indices e.g., wealth index. [See](../docs/aphrc_wealth_index_construct_Rutstein.pdf).
+<!-- - Source of drinking water, type of toilet and toilet facilities, which are the response, were used in the construction of indices e.g., wealth index. [See](../docs/aphrc_wealth_index_construct_Rutstein.pdf). -->
 
-## Our choices
+<!-- ## Our choices -->
 
 ### Response variables
 
@@ -130,12 +131,10 @@ See summary tables in `compareCalculations.xlsx` in the Makefile
 		- Free - **2**
 		- Others (belongs to/rent paid by relative/friend, belongs to/rent paid by employer, caretaker/security, belongs to/rent paid by religious entity) - **1**
 
-- Dwelling index is derived from 
-	- **PCA**: [Click here to open](./dwelling_pca_plot.Rout.pdf)
-	- **MCA**: [Click here to open](./dwelling_mca_plot.Rout.pdf)
+- Dwelling index is derived from the first principal component score of logistic PCA based on dummy indicator variables generated from these variables.
 
-the first principal component score of logistic PCA based on dummy indicator variables generated from these variables.
-
+	<!-- - **PCA**: [Click here to open](./dwelling_pca_plot.Rout.pdf) -->
+	<!-- - **MCA**: [Click here to open](./dwelling_mca_plot.Rout.pdf) -->
 
 **Assets ownership index**
 
@@ -153,7 +152,7 @@ the first principal component score of logistic PCA based on dummy indicator var
 	----------------------------------------------------------------------
 
 - Logistic PCA is performed and first PC scores are used as a proxy for assets ownership index.
-	- **Logistic PCA**: [Click here to open](./ownership_pca_plot.Rout.pdf)
+	<!-- - **Logistic PCA**: [Click here to open](./ownership_pca_plot.Rout.pdf) -->
 
 
 **Household income**
@@ -204,207 +203,207 @@ the first principal component score of logistic PCA based on dummy indicator var
 - On a scale of 1 (poorest) - 10 (richest), how does the household compare to others in the community.
 
 
-## Missing data
+<!-- ## Missing data -->
 
-- APHRC categorized missing data as follows ([See](./docs/ddi-documentation-english-54.pdf)):
-	- `missing:impute`: Missing information and can be imputed
-	- `refused`: Assigned to any variable where the respondent refused to answer or participate
-	- `Don't know`: Assigned to any variables where the respondent did not know the answer
-	- `NIU (not in universe)`: Assigned to any variable where the unit (in this case, household) is not in the universe/are not eligible to answer the question
+<!-- - APHRC categorized missing data as follows ([See](./docs/ddi-documentation-english-54.pdf)): -->
+<!-- 	- `missing:impute`: Missing information and can be imputed -->
+<!-- 	- `refused`: Assigned to any variable where the respondent refused to answer or participate -->
+<!-- 	- `Don't know`: Assigned to any variables where the respondent did not know the answer -->
+<!-- 	- `NIU (not in universe)`: Assigned to any variable where the unit (in this case, household) is not in the universe/are not eligible to answer the question -->
 
-- To handle missing data:
-	- Any entry falling in any of the missing data category outlined above is recoded as `NA` 
-	- All variables with at least $30\%$ missing values are excluded and then any case with missing values in any of the remaining variables are excluded
+<!-- - To handle missing data: -->
+<!-- 	- Any entry falling in any of the missing data category outlined above is recoded as `NA`  -->
+<!-- 	- All variables with at least $30\%$ missing values are excluded and then any case with missing values in any of the remaining variables are excluded -->
 
 
-\vspace*{2cm}
-****
+<!-- \vspace*{2cm} -->
+<!-- **** -->
 
-```{r}
-datatable(miss_category_summary_df, rownames = FALSE)
-```
+<!-- ```{r} -->
+<!-- datatable(miss_category_summary_df, rownames = FALSE) -->
+<!-- ``` -->
 
-- Missing proportion for all the missing categories except `missing:impute`.
+<!-- - Missing proportion for all the missing categories except `missing:impute`. -->
 
-\vspace*{2cm}
-****
+<!-- \vspace*{2cm} -->
+<!-- **** -->
 
-```{r}
-datatable(miss_df, rownames = FALSE)
-```
+<!-- ```{r} -->
+<!-- datatable(miss_df, rownames = FALSE) -->
+<!-- ``` -->
 
-\vspace*{2cm}
-****
+<!-- \vspace*{2cm} -->
+<!-- **** -->
 
-- The table below shows the percentage of missingness per case. Complete cases used for analysis are `r miss_percase_df$Freq[miss_percase_df$Var1==0]`, representing `r percent(miss_percase_df$Freq[miss_percase_df$Var1==0]/sum(miss_percase_df$Freq))` of all the cases.
+<!-- - The table below shows the percentage of missingness per case. Complete cases used for analysis are `r miss_percase_df$Freq[miss_percase_df$Var1==0]`, representing `r percent(miss_percase_df$Freq[miss_percase_df$Var1==0]/sum(miss_percase_df$Freq))` of all the cases. -->
 
-```{r}
-colnames(miss_percase_df) <- c("Percent miss per case", "Number of cases")
-datatable(miss_percase_df, rownames = FALSE)
-```
+<!-- ```{r} -->
+<!-- colnames(miss_percase_df) <- c("Percent miss per case", "Number of cases") -->
+<!-- datatable(miss_percase_df, rownames = FALSE) -->
+<!-- ``` -->
 
-\vspace*{2cm}
-****
+<!-- \vspace*{2cm} -->
+<!-- **** -->
 
-- For the selected variables, most missing cases are in the years $2002 - 2005$, consequently, exclusion criteria above excludes these years. 
+<!-- - For the selected variables, most missing cases are in the years $2002 - 2005$, consequently, exclusion criteria above excludes these years.  -->
 
-\vspace*{2cm}
-****
+<!-- \vspace*{2cm} -->
+<!-- **** -->
 
-```{r}
-tab_freq <- (as.data.frame(miss_peryear_df)
-	%>% tidyr::spread(Var2, Freq)
-	%>% data.table::setnames("Var1", "Percent Miss")
-)
-datatable(tab_freq, options = list(pageLength = 20), rownames = FALSE)
-```
+<!-- ```{r} -->
+<!-- tab_freq <- (as.data.frame(miss_peryear_df) -->
+<!-- 	%>% tidyr::spread(Var2, Freq) -->
+<!-- 	%>% data.table::setnames("Var1", "Percent Miss") -->
+<!-- ) -->
+<!-- datatable(tab_freq, options = list(pageLength = 20), rownames = FALSE) -->
+<!-- ``` -->
 
-\vspace*{2cm}
-****
+<!-- \vspace*{2cm} -->
+<!-- **** -->
 
-## Multiple interviews per household per year
+<!-- ## Multiple interviews per household per year -->
 
-- According to APHRC, there should be only 1 interview per household per year. However, we found a few cases which had multiple interviews. See the table below
+<!-- - According to APHRC, there should be only 1 interview per household per year. However, we found a few cases which had multiple interviews. See the table below -->
 
 
-```{r}
-tab_freq <- (as.data.frame(tab_intperyear)
-	%>% data.table::setnames(c("Var1", "Freq"), c("Interviews per HH per year", "Total"))
-)
-datatable(tab_freq, options = list(pageLength = 20), rownames = FALSE)
-```
+<!-- ```{r} -->
+<!-- tab_freq <- (as.data.frame(tab_intperyear) -->
+<!-- 	%>% data.table::setnames(c("Var1", "Freq"), c("Interviews per HH per year", "Total")) -->
+<!-- ) -->
+<!-- datatable(tab_freq, options = list(pageLength = 20), rownames = FALSE) -->
+<!-- ``` -->
 
-\vspace*{2cm}
-****
+<!-- \vspace*{2cm} -->
+<!-- **** -->
 
-- In households where there are more than 1 interviews, we select the last interview based on interview date.
+<!-- - In households where there are more than 1 interviews, we select the last interview based on interview date. -->
 
 
-\vspace*{2cm}
-****
+<!-- \vspace*{2cm} -->
+<!-- **** -->
 
-## Incorporating service status in the previous year
+<!-- ## Incorporating service status in the previous year -->
 
-- There are two ways we can incorporate service status in the service previous year:
-	- Have two separate models: model with first observation data only; and model excluding the first year data
-	- Or, a single model but categorize the service status in the previous year
+<!-- - There are two ways we can incorporate service status in the service previous year: -->
+<!-- 	- Have two separate models: model with first observation data only; and model excluding the first year data -->
+<!-- 	- Or, a single model but categorize the service status in the previous year -->
 
-**Two separate models**
+<!-- **Two separate models** -->
 
-- To understand what data we're losing in our gain-loss model, and think about whether we should consider imputing data for missing years, we want to know for each household how many surveys have data which can't be used in the gain-loss model because the previous year is missing.
-- The first observation for any household is used in the baseline model (and never has a previous year), so we don't count these as missing.
-- For example, in the Table below, household 1 has 2 consecutive interviews, so `nprev_miss2` (truly missing previous interviews) is 0.  Household 818 has 5 interviews in total, but there is are gas between years 3 \& 5, 5 \& 7 and 7 \& 9, so `nprev_miss2` is 3. 
+<!-- - To understand what data we're losing in our gain-loss model, and think about whether we should consider imputing data for missing years, we want to know for each household how many surveys have data which can't be used in the gain-loss model because the previous year is missing. -->
+<!-- - The first observation for any household is used in the baseline model (and never has a previous year), so we don't count these as missing. -->
+<!-- - For example, in the Table below, household 1 has 2 consecutive interviews, so `nprev_miss2` (truly missing previous interviews) is 0.  Household 818 has 5 interviews in total, but there is are gas between years 3 \& 5, 5 \& 7 and 7 \& 9, so `nprev_miss2` is 3.  -->
 
-\vspace*{2cm}
-****
+<!-- \vspace*{2cm} -->
+<!-- **** -->
 
-```{R}
-datatable(prevcases_df_summary, rownames = FALSE, options = list(pageLength = 8))
-```
+<!-- ```{R} -->
+<!-- datatable(prevcases_df_summary, rownames = FALSE, options = list(pageLength = 8)) -->
+<!-- ``` -->
 
 
-\vspace*{2cm}
-****
+<!-- \vspace*{2cm} -->
+<!-- **** -->
 
-- Figure below shows the distribution of all interviews missing at least 1 interview in the previous year (first year interviews included), representing `r percent_miss_consec` of all the cases. 
+<!-- - Figure below shows the distribution of all interviews missing at least 1 interview in the previous year (first year interviews included), representing `r percent_miss_consec` of all the cases.  -->
 
 
-```{R fig.width = 5, fig.height = 5}
-print(consec_all_plot)
-```
+<!-- ```{R fig.width = 5, fig.height = 5} -->
+<!-- print(consec_all_plot) -->
+<!-- ``` -->
 
-\vspace*{2cm}
-****
+<!-- \vspace*{2cm} -->
+<!-- **** -->
 
-- Ignoring the first year interviews (`r percent_year0` which can be modeled separately), the proportion of interviews we are actually dropping due to missing preceding year interviews are `r  percent_miss_consec_noyr0 `(about `r  percent_miss_consec_noyr0_all` of all the interviews).
+<!-- - Ignoring the first year interviews (`r percent_year0` which can be modeled separately), the proportion of interviews we are actually dropping due to missing preceding year interviews are `r  percent_miss_consec_noyr0 `(about `r  percent_miss_consec_noyr0_all` of all the interviews). -->
 
-```{R, fig.width = 5, fig.height = 5}
-print(consec_noyr0_plot)
-```
+<!-- ```{R, fig.width = 5, fig.height = 5} -->
+<!-- print(consec_noyr0_plot) -->
+<!-- ``` -->
 
-\vspace*{2cm}
-****
+<!-- \vspace*{2cm} -->
+<!-- **** -->
 
 
-**A single model**
+<!-- **A single model** -->
 
-- To handle missing data problems in our gain-loss model, and to avoid fitting a separate base year model, service status in the previous year are categorized as follows:
-	- **Base year**: First household specific observational year
-	- **Not observed**: Immediate preceding year not observed
-	- **Unimproved**: Observed but unimproved service
-	- **Improved**: Observed improved service
+<!-- - To handle missing data problems in our gain-loss model, and to avoid fitting a separate base year model, service status in the previous year are categorized as follows: -->
+<!-- 	- **Base year**: First household specific observational year -->
+<!-- 	- **Not observed**: Immediate preceding year not observed -->
+<!-- 	- **Unimproved**: Observed but unimproved service -->
+<!-- 	- **Improved**: Observed improved service -->
 
-- and then a single model fitted. We use this approach.
+<!-- - and then a single model fitted. We use this approach. -->
 
-## Distribution of services
+<!-- ## Distribution of services -->
 
-- The Figure below shows the proportion of households with improved services over years. The dotted lines represent the household average for each service over the entire study period.
+<!-- - The Figure below shows the proportion of households with improved services over years. The dotted lines represent the household average for each service over the entire study period. -->
 
 
-```{R distributions1, fig.width = 7, fig.height = 8}
-print(prop_plot)
-```
+<!-- ```{R distributions1, fig.width = 7, fig.height = 8} -->
+<!-- print(prop_plot) -->
+<!-- ``` -->
 
-### No. of interviews completed by HH
+<!-- ### No. of interviews completed by HH -->
 
-- If every household was interviewed per year, we would expect $10$ interviews per household. On the contrary, over $40\%$ of the households only had $1$ interview over the entire study period.
-- Denominator is number of HH (expected number of interviews per year)
+<!-- - If every household was interviewed per year, we would expect $10$ interviews per household. On the contrary, over $40\%$ of the households only had $1$ interview over the entire study period. -->
+<!-- - Denominator is number of HH (expected number of interviews per year) -->
 
-```{R fig.width = 5, fig.height = 5}
-print(n_interviews_plot)
-```
+<!-- ```{R fig.width = 5, fig.height = 5} -->
+<!-- print(n_interviews_plot) -->
+<!-- ``` -->
 
-### No. of interviews per year
+<!-- ### No. of interviews per year -->
 
-- The Figure below shows the percentage of interviews per year.
-	- We may need to seek for clarification on low percentage in $2003$ 
+<!-- - The Figure below shows the percentage of interviews per year. -->
+<!-- 	- We may need to seek for clarification on low percentage in $2003$  -->
 
-```{R fig.width = 5, fig.height = 5}
-print(year_plot)
-```
+<!-- ```{R fig.width = 5, fig.height = 5} -->
+<!-- print(year_plot) -->
+<!-- ``` -->
 
-## Current vs previous year service status (JD: Status Quo?)
+<!-- ## Current vs previous year service status (JD: Status Quo?) -->
 
-- We track service transitions from the previous year to the current year (within households):
-	- **All -**: Service not improved both in the previous and in the current year
-	- **All +**: Improved service both in the previous and current year
-	- **No prev.**: Had no service in the previous year (missing interview in the previous year)
-	- **Gain**: Unimproved service in the previous year but improved service in the current year
-	- **Loss**: Improved service in the previous year but unimproved service in the current year
+<!-- - We track service transitions from the previous year to the current year (within households): -->
+<!-- 	- **All -**: Service not improved both in the previous and in the current year -->
+<!-- 	- **All +**: Improved service both in the previous and current year -->
+<!-- 	- **No prev.**: Had no service in the previous year (missing interview in the previous year) -->
+<!-- 	- **Gain**: Unimproved service in the previous year but improved service in the current year -->
+<!-- 	- **Loss**: Improved service in the previous year but unimproved service in the current year -->
 
-```{R fig.width = 5, fig.height = 5}
-print(status_quo_plot)
-```
+<!-- ```{R fig.width = 5, fig.height = 5} -->
+<!-- print(status_quo_plot) -->
+<!-- ``` -->
 
-## Modelling 
+<!-- ## Modelling  -->
 
-- A single model fitted with service status in the previous year categorized as described above.
-- A total of `r nint_all` were done between $2006 - 2015$.
-- There are `r nhhid` households, interviewed in at least one of the interview years.
+<!-- - A single model fitted with service status in the previous year categorized as described above. -->
+<!-- - A total of `r nint_all` were done between $2006 - 2015$. -->
+<!-- - There are `r nhhid` households, interviewed in at least one of the interview years. -->
 
-### Variables
+<!-- ### Variables -->
 
-- As described above with additional random effect term
-	- `(services-1|hhid)`
-- Fitted in `glmmTMB`. `lme4` is too slow.
+<!-- - As described above with additional random effect term -->
+<!-- 	- `(services-1|hhid)` -->
+<!-- - Fitted in `glmmTMB`. `lme4` is too slow. -->
 
 
-## Results
+<!-- ## Results -->
 
-### Effect sizes
+<!-- ### Effect sizes -->
 
-<a href="./git_push/washEffectsize_plots.Rout.pdf" target="_blank">Click here to open</a>
+<!-- <a href="./git_push/washEffectsize_plots.Rout.pdf" target="_blank">Click here to open</a> -->
 
 
-### Predictions
+<!-- ### Predictions -->
 
-- Plots are on the scale of the logit scale, but the vertical axis is labelled on the response scale. This preserves the (linear) structure of the model while permitting interpretation on the probability scale. **(Steve -> JD: Converting everything to response scale make the CI too narrow)**
+<!-- - Plots are on the scale of the logit scale, but the vertical axis is labelled on the response scale. This preserves the (linear) structure of the model while permitting interpretation on the probability scale. **(Steve -> JD: Converting everything to response scale make the CI too narrow)** -->
 
-**Logit scale**
+<!-- **Logit scale** -->
 
-[Click here to open](./washPredEffects_plots.Rout.pdf)
+<!-- [Click here to open](./washPredEffects_plots.Rout.pdf) -->
 
 
-**Response scale**
+<!-- **Response scale** -->
 
-[Click here to open](./washPredEffects_Resp_plots.Rout.pdf)
+<!-- [Click here to open](./washPredEffects_Resp_plots.Rout.pdf) -->
