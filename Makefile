@@ -15,6 +15,15 @@ Sources += Makefile rmd.mk
 
 ######################################################################
 
+## Latex plot example
+
+plots.pdf: plots.tex
+
+plots.Rout: plots.R
+
+######################################################################
+
+
 ## Loading data and defining some important functions
 ## ln -s ~/Dropbox/aphrc/hh_amen_xtics/data/ data ##
 ## ln -s ~/Dropbox/aphrc/hh_amen_xtics/docs/ docs ##
