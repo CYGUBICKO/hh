@@ -17,6 +17,7 @@ Sources += Makefile rmd.mk
 
 ## Latex plot example
 
+Sources += plots.tex
 plots.pdf: plots.tex
 
 plots.Rout: plots.R
