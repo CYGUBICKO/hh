@@ -47,6 +47,7 @@ test.Rout: test.R
 ## Why do you need this?
 # Define all important R-functions in one file
 globalFunctions.Rout: globalFunctions.R
+simplePlotsRuncs.Rout: simplePlotsRuncs.R
 
 # Read raw data
 ## loadData.rda: loadData.R
@@ -91,6 +92,9 @@ missing_after_cleaning.Rout: missing_after_cleaning.R
 analysisData.Rout: analysisData.R
 analysis_variables.Rout: analysis_variables.R
 # analysis_variables.xlsx: analysis_variables.Rout;
+
+# Descriptive statistics
+descriptive_stats.Rout: descriptive_stats.R
 
 # PCA
 
@@ -174,7 +178,7 @@ washPredEffects_Resp_plots.Rout.pdf.gp: washPredEffects_Resp_plots.R
 ## predictors_report.html.gp: predictors_report.rmd
 
 Ignore += predictors_report.html
-## predictors_report.html: predictors_report.rmd
+predictors_report.html: predictors_report.rmd
 
 #### Create word report
 #%.rmd.docx : %.rmd
