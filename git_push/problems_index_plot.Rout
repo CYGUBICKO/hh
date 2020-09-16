@@ -1,0 +1,41 @@
+
+R version 3.6.3 (2020-02-29) -- "Holding the Windsock"
+Copyright (C) 2020 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> #### ---- Project: APHRC HH Data ----
+> #### ---- Task: Perform MCA ----
+> #### ---- By: Steve and Jonathan ----
+> #### ---- Date: 2020 May 31 (Sun) ----
+> 
+> library(ggplot2)
+> library(dplyr)
+> 
+> load("problems_index.rda")
+> 
+> prob_df <- data.frame(prob = problems_index)
+> problems_index_plot <- (ggplot(prob_df, aes(x = prob))
++    + geom_histogram()
++    + labs(x = "Shcok/problems", y = "Count")
++ )
+> print(problems_index_plot)
+> 
+> 
+> save(file = "problems_index_plot.rda"
++ 	, problems_index_plot
++ )
+> 

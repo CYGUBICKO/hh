@@ -6,7 +6,7 @@
 library(dplyr)
 
 ## Use complete dataset
-load("analysisData.rda")
+load("cleanData.rda")
 
 ## Dwelling data
 dwelling_df <- (working_df_complete

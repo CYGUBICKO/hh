@@ -96,35 +96,34 @@ analysis_variables.Rout: analysis_variables.R
 # Descriptive statistics
 descriptive_stats.Rout: descriptive_stats.R
 
+# Drop cases with outliers
+cleanData.Rout: cleanData.R
+
 # PCA
 
 ## Dwelling index
 dwelling_pca.Rout: dwelling_pca.R
-dwelling_pca_plot.Rout.pdf.gp: dwelling_pca_plot.R
-
-# MCA
-dwelling_mca.Rout: dwelling_mca.R
-dwelling_mca_plot.Rout.pdf.gp: dwelling_mca_plot.R
+dwelling_pca_plot.Rout.pdf: dwelling_pca_plot.R
 
 # Logistic PCA
 
 ## Assets ownership index
 ownership_lpca.Rout: ownership_lpca.R
-ownership_lpca_plot.Rout.pdf.gp: ownership_lpca_plot.R
+ownership_lpca_plot.Rout: ownership_lpca_plot.R
 
 # Gaussian PCA
 ownership_gpca.Rout: ownership_gpca.R
-ownership_gpca_plot.Rout.pdf.gp: ownership_gpca_plot.R
+ownership_gpca_plot.Rout.pdf: ownership_gpca_plot.R
 
 # Count
 ## Shocks/problems index
 problems_index.Rout: problems_index.R
-problems_index_plot.Rout.pdf.gp: problems_index_plot.R
+problems_index_plot.Rout: problems_index_plot.R
 
-# PCA
+# Count
 ## Expenditure index
 expenditure_index.Rout: expenditure_index.R
-expenditure_index_plot.Rout.pdf.gp: expenditure_index_plot.R
+expenditure_index_plot.Rout: expenditure_index_plot.R
 
 # Select variables to be used in analysis and add indices variables - New wash data
 washData.Rout: washData.R
@@ -178,7 +177,7 @@ washPredEffects_Resp_plots.Rout.pdf.gp: washPredEffects_Resp_plots.R
 ## predictors_report.html.gp: predictors_report.rmd
 
 Ignore += predictors_report.html
-predictors_report.html: predictors_report.rmd
+predictors_report.html.gp: predictors_report.rmd
 
 #### Create word report
 #%.rmd.docx : %.rmd

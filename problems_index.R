@@ -9,13 +9,11 @@ library(caret)
 library(logisticPCA)
 
 ## Use complete dataset
-load("analysisData.rda")
+load("cleanData.rda")
 
 ## Shocks/problems data
 problems_df <- (working_df_complete
-	%>% select(!!problems_group_vars)
-	%>% mutate_all(function(x){as.numeric(as.character(x))})
-	%>% mutate(shocks = rowSums(., na.rm = TRUE))
+	%>% select(!!problems_group_vars, shocks)
 )
 str(problems_df)
 sapply(problems_df, table)

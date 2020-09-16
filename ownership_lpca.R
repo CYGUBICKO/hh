@@ -7,7 +7,7 @@ library(dplyr)
 library(logisticPCA)
 
 ## Use complete dataset
-load("analysisData.rda")
+load("cleanData.rda")
 
 ## Ownership data
 ownership_df <- (working_df_complete

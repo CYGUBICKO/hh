@@ -5,12 +5,11 @@
 
 library(dplyr)
 
-load("analysisData.rda")
+load("cleanData.rda")
 
 ## Expenditure
 expenditure_df <- (working_df_complete
-	%>% select(!!expenditure_group_vars)
-	%>% mutate(total_expenditure = rowSums(., na.rm = TRUE))
+	%>% select(!!expenditure_group_vars, total_expenditure)
 )
 str(expenditure_df)
 

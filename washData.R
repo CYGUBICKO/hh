@@ -7,7 +7,7 @@ library(data.table)
 library(dplyr)
 
 ## Use complete dataset
-load("analysisData.rda")
+load("cleanData.rda")
 load("dwelling_pca.rda")
 load("ownership_lpca.rda")
 load("problems_index.rda")	# Renamed to shocks moving forward

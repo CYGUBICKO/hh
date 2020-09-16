@@ -190,18 +190,33 @@ desc_selfrating_plot <- simplePlot(working_df_complete
 )
 
 # All plots
-print(desc_year_plot)
-print(desc_slumarea_plot)
-print(desc_gender_plot)
-print(desc_age_plot)
-print(desc_numpeople_plot)
-print(desc_services_plot)
+demographic_plots1 <- (desc_services_plot/desc_numpeople_plot)
+print(demographic_plots1)
+
+demographic_plots2 <- ((desc_year_plot + desc_slumarea_plot)
+	/ (desc_gender_plot + desc_age_plot)
+)
+print(demographic_plots2)
+
 print(desc_dwelling_plot)
 print(desc_ownership_plot)
-print(desc_income_plot)
-print(desc_expend_plot)
+
+income_expend_shock_selfrate_plot <- ((desc_income_plot + desc_expend_plot)
+	/ (desc_shocks_plot + desc_selfrating_plot)
+)
+print(income_expend_shock_selfrate_plot)
+
 print(desc_indiv_expend_plots1)
 print(desc_indiv_expend_plots2)
-print(desc_shocks_plot)
 print(desc_indiv_shocks_plots)
-print(desc_selfrating_plot)
+
+save(file = "descriptive_stats.rda"
+	, demographic_plots1
+	, demographic_plots2
+	, desc_dwelling_plot
+	, desc_ownership_plot
+	, income_expend_shock_selfrate_plot
+	, desc_indiv_expend_plots1
+	, desc_indiv_expend_plots2
+	, desc_indiv_shocks_plots
+)

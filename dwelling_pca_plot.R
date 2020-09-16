@@ -10,7 +10,7 @@ library(ggfortify)
 source("funs/ggplot_theme.R"); ggtheme()
 
 ## Use complete dataset
-load("analysisData.rda")
+load("cleanData.rda")
 load("dwelling_pca.rda")
 
 ## Variance explained plot
@@ -23,6 +23,8 @@ dwelling_water_pc_plot <- (autoplot(dwelling_pca
 		, data = working_df_complete
 		, colour = "drinkwatersource_new"
 		, alpha = 0.2
+		, shape = FALSE
+		, label = FALSE
 		, frame = TRUE
 		, frame.type = 'norm'
 		, frame.alpha = 0.1
@@ -42,6 +44,8 @@ dwelling_garbage_pc_plot <- (autoplot(dwelling_pca
 		, data = working_df_complete
 		, colour = "garbagedisposal_new"
 		, alpha = 0.2
+		, shape = FALSE
+		, label = FALSE
 		, frame = TRUE
 		, frame.type = 'norm'
 		, frame.alpha = 0.1
@@ -61,6 +65,8 @@ dwelling_toilet_pc_plot <- (autoplot(dwelling_pca
 		, data = working_df_complete
 		, colour = "toilet_5plusyrs_new"
 		, alpha = 0.2
+		, shape = FALSE
+		, label = FALSE
 		, frame = TRUE
 		, frame.type = 'norm'
 		, frame.alpha = 0.1
