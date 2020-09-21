@@ -177,7 +177,7 @@ washPredEffects_Resp_plots.Rout.pdf.gp: washPredEffects_Resp_plots.R
 ## missing_data_report.html.gp: missing_data_report.rmd
 
 Ignore += predictors_report.html
-predictors_report.html.gp: predictors_report.rmd
+predictors_report.html: predictors_report.rmd
 
 #### Create word report
 #%.rmd.docx : %.rmd
