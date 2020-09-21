@@ -34,6 +34,7 @@ library(corrplot)
 library(lme4)
 library(splines)
 
+load("materials_tables.rda")
 load("analysis_variables.rda")
 load("overall_missing_tables.rda")
 load("washdataInspect_plots.rda")
@@ -77,6 +78,50 @@ datatable(miss_percase_df, rownames = FALSE)
 
 \vspace*{2cm}
 ****
+
+## Variable categorization
+
+### Floor material
+
+```{r}
+colnames(floor_labs) <- c("old", "new")
+datatable(floor_labs %>% arrange(desc(new)))
+```
+
+### Roof material
+
+```{r}
+colnames(roof_labs) <- c("old", "new")
+datatable(roof_labs %>% arrange(desc(new)))
+```
+
+### Wall material
+
+```{r}
+colnames(wall_labs) <- c("old", "new")
+datatable(wall_labs %>% arrange(desc(new)))
+```
+
+### Cooking material
+
+```{r}
+colnames(cook_labs) <- c("old", "new")
+datatable(cook_labs %>% arrange(desc(new)))
+```
+
+### Lighting material
+
+```{r}
+colnames(light_labs) <- c("old", "new")
+datatable(light_labs %>% arrange(desc(new)))
+```
+
+### Rented or owned
+
+```{r}
+colnames(rent_labs) <- c("old", "new")
+datatable(rent_labs %>% arrange(desc(new)))
+```
 
 ## Descriptives
 

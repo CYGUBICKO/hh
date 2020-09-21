@@ -4,6 +4,7 @@
 #### ---- Date: 2020 May 31 (Sun) ----
 
 library(dplyr)
+library(data.table)
 
 ## Use complete dataset
 load("cleanData.rda")
@@ -13,6 +14,7 @@ dwelling_df <- (working_df_complete
 	%>% select(!!dwelling_group_vars)
 	%>% mutate_all(as.numeric)
 	%>% mutate_at(colnames(.), function(x){drop(scale(x))})
+	%>% setnames(., old = dwelling_group_vars, gsub("\\_new", "", dwelling_group_vars))
 	%>% data.frame()
 )
 

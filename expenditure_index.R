@@ -18,4 +18,6 @@ summary(total_expenditure)
 
 save(file = "expenditure_index.rda"
 	, total_expenditure
+	, total_expend_drop_lower
+	, total_expend_drop_upper
 )

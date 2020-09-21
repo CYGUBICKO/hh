@@ -28,7 +28,7 @@ simplePlot <- function(df, variable, wrap_labels = 1, xlabel = "", show_percent_
 		+ scale_y_continuous(labels = percent)
 	)
 	if (class(df$temp_var)=="numeric"|class(df$temp_var)=="interger"){
-		p0 <- (ggplot(df, aes(x = temp_var))
+		p0 <- (ggplot(df, aes(x = as.numeric(temp_var)))
 			+ geom_histogram()
 		)
 	}

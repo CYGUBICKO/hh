@@ -13,9 +13,10 @@ load("analysisData.rda")
 ## HH size > 40
 hhsize_drop <- 40
 ## Total HH expenditure >= 100K
-total_expend_drop <- 100000
+total_expend_drop_lower <- 100
+total_expend_drop_upper <- 30000
 ## HH Shocks
-shocks_drop <- 50
+shocks_drop <- 10
 
 nrow(working_df_complete)
 
@@ -25,11 +26,13 @@ working_df_complete <- (working_df_complete
 		, shocks = rowSums(select(., !!problems_group_vars), na.rm = TRUE)
 	)
 	%>% filter(numpeople_total_new <= hhsize_drop 
-		& total_expenditure < total_expend_drop 
+		& total_expenditure >= total_expend_drop_lower
+		& total_expenditure < total_expend_drop_upper
 		& shocks < shocks_drop
 	)
 )
 nrow(working_df_complete)
+head(sort(working_df_complete$total_expenditure, decreasing = FALSE), 100)
 
 save(file = "cleanData.rda"
 	, var_groups_df
@@ -44,4 +47,6 @@ save(file = "cleanData.rda"
 	, impute_na
 	, tab_intperyear
 	, miss_category_summary_df
+	, total_expend_drop_lower
+	, total_expend_drop_upper
 )

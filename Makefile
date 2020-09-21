@@ -62,6 +62,7 @@ missingCategory_summary.Rout: missingCategory_summary.R
 Ignore += generateLabels.xlsx cleaning_tables.xlsx analysis_variables.xlsx
 generateLabels.Rout: generateLabels.R
 ## generateLabels.xlsx: generateLabels.Rout;
+materials_tables.Rout: materials_tables.R
 
 # Some cleaning (using shortData temporarily)
 cleaning.Rout: cleaning.R
@@ -103,7 +104,7 @@ cleanData.Rout: cleanData.R
 
 ## Dwelling index
 dwelling_pca.Rout: dwelling_pca.R
-dwelling_pca_plot.Rout.pdf: dwelling_pca_plot.R
+dwelling_pca_plot.Rout: dwelling_pca_plot.R
 
 # Logistic PCA
 
@@ -113,7 +114,7 @@ ownership_lpca_plot.Rout: ownership_lpca_plot.R
 
 # Gaussian PCA
 ownership_gpca.Rout: ownership_gpca.R
-ownership_gpca_plot.Rout.pdf: ownership_gpca_plot.R
+ownership_gpca_plot.Rout: ownership_gpca_plot.R
 
 # Count
 ## Shocks/problems index
@@ -174,7 +175,6 @@ washPredEffects_Resp_plots.Rout.pdf.gp: washPredEffects_Resp_plots.R
 ## Data documentation
 ## dataprep_doc.html.gp: dataprep_doc.rmd
 ## missing_data_report.html.gp: missing_data_report.rmd
-## predictors_report.html.gp: predictors_report.rmd
 
 Ignore += predictors_report.html
 predictors_report.html.gp: predictors_report.rmd

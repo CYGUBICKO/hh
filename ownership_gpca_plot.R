@@ -31,6 +31,9 @@ ownership_water_pc_plot <- (autoplot(ownership_pca
 		, show.legend = FALSE
 		, loadings = TRUE
 		, loadings.label = TRUE
+		, loadings.colour = "gray"
+		, loadings.label.size = 3
+		, loadings.label.repel = TRUE
 	)
 	+ scale_colour_manual(name = "Water", values = c("blue", "red"))
 	+ scale_fill_manual(name = "Water", values = c("blue", "red"))

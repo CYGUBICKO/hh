@@ -3,6 +3,7 @@
 #### ---- By: Steve and Jonathan ----
 #### ---- Date: 2020 May 31 (Sun) ----
 
+library(data.table)
 library(dplyr)
 library(logisticPCA)
 
@@ -15,6 +16,7 @@ ownership_df <- (working_df_complete
 	%>% mutate_at(colnames(.), function(x){
 		x = ifelse(x=="yes", 1, ifelse(x=="no", 0, x))
 	})
+	%>% setnames(., old = ownership_group_vars, gsub("\\_new", "", ownership_group_vars))
 	%>% data.frame()
 )
 print(sapply(ownership_df, table))
