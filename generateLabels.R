@@ -142,7 +142,7 @@ light_labs <- genlabsCodes(df = working_df
 
 ### Dwelling/rentals
 rent_vars <- "rentorown"
-oldpatterns <- c("^free of charge\\:|^other\\:"
+oldpatterns <- c("^free of charge\\:|^other\\:|free of charge"
 	, "^renting from\\:"
 	, "^owned"
 	, "^NIU|refused|^don|other$"

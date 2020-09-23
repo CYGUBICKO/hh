@@ -11,7 +11,7 @@ load("analysisData.rda")
 # Cases to drop
 
 ## HH size > 40
-hhsize_drop <- 40
+hhsize_drop <- 30
 ## Total HH expenditure >= 100K
 total_expend_drop_lower <- 100
 total_expend_drop_upper <- 30000

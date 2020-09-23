@@ -30,12 +30,13 @@ wash_df <- (wash_df
 		ifelse(x=="Improved", 1, 0)
 	})
 )
-str(wash_df)
+head(wash_df)
+
 
 ## Scale numeric variables
 scale_vars <- c("year_scaled", "age", "hhsize_scaled", "selfrating"
-	, "dwelling_index", "ownership_index", "shocks_index"
-	, "total_expenditure"
+	, "dwelling", "ownership", "shocks"
+	, "expenditure"
 )
 
 scaled_df <- scale(wash_df[, scale_vars])
@@ -79,7 +80,7 @@ wash_consec_df <- (wash_df
 	%>% mutate(hhid = as.factor(hhid))
 	%>% data.frame()
 )
-head(wash_consec_df, n = 10)
+head(wash_consec_df, n = 50)
 
 save(file = "washdataInspect.rda"
 	, wash_consec_df

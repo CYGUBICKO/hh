@@ -206,9 +206,9 @@ income_expend_shock_selfrate_plot <- ((desc_income_plot + desc_expend_plot)
 )
 print(income_expend_shock_selfrate_plot)
 
-print(desc_indiv_expend_plots1)
-print(desc_indiv_expend_plots2)
-print(desc_indiv_shocks_plots)
+#print(desc_indiv_expend_plots1)
+#print(desc_indiv_expend_plots2)
+#print(desc_indiv_shocks_plots)
 
 save(file = "descriptive_stats.rda"
 	, demographic_plots1
@@ -216,7 +216,7 @@ save(file = "descriptive_stats.rda"
 	, desc_dwelling_plot
 	, desc_ownership_plot
 	, income_expend_shock_selfrate_plot
-	, desc_indiv_expend_plots1
-	, desc_indiv_expend_plots2
-	, desc_indiv_shocks_plots
+#	, desc_indiv_expend_plots1
+#	, desc_indiv_expend_plots2
+#	, desc_indiv_shocks_plots
 )

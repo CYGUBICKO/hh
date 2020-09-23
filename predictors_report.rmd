@@ -18,13 +18,13 @@ knitr::opts_chunk$set(echo = FALSE
 	, results = "asis")
 options(width = 12)
 
-library(ggplot2)
-theme_set(theme_bw() +
-	theme(panel.spacing=grid::unit(0,"lines")))
+library(ggplot2); source("funs/ggplot_theme.R"); ggtheme()
 
+library(stringr)
 library(forcats)
 library(ggpubr)
 
+library(tibble)
 library(dplyr)
 library(DT)
 library(scales)
@@ -33,16 +33,23 @@ library(ggstance)
 library(corrplot)
 library(lme4)
 library(splines)
+library(patchwork)
 
-load("materials_tables.rda")
-load("analysis_variables.rda")
-load("overall_missing_tables.rda")
-load("washdataInspect_plots.rda")
-load("descriptive_stats.rda")
-source("funs/ggplot_theme.R"); ggtheme()
 
 ```
 
+```{r}
+load("washdataInspect_plots.rda")
+load("materials_tables.rda")
+load("analysis_variables.rda")
+load("descriptive_stats.rda")
+load("overall_missing_tables.rda")
+load("dwelling_pca_plot.rda")
+load("ownership_gpca_plot.rda")
+load("problems_index_plot.rda")
+load("expenditure_index_plot.rda")
+load("hhsize_plot.rda")
+```
 
 ## Missing data
 
@@ -129,25 +136,57 @@ datatable(rent_labs %>% arrange(desc(new)))
 
 -	[Click here to open](./descriptive_stats.Rout.pdf)
 
+```{r}
+print(demographic_plots1)
+```
+
+```{r}
+print(demographic_plots2)
+```
+
+```{r}
+print(desc_dwelling_plot)
+```
+
+
+```{r}
+print(desc_ownership_plot)
+```
+
+```{r}
+print(income_expend_shock_selfrate_plot)
+```
+
 ## Derived predictors
 
 **Dwelling index**:
 
-- **PCA**: [Click here to open](./dwelling_pca_plot.Rout.pdf)
+```{r}
+print(dwelling_water_pc_plot)
+```
 
 **Ownership index**
 
-- **Logistic PCA**: [Click here to open](./ownership_lpca_plot.Rout.pdf)
+- **Gaussian PCA**
 
-- **Gaussian PCA**: [Click here to open](./ownership_gpca_plot.Rout.pdf)
+```{r}
+print(ownership_water_pc_plot)
+```
 
 **Total expenditure**
 
-- **Summation**: [Click here to open](./expenditure_index_plot.Rout.pdf)
-
+```{r}
+print(total_expenditure_index_plot)
+```
 
 **Problems/shocks**
 
-- **Summation**: [Click here to open](./problems_index_plot.Rout.pdf)
+```{r fig.height = 7, fig.width = 7}
+print(problems_index_plot)
+```
 
+**Household size**
 
+```{r fig.height = 7, fig.width = 7}
+print(hhsize_plot)
+```

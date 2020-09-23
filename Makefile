@@ -106,12 +106,6 @@ cleanData.Rout: cleanData.R
 dwelling_pca.Rout: dwelling_pca.R
 dwelling_pca_plot.Rout: dwelling_pca_plot.R
 
-# Logistic PCA
-
-## Assets ownership index
-ownership_lpca.Rout: ownership_lpca.R
-ownership_lpca_plot.Rout: ownership_lpca_plot.R
-
 # Gaussian PCA
 ownership_gpca.Rout: ownership_gpca.R
 ownership_gpca_plot.Rout: ownership_gpca_plot.R
@@ -125,6 +119,9 @@ problems_index_plot.Rout: problems_index_plot.R
 ## Expenditure index
 expenditure_index.Rout: expenditure_index.R
 expenditure_index_plot.Rout: expenditure_index_plot.R
+
+## HH size after droping outliers
+hhsize_plot.Rout: hhsize_plot.R
 
 # Select variables to be used in analysis and add indices variables - New wash data
 washData.Rout: washData.R
@@ -147,6 +144,10 @@ washModeldata.Rout: washModeldata.R
 
 ## Previous year model
 ### Scaled variable (hhsize and year)
+
+
+#### BRMS
+washModelfit_brms.Rout: washModelfit_brms.R
 
 #### LME4: Too slow
 washModelfit_pglmerS.Rout: washModelfit_pglmerS.R

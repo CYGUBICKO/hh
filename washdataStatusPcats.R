@@ -40,6 +40,7 @@ wash_consec_df <- (wash_consec_df
 	%>% data.frame()
 )
 
+colnames(wash_consec_df)
 head(wash_consec_df, n = 50)
 
 ## Key variables put in categories

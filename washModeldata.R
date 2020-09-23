@@ -37,10 +37,10 @@ year1modData <- model.frame(
 	+ hhsize
 	+ hhsize_scaled
 	+ selfrating
-	+ dwelling_index
-	+ ownership_index
-	+ shocks_index
-	+ total_expenditure
+	+ dwelling
+	+ ownership
+	+ shocks
+	+ expenditure
 	+ hhid
 	, data = year1_df, na.action = na.exclude, drop.unused.levels = TRUE
 )
@@ -62,10 +62,10 @@ prevyearmodData <- model.frame(
 	+ hhsize
 	+ hhsize_scaled
 	+ selfrating
-	+ dwelling_index
-	+ ownership_index
-	+ shocks_index
-	+ total_expenditure
+	+ dwelling
+	+ ownership
+	+ shocks
+	+ expenditure
 	+ hhid
 	+ statusP
 	, data = prev_df, na.action = na.exclude, drop.unused.levels = TRUE

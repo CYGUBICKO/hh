@@ -30,6 +30,7 @@ simplePlot <- function(df, variable, wrap_labels = 1, xlabel = "", show_percent_
 	if (class(df$temp_var)=="numeric"|class(df$temp_var)=="interger"){
 		p0 <- (ggplot(df, aes(x = as.numeric(temp_var)))
 			+ geom_histogram()
+#			+ xlim(limits = range(df$temp_var, na.rm = TRUE))
 		)
 	}
 	p0 <- p0 + labs(x = xlabel, y = "", title = title)

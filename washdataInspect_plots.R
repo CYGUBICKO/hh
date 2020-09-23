@@ -320,7 +320,7 @@ save(file = "washdataInspect_plots.rda"
 	, status_quo_plot
 	, n_interviews_plot
 	, year_plot
-	, hhsize_plot
+#	, hhsize_plot
 	, consec_all_plot
 	, consec_noyr0_plot
 
