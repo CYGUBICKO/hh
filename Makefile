@@ -13,6 +13,8 @@ ms = makestuff
 Sources += $(wildcard *.R *.rmd *.md)
 Sources += Makefile rmd.mk
 
+pullup: funs.pull
+
 ######################################################################
 
 ## Latex plot example
