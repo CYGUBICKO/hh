@@ -144,6 +144,8 @@ washdataStatusPcats.Rout: washdataStatusPcats.R
 longDFunc.Rout: longDFunc.R
 washModeldata.Rout: washModeldata.R
 
+######################################################################
+
 ## Previous year model
 ### Scaled variable (hhsize and year)
 
@@ -153,25 +155,32 @@ washModelfit_brms.Rout: washModelfit_brms.R
 #### LME4: Too slow (using GLMMTMB instead)
 washModelfit_pglmerS.Rout: washModelfit_pglmerS.R
 
+######################################################################
+
 #### GLMMTMB
 washModelfit_tmbS.Rout: washModelfit_tmbS.R
 
 ### Trying polynomial age and expenditure index
 # washModelfit_poly_tmbS.Rout: washModelfit_poly_tmbS.R
 
-## Tidy model estimates
-washTidyestimates.Rout: washTidyestimates.R
-
 ## Effect size plots
 washEffectsize_plots.Rout: washEffectsize_plots.R
 
-### Wash predictor effects - predictor scale
+### Wash predictor effects - linear predictor scale
 washPredEffects.Rout: washPredEffects.R
 washPredEffects_plots.Rout: washPredEffects_plots.R
 
 ### Wash predictor effects - response scale
 washPredEffects_Resp.Rout: washPredEffects_Resp.R
 washPredEffects_Resp_plots.Rout: washPredEffects_Resp_plots.R
+
+######################################################################
+
+## Tidy model estimates (from various model approaches)
+## ... eventually
+washTidyestimates.Rout: washTidyestimates.R
+
+######################################################################
 
 ## Data documentation
 ## dataprep_doc.html.gp: dataprep_doc.rmd
@@ -183,7 +192,6 @@ predictors_report.html: predictors_report.rmd
 #### Create word report
 #%.rmd.docx : %.rmd
 #	pandoc $< -o $@
-
 
 ######################################################################
 
