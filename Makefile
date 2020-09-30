@@ -147,11 +147,10 @@ washModeldata.Rout: washModeldata.R
 ## Previous year model
 ### Scaled variable (hhsize and year)
 
-
 #### BRMS
 washModelfit_brms.Rout: washModelfit_brms.R
 
-#### LME4: Too slow
+#### LME4: Too slow (using GLMMTMB instead)
 washModelfit_pglmerS.Rout: washModelfit_pglmerS.R
 
 #### GLMMTMB
@@ -159,7 +158,6 @@ washModelfit_tmbS.Rout: washModelfit_tmbS.R
 
 ### Trying polynomial age and expenditure index
 # washModelfit_poly_tmbS.Rout: washModelfit_poly_tmbS.R
-
 
 ## Tidy model estimates
 washTidyestimates.Rout: washTidyestimates.R
