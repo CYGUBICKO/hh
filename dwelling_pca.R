@@ -20,7 +20,8 @@ dwelling_df <- (working_df_complete
 
 dwelling_pca <- prcomp(dwelling_df, center = TRUE, scale. = TRUE)
 dwelling_pc_df <- summary(dwelling_pca)$x
-dwelling_index <- drop(dwelling_pc_df[,1])
+dwelling_index <- drop(dwelling_pc_df[,1:2])
+head(dwelling_index)
 
 save(file = "dwelling_pca.rda"
 	, dwelling_index

@@ -45,7 +45,7 @@ extract_coefs_df <- (map(list(tmbScaled = tmbScaled)
 ## Cleam variable names
 pred_vars <- attr(terms(model_form), "term.labels")
 pred_vars <- pred_vars[!grepl("\\|", pred_vars)]
-pred_vars <-  gsub(".*\\:|.*\\(|\\,.*", "", pred_vars)
+pred_vars <-  gsub(".*\\:|.*\\(|\\,.*|\\).*", "", pred_vars)
 pred_vars <- pred_vars[!pred_vars %in% "services"]
 d1 <- genlabsCodes(extract_coefs_df, "parameter", pred_vars, pred_vars) 
 

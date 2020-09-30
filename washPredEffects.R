@@ -4,9 +4,9 @@
 #### ---- By: Steve and Jonathan ----
 #### ---- Date: 2020 Jan 11 (Sat) ----
 
+library(splines)
 library(effects)
 library(glmmTMB)
-library(splines)
 
 load("washModelfit_tmbS.rda")
 
@@ -19,6 +19,7 @@ pyrmod <- tmb_scaled
 
 ### Service level predictions
 mod <- Effect("services", mod = pyrmod)
+head(mod)
 
 if(linearpredictor){
 	pyrservice_effect_df <- data.frame(mod$x, fit = mod$fit, lower = mod$lower, upper = mod$upper)
@@ -29,9 +30,10 @@ if(linearpredictor){
 ### Conditionaled on all other predictors
 pred_vars <- attr(terms(model_form), "term.labels")
 pred_vars <- pred_vars[!grepl("\\|", pred_vars)]
-pred_vars <-  gsub(".*\\:|.*\\(|\\,.*", "", pred_vars)
+pred_vars <-  gsub(".*\\:|.*\\(|\\,.*|\\).*", "", pred_vars)
 pred_vars <- pred_vars[!pred_vars %in% "services"]
 names(pred_vars) <- pred_vars
+pred_vars
 
 ## Code below can extract all the effects but too slow and requires more memory. Use for loop instead
 # pyrmod_effect_df <- predictorEffects(pyrmod)

@@ -34,8 +34,11 @@ head(wash_df)
 
 
 ## Scale numeric variables
-scale_vars <- c("year_scaled", "age", "hhsize_scaled", "selfrating"
-	, "dwelling", "ownership", "shocks"
+scale_vars <- c("year_scaled"
+	, "age"
+	, "hhsize_scaled"
+	, "selfrating"
+	, "shocks"
 	, "expenditure"
 )
 

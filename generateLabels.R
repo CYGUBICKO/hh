@@ -55,18 +55,6 @@ toilet_labs <- genlabsCodes(df = working_df
 
 ### Main material of the floor
 floor_vars <- "floormaterial"
-#oldpatterns <- c("^natural\\:earth\\/mud\\/dung\\/sand"
-#	, "^rudimentary\\:gunny bags:"
-#	, "^rudimentary\\:woven mat \\(sisal\\/nylon\\)"
-#	, "^rudimentary\\:carton\\/plastic sheets"
-#	, "^rudimentary\\:wood planks"
-#	, "^finished\\:vinyl \\(PVC\\)\\/asphalt strips"
-#	, "^finished\\:asbestos sheet"
-#	, "^finished\\:cement\\/concrete \\(tiles\\/slab\\)"
-#	, "^finished\\:polished wood\\/tiles\\/carpet"
-#	, "^NIU|refused|^don|^other"
-#)
-#newlabs <- c("1", "2", "3", "4", "5", "6", "7", "8", "9", NA)
 oldpatterns <- c("^natural\\:"
 	, "^rudimentary\\:"
 	, "^finished\\:"
@@ -128,8 +116,8 @@ cook_labs <- genlabsCodes(df = working_df
 ### Main source of lighting
 light_vars <- "lighting"
 oldpatterns <- c("^other\\:|^firewood"
-	, "^kerosene\\/paraffin|^charcoal|^candles"
-	, "electricity\\:|gas"
+	, "^kerosene\\/paraffin|^charcoal|^candles|gas"
+	, "electricity\\:"
 	, "^NIU|refused|^don|other$"
 )
 newlabs <- c("1", "2", "3", NA)
@@ -142,12 +130,11 @@ light_labs <- genlabsCodes(df = working_df
 
 ### Dwelling/rentals
 rent_vars <- "rentorown"
-oldpatterns <- c("^free of charge\\:|^other\\:|free of charge"
-	, "^renting from\\:"
+oldpatterns <- c("^free of charge\\:|^other\\:|free of charge|^renting from\\:"
 	, "^owned"
 	, "^NIU|refused|^don|other$"
 )
-newlabs <- c("1", "2", "3", NA)
+newlabs <- c("1", "2", NA)
 
 rent_labs <- genlabsCodes(df = working_df
 	, var = rent_vars

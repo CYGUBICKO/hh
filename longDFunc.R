@@ -1,6 +1,7 @@
 # Two step long format restructure
 longDFunc <- function(df){
 	temp_df1 <- (df
+		%>% select(-watersourceP, -toilettypeP, -garbagedposalP)
 		%>% gather(services, status, c("watersource", "toilettype", "garbagedposal"))
 	)
 

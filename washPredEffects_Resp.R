@@ -29,7 +29,7 @@ if(linearpredictor){
 ### Conditionaled on all other predictors
 pred_vars <- attr(terms(model_form), "term.labels")
 pred_vars <- pred_vars[!grepl("\\|", pred_vars)]
-pred_vars <-  gsub(".*\\:|.*\\(|\\,.*", "", pred_vars)
+pred_vars <-  gsub(".*\\:|.*\\(|\\,.*|\\).*", "", pred_vars)
 pred_vars <- pred_vars[!pred_vars %in% "services"]
 names(pred_vars) <- pred_vars
 

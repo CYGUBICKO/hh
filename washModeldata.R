@@ -18,39 +18,11 @@ load("longDFunc.rda")
 ## Restructured data
 long_df <- longDFunc(wash_consec_df)
 
-## Year 1 data
-year1_df <- (long_df[["year1_df"]]
-	%>% group_by(hhid)
-	%>% filter(year == min(year))
-	%>% ungroup()
-)
-
-year1modData <- model.frame(
-	status ~ services
-	+ slumarea
-	+ gender
-	+ age
-	+ year
-	+ year_scaled
-	+ income
-	+ foodeaten
-	+ hhsize
-	+ hhsize_scaled
-	+ selfrating
-	+ dwelling
-	+ ownership
-	+ shocks
-	+ expenditure
-	+ hhid
-	, data = year1_df, na.action = na.exclude, drop.unused.levels = TRUE
-)
-
 ## All years incorporating previous status category status 
 prev_df <- (long_df[["prev_df"]]
 	%>% mutate_at("statusP", as.factor)
 )
-
-prevyearmodData <- model.frame(
+model_df <- model.frame(
 	status ~ services
 	+ slumarea
 	+ gender
@@ -62,8 +34,10 @@ prevyearmodData <- model.frame(
 	+ hhsize
 	+ hhsize_scaled
 	+ selfrating
-	+ dwelling
-	+ ownership
+	+ materials
+	+ lighting
+	+ ownhere
+	+ ownelse
 	+ shocks
 	+ expenditure
 	+ hhid
@@ -72,8 +46,7 @@ prevyearmodData <- model.frame(
 )
 
 save(file = "washModeldata.rda"
-	, year1modData
-	, prevyearmodData
+	, model_df
 	, scale_mean
 	, scale_scale
 	, base_year

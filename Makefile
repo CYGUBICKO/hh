@@ -169,11 +169,11 @@ washEffectsize_plots.Rout: washEffectsize_plots.R
 
 ### Wash predictor effects - predictor scale
 washPredEffects.Rout: washPredEffects.R
-washPredEffects_plots.Rout.pdf.gp: washPredEffects_plots.R
+washPredEffects_plots.Rout: washPredEffects_plots.R
 
 ### Wash predictor effects - response scale
 washPredEffects_Resp.Rout: washPredEffects_Resp.R
-washPredEffects_Resp_plots.Rout.pdf.gp: washPredEffects_Resp_plots.R
+washPredEffects_Resp_plots.Rout: washPredEffects_Resp_plots.R
 
 ## Data documentation
 ## dataprep_doc.html.gp: dataprep_doc.rmd
