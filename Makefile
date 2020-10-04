@@ -147,24 +147,22 @@ washModeldata.Rout: washModeldata.R
 ######################################################################
 
 ## Previous year model
-### Scaled variable (hhsize and year)
 
 #### BRMS
 washModelfit_brms.Rout: washModelfit_brms.R
+washPredEffects_brms.Rout: washPredEffects_brms.R
+washPredEffects_brms_plots.Rout: washPredEffects_brms_plots.R
+
+######################################################################
 
 #### LME4: Too slow (using GLMMTMB instead)
 washModelfit_pglmerS.Rout: washModelfit_pglmerS.R
+
 
 ######################################################################
 
 #### GLMMTMB
 washModelfit_tmbS.Rout: washModelfit_tmbS.R
-
-### Trying polynomial age and expenditure index
-# washModelfit_poly_tmbS.Rout: washModelfit_poly_tmbS.R
-
-## Effect size plots
-washEffectsize_plots.Rout: washEffectsize_plots.R
 
 ### Wash predictor effects - linear predictor scale
 washPredEffects.Rout: washPredEffects.R
@@ -179,6 +177,10 @@ washPredEffects_Resp_plots.Rout: washPredEffects_Resp_plots.R
 ## Tidy model estimates (from various model approaches)
 ## ... eventually
 washTidyestimates.Rout: washTidyestimates.R
+
+## Effect size plots
+washEffectsize_plots.Rout: washEffectsize_plots.R
+
 
 ######################################################################
 

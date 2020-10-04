@@ -15,7 +15,6 @@ model_df <- (model_df
 	%>% select(-year_scaled, -hhsize_scaled)
 )
 
-## Model formula
 fixed_effects <- paste0(c("-1"
 		, "services" 
 		, "(ns(age,3)"
@@ -37,7 +36,7 @@ fixed_effects <- paste0(c("-1"
 	, collapse = "+"
 )
 rand_effects <- "(services-1|hhid)"
-model_form <- as.formula(paste0("status ~ ", fixed_effects, " + ", rand_effects))
+model_form <- as.formula(paste0("status ~ ", fixed_effects))
 
 ## Fit glmer model
 tmb_scaled <- glmmTMB(model_form

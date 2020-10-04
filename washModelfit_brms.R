@@ -4,6 +4,7 @@
 #### ---- By: Steve and Jonathan ----
 #### ---- Date: 2020 Sep 22 (Tue) ----
 
+library(splines)
 library(brms)
 
 load("washdataStatusPcats.rda")
@@ -22,8 +23,10 @@ model_df <- model.frame(
 	+ foodeaten
 	+ age
 	+ selfrating
-	+ dwelling
-	+ ownership
+	+ materials
+	+ lighting
+	+ ownhere
+	+ ownelse
 	+ shocks
 	+ expenditure
 	+ watersourceP
@@ -33,21 +36,23 @@ model_df <- model.frame(
 )
 
 ## Model formula
-water_form <- bf(watersource ~ s(age) + log(hhsize) + year + gender + slumarea 
-	+ selfrating + dwelling + ownership + shocks + expenditure
-	+ income + foodeaten + watersourceP + (1|hhid)
+water_form <- bf(watersource ~ -1 + ns(age, 3) + log(hhsize) + year + gender 
+	+ slumarea + selfrating + materials + lighting + ownhere + ownelse 
+	+ shocks + expenditure	+ income + foodeaten + watersourceP 
+#	+ (1|hhid)
 )
 
-toilet_form <- bf(toilettype ~ s(age) + log(hhsize) + year + gender + slumarea
-	+ selfrating + dwelling + ownership + shocks + expenditure
-	+ income + foodeaten + toilettypeP + (1|hhid)
+toilet_form <- bf(toilettype ~ -1 + ns(age, 3) + log(hhsize) + year + gender 
+	+ slumarea + selfrating + materials + lighting + ownhere + ownelse 
+	+ shocks + expenditure	+ income + foodeaten + toilettypeP
+#	+ (1|hhid)
 )
 
-garbage_form <- bf(garbagedposal ~ s(age) + log(hhsize) + year + gender + slumarea
-	+ selfrating + dwelling + ownership + shocks + expenditure
-	+ income + foodeaten + garbagedposalP + (1|hhid)
+garbage_form <- bf(garbagedposal ~ -1 + ns(age, 3) + log(hhsize) + year + gender 
+	+ slumarea + selfrating + materials + lighting + ownhere + ownelse 
+	+ shocks + expenditure	+ income + foodeaten + garbagedposalP
+#	+ (1|hhid)
 )
-
 
 ## Fit brms model
 brms_model <- brm(water_form + toilet_form + garbage_form
