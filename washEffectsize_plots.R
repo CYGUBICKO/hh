@@ -17,13 +17,13 @@ effectsizeFunc <- function(df, col_lab = ""){
 	parameters <- pull(estimates_df, parameter) %>% unique()
 	estimates_df <- (estimates_df
 		%>% mutate(parameter = factor(parameter, levels = parameters, labels = parameters)
-			, parameter = gsub(parameter_new, "", parameter)
+#			, parameter = gsub(parameter_new, "", parameter)
 		)
 	)
 
 	pos <- ggstance::position_dodgev(height=0.5)
 
-	p1 <- (ggplot(estimates_df, aes(x = estimate, y = term, colour = parameter))
+	p1 <- (ggplot(estimates_df, aes(x = estimate, y = term, colour = model))
 		+ geom_point(position = pos)
 		+ ggstance::geom_linerangeh(aes(xmin = conf.low, xmax = conf.high), position = pos)
 		+ scale_colour_brewer(palette="Dark2"
@@ -34,7 +34,7 @@ effectsizeFunc <- function(df, col_lab = ""){
 			, y = ""
 			, colour = col_lab
 		)
-#		+ facet_wrap(~parameter_new, scale = "free")
+		+ facet_wrap(~parameter, scale = "free_x")
 #		+ facet_theme
 		+ theme(legend.position = "bottom")
 	)
@@ -45,6 +45,7 @@ effectsizeFunc <- function(df, col_lab = ""){
 ## All effect plots
 pred_names <- unique(extract_coefs_df$parameter_new)
 names(pred_names) <- pred_names
+pred_names
 
 pyreffectsize_plots <- lapply(pred_names, function(x){
 	dd <- (extract_coefs_df

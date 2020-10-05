@@ -4,6 +4,7 @@
 #### ---- By: Steve and Jonathan ----
 #### ---- Date: 2020 Oct 03 (Sat) ----
 
+library(splines)
 library(brms)
 
 load("washModelfit_brms.rda")

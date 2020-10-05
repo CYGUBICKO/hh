@@ -32,6 +32,7 @@ plotEffects <- function(df, var, xlabs){
 			, y = "Probability of\nimproved service"
 			, colour = "Services"
 		)
+		+ guides(colour = FALSE)
 		+ theme(legend.position = "bottom")
 	)
 	if (grepl("numeric|integer", class(df[[var]]))){
@@ -41,7 +42,7 @@ plotEffects <- function(df, var, xlabs){
 				, size = 0.5
 			)
 			+ guides(fill = FALSE)
-#			+ facet_wrap(~services)
+			+ facet_wrap(~services, scales = "free_y")
 #			+ facet_theme
 		)
 	} else {
@@ -49,7 +50,7 @@ plotEffects <- function(df, var, xlabs){
 			+ geom_line(aes(colour = services))
 			+ geom_errorbar(aes(ymin = lower, ymax = upper, colour = services), width = 0)
 #			+ coord_flip()
-#			+ facet_wrap(~services, scales = "free_x")
+			+ facet_wrap(~services, scales = "free_y")
 #			+ facet_theme
 		)
 #		p2 <- (ggplot(df %>% rename(xvar = var), aes(y = xvar, x = fit, colour = services))
