@@ -16,11 +16,6 @@ set.seed(7902)
 
 people <- 500 # Number of simulations to run
 
-# Predictor
-x <- seq(1, 9, length.out = people)
-summary(x)
-
-
 # Beta values
 y1_beta0 <- 0.3
 y2_beta0 <- 0.2
@@ -31,15 +26,24 @@ y2_beta1 <- 0.4
 U1_beta <- 0.5
 U2_beta <- 0.7
 
+e1 <- 1
+e2 <- 1
+
 # Sd
 U_sd <- 0.4
 
 ## Latent variables
 U <- rnorm(people, 0, U_sd)
 
+######################################################################
+
+# Predictor
+x <- seq(1, 9, length.out = people)
+summary(x)
+
 ## Error terms
-y1_eps <- rnorm(people)
-y2_eps <- rnorm(people)
+y1_eps <- e1*rnorm(people)
+y2_eps <- e2*rnorm(people)
 
 ## Linear predictor
 XB <- data.frame(x = x
@@ -61,7 +65,8 @@ parm_list <- list(y1_beta0 = y1_beta0
 	, y2_beta1 = y2_beta1 
 	, U1_beta = U1_beta 
 	, U2_beta = U2_beta 
-	, U_sd <- U_sd
+	, U_sd = U_sd
+	, e1=e1, e2=e2
 )
 
 # Sd
