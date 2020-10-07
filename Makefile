@@ -191,9 +191,16 @@ washEffectsize_plots.Rout: washEffectsize_plots.R
 Ignore += predictors_report.html
 predictors_report.html: predictors_report.rmd
 
-#### Create word report
-#%.rmd.docx : %.rmd
-#	pandoc $< -o $@
+######################################################################
+
+## simple simulation to check why predictions aren't working
+simple_sim.Rout: simple_sim.R
+simple_brms.Rout: simple_brms.R
+simple_brms_plots.Rout: simple_brms_plots.R
+simple_glm_plots.Rout: simple_glm_plots.R
+
+### Own code for conditional prediction
+simple_predict_brms.Rout: simple_predict_brms.R
 
 ######################################################################
 
