@@ -1,3 +1,13 @@
+
+2020 Oct 14 (Wed)
+=================
+
+Figure out how effects packages are working: we want something that works a little like varpred or lsmeans: it should average over other variables when making the effects plot. Try emmeans and see if it's better, but you can also read more about effects.
+
+We should figure out how to carefully code our PCA indices.
+
+What's going on with the backward response to shocks?
+
 2020 Jun 16 (Tue)
 ----------------------------------------------------------------------
 
