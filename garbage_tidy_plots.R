@@ -1,0 +1,57 @@
+#### ---- Project: APHRC Wash Data ----
+#### ---- Task: Modeling real data ----
+#### ---- Plot model efffect sizes ----
+#### ---- By: Steve and Jonathan ----
+#### ---- Date: 2020 Feb 12 (Wed) ----
+
+library(ggplot2)
+library(dplyr)
+
+source("funs/ggplot_theme.R"); ggtheme()
+
+load("garbage_tidy.rda")
+
+### Function to plot for different model classes i.e., glm and glmer
+effectsizeFunc <- function(df, col_lab = ""){
+	estimates_df <- df
+	parameters <- pull(estimates_df, parameter) %>% unique()
+	estimates_df <- (estimates_df
+		%>% mutate(parameter = factor(parameter, levels = parameters, labels = parameters)
+		)
+	)
+
+	pos <- ggstance::position_dodgev(height=0.5)
+
+	p1 <- (ggplot(estimates_df, aes(x = estimate, y = term, colour = model))
+		+ geom_point(position = pos)
+		+ ggstance::geom_linerangeh(aes(xmin = conf.low, xmax = conf.high), position = pos)
+		+ scale_colour_brewer(palette="Dark2"
+			, guide = guide_legend(reverse = TRUE)
+		)
+		+ geom_vline(xintercept=0,lty=2)
+		+ labs(x = "Estimate"
+			, y = ""
+			, colour = col_lab
+		)
+		+ theme(legend.position = "bottom")
+	)
+	return(p1)
+}
+
+
+## All effect plots
+pred_names <- unique(extract_coefs_df$parameter_new)
+names(pred_names) <- pred_names
+pred_names
+
+pyreffectsize_plots <- lapply(pred_names, function(x){
+	dd <- (extract_coefs_df
+		%>% filter(parameter_new == x)
+	)
+	effectsizeFunc(dd, x)
+})
+pyreffectsize_plots
+
+save(file = "garbage_tidy_plots.rda"
+	, pyreffectsize_plots
+)

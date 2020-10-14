@@ -191,6 +191,29 @@ washEffectsize_plots.Rout: washEffectsize_plots.R
 Ignore += predictors_report.html
 predictors_report.html: predictors_report.rmd
 
+
+######################################################################
+
+## Fit simple GLM to one of the services
+### No previous status
+garbage_glm.Rout: garbage_glm.R
+
+### With previous status
+garbageP_glm.Rout: garbageP_glm.R
+
+### Coefficient plots 
+garbage_tidy.Rout: garbage_tidy.R
+garbage_tidy_plots.Rout: garbage_tidy_plots.R
+
+### Conditional effects
+#### No previous status
+garbage_condeffect.Rout: garbage_condeffect.R
+garbage_condeffect_plots.Rout: garbage_condeffect_plots.R
+
+#### With previous status
+garbageP_condeffect.Rout: garbageP_condeffect.R
+garbageP_condeffect_plots.Rout: garbageP_condeffect_plots.R
+
 ######################################################################
 
 ## simple simulation to check why predictions aren't working
