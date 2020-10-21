@@ -214,6 +214,15 @@ garbage_condeffect_plots.Rout: garbage_condeffect_plots.R
 garbageP_condeffect.Rout: garbageP_condeffect.R
 garbageP_condeffect_plots.Rout: garbageP_condeffect_plots.R
 
+#### emmeans
+garbageP_emmeans.Rout: garbageP_emmeans.R
+
+### Exploring JD's
+#eplotsFuns.Rout: eplotsFuns.R
+#ordFuns.Rout: ordFuns.R
+
+#garbageP_JD.Rout: garbageP_JD.R
+
 ######################################################################
 
 ## simple simulation to check why predictions aren't working

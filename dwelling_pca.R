@@ -28,7 +28,7 @@ if(min(sign(loadings)) != max(sign(loadings))){
 	stop("PC1 is not a positively signed index")
 }
 
-dwelling_index <- dwelling_pca$x[, 1]*max(sign(loadings))
+dwelling_index <- dwelling_pca$x[, 1:2]*max(sign(loadings))
 
 summary(dwelling_index)
 cor.test(dwelling_index, dwelling_df$wallmaterial)
