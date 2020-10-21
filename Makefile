@@ -17,6 +17,8 @@ pullup: funs.pull
 
 ######################################################################
 
+now: resp_predictor_plots.Rout.pdf garbageP_condeffect_plots.Rout.pdf garbageP_emmeans.Rout.pdf
+
 ## Latex plot example
 
 Sources += plots.tex
