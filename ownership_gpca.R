@@ -25,7 +25,6 @@ head(ownership_df)
 ownership_pca <- prcomp(ownership_df, center = TRUE, scale. = TRUE)
 ownership_pc_df <- summary(ownership_pca)$x
 ownership_index <- drop(ownership_pc_df[,1:2])
-head(ownership_index)
 
 save(file = "ownership_gpca.rda"
 	, ownership_index

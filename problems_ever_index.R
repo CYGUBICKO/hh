@@ -12,14 +12,14 @@ library(logisticPCA)
 load("cleanData.rda")
 
 ## Shocks/problems data
-problems_df <- (working_df_complete
-	%>% select(!!problems_group_vars, shocks)
+problems_ever_df <- (working_df_complete
+	%>% select(!!problems_ever_group_vars, shocks_ever)
 )
-sapply(problems_df, table)
+sapply(problems_ever_df, table)
 
-problems_index <- drop(problems_df[["shocks"]])
-summary(problems_index)
+problems_ever_index <- drop(problems_ever_df[["shocks_ever"]])
+summary(problems_ever_index)
 
-save(file = "problems_index.rda"
-	, problems_index
+save(file = "problems_ever_index.rda"
+	, problems_ever_index
 )

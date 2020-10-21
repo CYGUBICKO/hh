@@ -167,6 +167,20 @@ desc_shocks_plot <- simplePlot(problems_df
 	, title = "Total no. of shocks"
 )
 
+## Number of problems/shocks ever experienced
+problems_ever_df <- (working_df_complete
+	%>% select(!!problems_ever_group_vars)
+	%>% mutate_all(function(x){ifelse(x=="yes", 1, 0)})
+	%>% mutate(shocks_ever = rowSums(., na.rm = TRUE))
+)
+
+desc_shocks_ever_plot <- simplePlot(problems_ever_df
+	, variable = "shocks_ever"
+	, show_percent_labels = FALSE
+	, sort_x = FALSE
+	, title = "Total no. of shocks ever"
+)
+
 ### Individual shocks
 problems_df_long <- (problems_df
 	%>% select(-shocks)
@@ -206,6 +220,8 @@ income_expend_shock_selfrate_plot <- ((desc_income_plot + desc_expend_plot)
 )
 print(income_expend_shock_selfrate_plot)
 
+print(desc_shocks_ever_plot)
+
 #print(desc_indiv_expend_plots1)
 #print(desc_indiv_expend_plots2)
 #print(desc_indiv_shocks_plots)
@@ -216,6 +232,7 @@ save(file = "descriptive_stats.rda"
 	, desc_dwelling_plot
 	, desc_ownership_plot
 	, income_expend_shock_selfrate_plot
+	, desc_shocks_ever_plot
 #	, desc_indiv_expend_plots1
 #	, desc_indiv_expend_plots2
 #	, desc_indiv_shocks_plots

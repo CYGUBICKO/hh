@@ -22,8 +22,10 @@ nrow(working_df_complete)
 
 working_df_complete <- (working_df_complete
 	%>% mutate_at(problems_group_vars, function(x){as.numeric(as.character(x))})
+	%>% mutate_at(problems_ever_group_vars, function(x){ifelse(x=="yes", 1, 0)})
 	%>% mutate(total_expenditure = rowSums(select(., !!expenditure_group_vars), na.rm = TRUE)
 		, shocks = rowSums(select(., !!problems_group_vars), na.rm = TRUE)
+		, shocks_ever = rowSums(select(., !!problems_ever_group_vars), na.rm = TRUE)
 	)
 	%>% filter(numpeople_total_new <= hhsize_drop 
 		& total_expenditure >= total_expend_drop_lower
@@ -42,6 +44,7 @@ save(file = "cleanData.rda"
 	, ownership_group_vars
 	, expenditure_group_vars
 	, problems_group_vars
+	, problems_ever_group_vars
 	, miss_percase_df
 	, miss_peryear_df
 	, impute_na

@@ -52,10 +52,12 @@ miss_after_category_summary <- (miss_after_category_summary
 )
 
 miss_after_category_summary <- (miss_category_summary
+	%>% data.frame()
 	%>% select(variable, description)
 	%>% right_join(., (miss_after_category_summary %>% mutate(variable = gsub("\\_new", "", variable)))
 		, by = "variable"
 	)
+	%>% data.frame()
 )
 miss_after_category_summary
 

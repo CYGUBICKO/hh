@@ -94,7 +94,7 @@ cleaning_plots.Rout: cleaning_plots.R
 missing_after_cleaning.Rout: missing_after_cleaning.R
 analysisData.Rout: analysisData.R
 analysis_variables.Rout: analysis_variables.R
-# analysis_variables.xlsx: analysis_variables.Rout;
+## analysis_variables.xlsx: analysis_variables.Rout;
 
 # Descriptive statistics
 descriptive_stats.Rout: descriptive_stats.R
@@ -113,9 +113,13 @@ ownership_gpca.Rout: ownership_gpca.R
 ownership_gpca_plot.Rout: ownership_gpca_plot.R
 
 # Count
-## Shocks/problems index
+## Shocks/problems index: Summation of total number of chocks
 problems_index.Rout: problems_index.R
 problems_index_plot.Rout: problems_index_plot.R
+
+## Shocks/problems ever: summation of whether a HH has ever experience a shock
+problems_ever_index.Rout: problems_ever_index.R
+problems_ever_index_plot.Rout: problems_ever_index_plot.R
 
 # Count
 ## Expenditure index
@@ -127,6 +131,9 @@ hhsize_plot.Rout: hhsize_plot.R
 
 # Select variables to be used in analysis and add indices variables - New wash data
 washData.Rout: washData.R
+
+## Vizualize response ~ predictors
+resp_predictor_plots.Rout: resp_predictor_plots.R
 
 
 ######################################################################

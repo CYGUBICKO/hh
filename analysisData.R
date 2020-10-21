@@ -41,16 +41,21 @@ expenditure_group_vars <- grep("^expend\\_", all_vars, value = TRUE)
 ## Problems experienced
 problems_group_vars <- grep("^numprob\\_", all_vars, value = TRUE)
 
+## Problems ever experienced
+problems_ever_group_vars <- grep("^prob\\_", all_vars, value = TRUE)
+problems_ever_group_vars
 
 # Summary of groups
-ignore_vars <- c("ownlivestock_new", grep("^prob\\_", colnames(working_df), value = TRUE))
+#ignore_vars <- c("ownlivestock_new", grep("^prob\\_", colnames(working_df), value = TRUE))
+ignore_vars <- "ownlivestock_new"
 var_groups_df <- (data.frame(variable = colnames(working_df)[!colnames(working_df) %in% ignore_vars])
 	%>% mutate(group = ifelse(variable %in% ownership_group_vars, "Ownership"
 			, ifelse(variable %in% expenditure_group_vars, "Expenditure"
 				, ifelse(variable %in% problems_group_vars, "Shocks/problems"
 					, ifelse(variable %in% dwelling_group_vars, "Dwelling"
 						, ifelse(grepl("^drinkwatersource|^toilet|^garbaged", variable), "Response"
-							, ifelse(grepl("^slumarea|^ageyears|^gender|^numpeople|^intvwyear", variable), "Demographic", as.character(variable))))
+							, ifelse(grepl("^slumarea|^ageyears|^gender|^numpeople|^intvwyear", variable), "Demographic"
+								, ifelse(variable %in% problems_ever_group_vars, "Shocks/probles ever", as.character(variable)))))
 				)
 			)
 		)
@@ -102,6 +107,7 @@ working_df_complete <- (working_df_complete
 
 analysis_vars <- gsub("\\_new.*", "", new_vars)
 miss_category_summary_df <- (miss_category_summary
+	%>% data.frame()
 	%>% filter(variable %in% analysis_vars)
 )
 
@@ -113,6 +119,7 @@ save(file = "analysisData.rda"
 	, ownership_group_vars
 	, expenditure_group_vars
 	, problems_group_vars
+	, problems_ever_group_vars
 	, miss_percase_df
 	, miss_peryear_df
 	, impute_na
