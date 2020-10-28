@@ -17,7 +17,7 @@ pullup: funs.pull
 
 ######################################################################
 
-now: resp_predictor_plots.Rout.pdf git_push/garbageP_condeffect_plots.Rout.pdf git_push/garbageP_emmeans.Rout.pdf
+now: git_push/descriptive_stats.Rout.pdf git_push/garbage_condeffect_plots.Rout.pdf git_push/garbage_condeffect_plots_tmb.Rout.pdf git_push/garbageP_condeffect_plots.Rout.pdf git_push/garbageP_condeffect_plots_tmb.Rout.pdf
 
 ## Latex plot example
 
@@ -98,11 +98,12 @@ analysisData.Rout: analysisData.R
 analysis_variables.Rout: analysis_variables.R
 ## analysis_variables.xlsx: analysis_variables.Rout;
 
+# Drop cases with outliers
+cleanData.Rout: cleanData.R
+
 # Descriptive statistics
 descriptive_stats.Rout: descriptive_stats.R
 
-# Drop cases with outliers
-cleanData.Rout: cleanData.R
 
 # PCA
 
@@ -231,6 +232,23 @@ garbageP_emmeans.Rout: garbageP_emmeans.R
 #ordFuns.Rout: ordFuns.R
 
 #garbageP_JD.Rout: garbageP_JD.R
+
+######################################################################
+
+## Fit simple GLMER to one of the services
+### No previous status
+garbage_tmb.Rout: garbage_tmb.R
+
+#### Conditional effects
+garbage_condeffect_tmb.Rout: garbage_condeffect_tmb.R
+garbage_condeffect_plots_tmb.Rout: garbage_condeffect_plots_tmb.R
+
+#### Previous status included 
+garbageP_tmb.Rout: garbageP_tmb.R
+
+#### Conditional effects
+garbageP_condeffect_tmb.Rout: garbageP_condeffect_tmb.R
+garbageP_condeffect_plots_tmb.Rout: garbageP_condeffect_plots_tmb.R
 
 ######################################################################
 

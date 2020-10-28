@@ -19,7 +19,7 @@ response_vars <- c("drinkwatersource_new", "toilet_5plusyrs_new", "garbagedispos
 demographic_vars <- c("hhid_anon_new", "intvwyear_new"
 	, "slumarea_new", "gender_new", "ageyears_new", "numpeople_total_new"
 )
-other_vars <- c("inc30days_total_new", "foodeaten30days_new", "selfrating_new")
+other_vars <- c("inc30days_total_new", "foodeaten30days_new", "selfrating_new", "shocks_ever_bin")
 indices_vars <- c("materials", "ownhere", "ownelse", "shocks", "shocks_ever", "expenditure")
 temp_vars <- c(demographic_vars, response_vars, other_vars)
 

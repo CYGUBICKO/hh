@@ -13,7 +13,7 @@ library(ggplot2); source("funs/ggplot_theme.R"); ggtheme()
 library(patchwork)
  
 load("simplePlotsRuncs.rda")
-load("analysisData.rda")
+load("cleanData.rda")
 
 head(working_df_complete)
 
@@ -170,7 +170,6 @@ desc_shocks_plot <- simplePlot(problems_df
 ## Number of problems/shocks ever experienced
 problems_ever_df <- (working_df_complete
 	%>% select(!!problems_ever_group_vars)
-	%>% mutate_all(function(x){ifelse(x=="yes", 1, 0)})
 	%>% mutate(shocks_ever = rowSums(., na.rm = TRUE))
 )
 
@@ -179,6 +178,14 @@ desc_shocks_ever_plot <- simplePlot(problems_ever_df
 	, show_percent_labels = FALSE
 	, sort_x = FALSE
 	, title = "Total no. of shocks ever"
+)
+
+## Number of shocks ever - binary
+desc_shocks_ever_bin_plot <- simplePlot(working_df_complete
+	, variable = "shocks_ever_bin"
+	, show_percent_labels = FALSE
+	, sort_x = FALSE
+	, title = "Ever experienced any shock?"
 )
 
 ### Individual shocks
@@ -220,8 +227,8 @@ income_expend_shock_selfrate_plot <- ((desc_income_plot + desc_expend_plot)
 )
 print(income_expend_shock_selfrate_plot)
 
-print(desc_shocks_ever_plot)
-
+shocks_ever_plot <- desc_shocks_ever_plot + desc_shocks_ever_bin_plot
+print(shocks_ever_plot)
 #print(desc_indiv_expend_plots1)
 #print(desc_indiv_expend_plots2)
 #print(desc_indiv_shocks_plots)
@@ -232,7 +239,7 @@ save(file = "descriptive_stats.rda"
 	, desc_dwelling_plot
 	, desc_ownership_plot
 	, income_expend_shock_selfrate_plot
-	, desc_shocks_ever_plot
+	, shocks_ever_plot
 #	, desc_indiv_expend_plots1
 #	, desc_indiv_expend_plots2
 #	, desc_indiv_shocks_plots

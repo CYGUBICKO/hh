@@ -5,11 +5,12 @@
 #### ---- Date: 2019 Dec 24 (Tue) ----
 
 library(splines)
+library(glmmTMB)
 
 load("washdataStatusPcats.rda")
 
-## Input files: wash_df - No previous status
-head(wash_df)
+## Input files: wash_consec_df
+head(wash_consec_df)
 
 ## Model formula
 fixed_effects <- paste0(c("ns(age, 3)"
@@ -25,20 +26,22 @@ fixed_effects <- paste0(c("ns(age, 3)"
 		, "expenditure"
 		, "income"
 		, "foodeaten"
+		, "garbagedposalP"
 	)
 	, collapse = "+"
 )
-model_form <- as.formula(paste0("garbagedposal ~ ", fixed_effects))
+rand_effects <- "(1|hhid) + (1|year)" 
+model_form <- as.formula(paste0("garbagedposal ~ ", fixed_effects, "+", rand_effects))
 
-## Fit glm model
-garbage_glm_model <- glm(model_form
-	, data = wash_df
+## Fit glmtmb model
+garbageP_tmb_model <- glmmTMB(model_form
+	, data = wash_consec_df
 	, family = binomial(link = "logit")
 )
 
-save(file = "garbage_glm.rda"
-	, garbage_glm_model
-	, wash_df
+save(file = "garbageP_tmb.rda"
+	, garbageP_tmb_model
+	, wash_consec_df
 	, model_form
 	, scale_mean
 	, scale_scale
