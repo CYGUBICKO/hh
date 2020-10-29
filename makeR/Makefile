@@ -14,7 +14,7 @@ wrap_makeR = defined
 
 ms = makestuff
 Sources += $(wildcard *.R *.rmd *.md)
-Sources += Makefile
+Sources += Makefile rdeps.mk
 
 pullup: funs.pull
 
