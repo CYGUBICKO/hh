@@ -20,8 +20,12 @@ pullup: funs.pull
 
 ######################################################################
 
+## These Just Worked
 cleaning.Rout:
 resp_predictor_plots.Rout:
+missingCategory_summary.Rout:
+
+## I fiddled with this one
 cleanData.Rout: analysisData.rda cleanData.R
 	$(makeR)
 
@@ -260,6 +264,9 @@ clean:
 Sources += noload.pl
 %.R: 
 	perl -wf noload.pl ../$*.R$ > $@
+
+%.csv %.tex:
+	$(CP) ../$@ .
 
 ######################################################################
 
