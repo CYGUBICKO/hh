@@ -57,18 +57,22 @@ simplePlotsRuncs.Rout: simplePlotsRuncs.R
 ## loadData.rda: loadData.R
 loadData.Rout: data/NUHDSS_hhamenitiescharacteristics_anon.dta loadData.R
 
+## A short data set for experiments that don't take too long
 shortData.Rout: shortData.R
 
-## Summary number of missing cases per missing value indicator
+## SPLIT missingCategory_summary into two different files, please 2020 Oct 29 (Thu)
+## Remove early years, and multiple interviews in the same year (keep last interview in a given year)
+filter_interviews.Rout: filter_interviews.R
+## Summarize missing cases (and examine types of missingness)
 missingCategory_summary.Rout: missingCategory_summary.R
 
-# Generate files to recode labels (JD way)
+# Generate files to recode labels
 Ignore += generateLabels.xlsx cleaning_tables.xlsx analysis_variables.xlsx
 generateLabels.Rout: generateLabels.R
 ## generateLabels.xlsx: generateLabels.Rout;
 materials_tables.Rout: materials_tables.R
 
-# Some cleaning (using shortData temporarily)
+# Some cleaning
 cleaning.Rout: cleaning.R
 cleaning_tables.Rout: cleaning_tables.R
 # cleaning_tables.xlsx: cleaning_tables.Rout;
