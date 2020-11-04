@@ -8,8 +8,10 @@ library(glmmTMB)
 library(splines)
 library(car)
 
+load("labelEplots.rda")
 load("toiletP_tmb.rda")
-d1 <- Anova(toiletP_tmb_model, type = "III")
+
+d1 <- Anova(toiletP_tmb_model, type = anova_type)
 toiletP_anova <- data.frame(d1)
 rownames(toiletP_anova) <- gsub(".*\\:|.*\\(|\\,.*|\\).*", "", rownames(toiletP_anova))
 

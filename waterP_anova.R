@@ -8,8 +8,10 @@ library(glmmTMB)
 library(splines)
 library(car)
 
+load("labelEplots.rda")
 load("waterP_tmb.rda")
-d1 <- Anova(waterP_tmb_model, type = "III")
+
+d1 <- Anova(waterP_tmb_model, type = anova_type)
 waterP_anova <- data.frame(d1)
 rownames(waterP_anova) <- gsub(".*\\:|.*\\(|\\,.*|\\).*", "", rownames(waterP_anova))
 

@@ -279,12 +279,16 @@ toiletP_condeffect_plots_tmb.Rout: toiletP_condeffect_plots_tmb.R
 
 ######################################################################
 
+# Conditional predictions
 ## Plot all the three services side by side
 ### No previous status
 combineservices_plots.Rout: combineservices_plots.R
 
 ### Previous status included
 combineservicesP_plots.Rout: combineservicesP_plots.R
+
+# Effect plots
+tidy_coefs.Rout: tidy_coefs.R
 
 
 

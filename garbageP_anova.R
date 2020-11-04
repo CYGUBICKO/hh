@@ -8,8 +8,10 @@ library(glmmTMB)
 library(splines)
 library(car)
 
+load("labelEplots.rda")
 load("garbageP_tmb.rda")
-d1 <- Anova(garbageP_tmb_model, type = "III")
+
+d1 <- Anova(garbageP_tmb_model, type = anova_type)
 garbageP_anova <- data.frame(d1)
 rownames(garbageP_anova) <- gsub(".*\\:|.*\\(|\\,.*|\\).*", "", rownames(garbageP_anova))
 
