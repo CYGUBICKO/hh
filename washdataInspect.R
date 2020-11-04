@@ -25,13 +25,14 @@ wash_df <- (wash_df
 	%>% mutate(year = as.numeric(as.character(year)) - base_year
 		, hhsize_scaled = hhsize
 		, year_scaled = year
+		, indid = 1:n()
 	)
 	%>% mutate_at(c("watersource", "toilettype", "garbagedposal"), function(x){
 		ifelse(x=="Improved", 1, 0)
 	})
 )
 head(wash_df)
-
+max(wash_df$indid)
 
 ## Scale numeric variables
 scale_vars <- c("year_scaled"

@@ -19,7 +19,7 @@ response_vars <- c("drinkwatersource_new", "toilet_5plusyrs_new", "garbagedispos
 demographic_vars <- c("hhid_anon_new", "intvwyear_new"
 	, "slumarea_new", "gender_new", "ageyears_new", "numpeople_total_new"
 )
-other_vars <- c("inc30days_total_new", "foodeaten30days_new", "selfrating_new", "shocks_ever_bin")
+other_vars <- c("inc30days_total_new", "foodeaten30days_new", "selfrating_new", "shocks_ever_bin", "rentorown_new")
 indices_vars <- c("materials", "ownhere", "ownelse", "shocks", "shocks_ever", "expenditure")
 temp_vars <- c(demographic_vars, response_vars, other_vars)
 
@@ -32,6 +32,7 @@ wash_df <- (working_df_complete
 		, shocks = problems_index
 		, shocks_ever = problems_ever_index
 		, expenditure = total_expenditure
+		, rentorown_new = ifelse(rentorown_new=="1", "Rent", "Own")
 	)
 	%>% setnames(., old = temp_vars, new = gsub("\\_new", "", temp_vars))
 	%>% ungroup()

@@ -26,10 +26,11 @@ fixed_effects <- paste0(c("ns(age, 3)"
 		, "expenditure"
 		, "income"
 		, "foodeaten"
+		, "rentorown"
 	)
 	, collapse = "+"
 )
-rand_effects <- "(1|hhid) + (1|year)" 
+rand_effects <- "(1|indid) + (1|hhid) + (1|year)" 
 model_form <- as.formula(paste0("garbagedposal ~ ", fixed_effects, "+", rand_effects))
 
 ## Fit glmtmb model

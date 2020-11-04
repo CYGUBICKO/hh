@@ -18,7 +18,7 @@ dwelling_df <- (working_df_complete
 	%>% mutate_all(as.numeric)
 	%>% mutate_at(colnames(.), function(x){drop(scale(x))})
 	%>% setnames(., old = dwelling_group_vars, gsub("\\_new", "", dwelling_group_vars))
-	%>% select(-rentorown)
+	%>% select(-rentorown, -roofmaterial, -cookingfuel)
 	%>% data.frame()
 )
 

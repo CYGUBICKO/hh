@@ -17,7 +17,7 @@ pullup: funs.pull
 
 ######################################################################
 
-now: git_push/descriptive_stats.Rout.pdf git_push/garbage_condeffect_plots.Rout.pdf git_push/garbage_condeffect_plots_tmb.Rout.pdf git_push/garbageP_condeffect_plots.Rout.pdf git_push/garbageP_condeffect_plots_tmb.Rout.pdf
+now: git_push/descriptive_stats.Rout.pdf git_push/combineservicesP_plots.Rout.pdf git_push/combineservices_plots.Rout.pdf 
 
 ## Latex plot example
 
@@ -156,59 +156,18 @@ washdataStatusPcats.Rout: washdataStatusPcats.R
 
 ## Restructured data for hhid-year-services
 longDFunc.Rout: longDFunc.R
-washModeldata.Rout: washModeldata.R
+washLongdata.Rout: washLongdata.R
 
-######################################################################
-
-## Previous year model
-
-#### BRMS
-washModelfit_brms.Rout: washModelfit_brms.R
-washPredEffects_brms.Rout: washPredEffects_brms.R
-washPredEffects_brms_plots.Rout: washPredEffects_brms_plots.R
-
-######################################################################
-
-#### LME4: Too slow (using GLMMTMB instead)
-washModelfit_pglmerS.Rout: washModelfit_pglmerS.R
 
 
 ######################################################################
 
-#### GLMMTMB
-washModelfit_tmbS.Rout: washModelfit_tmbS.R
-
-### Wash predictor effects - linear predictor scale
-washPredEffects.Rout: washPredEffects.R
-washPredEffects_plots.Rout: washPredEffects_plots.R
-
-### Wash predictor effects - response scale
-washPredEffects_Resp.Rout: washPredEffects_Resp.R
-washPredEffects_Resp_plots.Rout: washPredEffects_Resp_plots.R
+## Separate models
+#### GARBAGE
 
 ######################################################################
 
-## Tidy model estimates (from various model approaches)
-## ... eventually
-washTidyestimates.Rout: washTidyestimates.R
-
-## Effect size plots
-washEffectsize_plots.Rout: washEffectsize_plots.R
-
-
-######################################################################
-
-## Data documentation
-## dataprep_doc.html.gp: dataprep_doc.rmd
-## missing_data_report.html.gp: missing_data_report.rmd
-
-Ignore += predictors_report.html
-predictors_report.html: predictors_report.rmd
-
-
-######################################################################
-
-## Fit simple GLM to one of the services
+## GLM
 ### No previous status
 garbage_glm.Rout: garbage_glm.R
 
@@ -229,19 +188,21 @@ garbageP_condeffect.Rout: garbageP_condeffect.R
 garbageP_condeffect_plots.Rout: garbageP_condeffect_plots.R
 
 #### emmeans
-garbageP_emmeans.Rout: garbageP_emmeans.R
-
-### Exploring JD's
-#eplotsFuns.Rout: eplotsFuns.R
-#ordFuns.Rout: ordFuns.R
-
-#garbageP_JD.Rout: garbageP_JD.R
+## garbageP_emmeans.Rout: garbageP_emmeans.R
 
 ######################################################################
 
-## Fit simple GLMER to one of the services
+## Effect plot functions
+### Label effect plots
+###  Customized conditional effect plots for effects library
+labelEplots.Rout: labelEplots.R
+
+## GLMER using TMB
 ### No previous status
 garbage_tmb.Rout: garbage_tmb.R
+
+#### Anova
+garbage_anova.Rout: garbage_anova.R
 
 #### Conditional effects
 garbage_condeffect_tmb.Rout: garbage_condeffect_tmb.R
@@ -250,9 +211,103 @@ garbage_condeffect_plots_tmb.Rout: garbage_condeffect_plots_tmb.R
 #### Previous status included 
 garbageP_tmb.Rout: garbageP_tmb.R
 
+#### Anova
+garbageP_anova.Rout: garbageP_anova.R
+
 #### Conditional effects
 garbageP_condeffect_tmb.Rout: garbageP_condeffect_tmb.R
 garbageP_condeffect_plots_tmb.Rout: garbageP_condeffect_plots_tmb.R
+
+######################################################################
+
+#### WATER SOURCES
+
+######################################################################
+
+## GLMER using TMB
+### No previous status
+water_tmb.Rout: water_tmb.R
+
+#### Anova
+water_anova.Rout: water_anova.R
+
+#### Conditional effects
+water_condeffect_tmb.Rout: water_condeffect_tmb.R
+water_condeffect_plots_tmb.Rout: water_condeffect_plots_tmb.R
+
+#### Previous status included 
+waterP_tmb.Rout: waterP_tmb.R
+
+#### Anova
+waterP_anova.Rout: waterP_anova.R
+
+#### Conditional effects
+waterP_condeffect_tmb.Rout: waterP_condeffect_tmb.R
+waterP_condeffect_plots_tmb.Rout: waterP_condeffect_plots_tmb.R
+
+
+######################################################################
+
+#### TOILET FACILITIES
+
+######################################################################
+
+## GLMER using TMB
+### No previous status
+toilet_tmb.Rout: toilet_tmb.R
+
+#### Anova
+toilet_anova.Rout: toilet_anova.R
+
+#### Conditional effects
+toilet_condeffect_tmb.Rout: toilet_condeffect_tmb.R
+toilet_condeffect_plots_tmb.Rout: toilet_condeffect_plots_tmb.R
+
+#### Previous status included 
+toiletP_tmb.Rout: toiletP_tmb.R
+
+#### Anova
+toiletP_anova.Rout: toiletP_anova.R
+
+#### Conditional effects
+toiletP_condeffect_tmb.Rout: toiletP_condeffect_tmb.R
+toiletP_condeffect_plots_tmb.Rout: toiletP_condeffect_plots_tmb.R
+
+######################################################################
+
+#### Combined plots
+
+######################################################################
+
+## Plot all the three services side by side
+### No previous status
+combineservices_plots.Rout: combineservices_plots.R
+
+### Previous status included
+combineservicesP_plots.Rout: combineservicesP_plots.R
+
+
+
+######################################################################
+
+## Joint models
+### glmmTMB
+
+######################################################################
+
+## Previous status included
+jointModelP_tmb.Rout: jointModelP_tmb.R
+
+## Anova
+jointModelP_anova.Rout: jointModelP_anova.R
+
+## Conditional effects
+jointModelP_condeffect_tmb.Rout: jointModelP_condeffect_tmb.R
+jointModelP_condeffect_plots_tmb.Rout: jointModelP_condeffect_plots_tmb.R
+
+######################################################################
+
+#### Other checks
 
 ######################################################################
 
@@ -264,6 +319,16 @@ simple_glm_plots.Rout: simple_glm_plots.R
 
 ### Own code for conditional prediction
 simple_predict_brms.Rout: simple_predict_brms.R
+
+######################################################################
+
+## Data documentation
+## dataprep_doc.html.gp: dataprep_doc.rmd
+## missing_data_report.html.gp: missing_data_report.rmd
+
+Ignore += predictors_report.html
+predictors_report.html: predictors_report.rmd
+
 
 ######################################################################
 

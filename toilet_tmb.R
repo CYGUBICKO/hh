@@ -1,6 +1,6 @@
 #### ---- Project: APHRC Wash Data ----
 #### ---- Task: Modeling real data ----
-#### ---- Fit glm to one outcome ----
+#### ---- Fit tmb to one outcome ----
 #### ---- By: Steve and Jonathan ----
 #### ---- Date: 2019 Dec 24 (Tue) ----
 
@@ -9,8 +9,8 @@ library(glmmTMB)
 
 load("washdataStatusPcats.rda")
 
-## Input files: wash_consec_df
-head(wash_consec_df)
+## Input files: wash_df - No previous status
+head(wash_df)
 
 ## Model formula
 fixed_effects <- paste0(c("ns(age, 3)"
@@ -25,24 +25,24 @@ fixed_effects <- paste0(c("ns(age, 3)"
 		, "ownelse"
 		, "expenditure"
 		, "income"
-		, "foodeaten"
 		, "rentorown"
-		, "garbagedposalP"
+		, "foodeaten"
 	)
 	, collapse = "+"
 )
-rand_effects <- "(1|indid) + (1|hhid) + (1|year)" 
-model_form <- as.formula(paste0("garbagedposal ~ ", fixed_effects, "+", rand_effects))
+rand_effects <- "(1|indid) + (1|hhid)" 
+# rand_effects <- "(1|indid) + (1|hhid) + (1|year)"  # No enough data
+model_form <- as.formula(paste0("toilettype ~ ", fixed_effects, "+", rand_effects))
 
 ## Fit glmtmb model
-garbageP_tmb_model <- glmmTMB(model_form
-	, data = wash_consec_df
+toilet_tmb_model <- glmmTMB(model_form
+	, data = wash_df
 	, family = binomial(link = "logit")
 )
 
-save(file = "garbageP_tmb.rda"
-	, garbageP_tmb_model
-	, wash_consec_df
+save(file = "toilet_tmb.rda"
+	, toilet_tmb_model
+	, wash_df
 	, model_form
 	, scale_mean
 	, scale_scale

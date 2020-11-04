@@ -8,14 +8,14 @@ library(splines)
 library(effects)
 library(glmmTMB)
 
-load("garbage_tmb.rda")
+load("waterP_tmb.rda")
 
 ## Which scale to plot the predictions
 ### See ?plot.effects
 linearpredictor <- TRUE
 
-## garbage glm model
-mod <- garbage_tmb_model
+## water glm model
+mod <- waterP_tmb_model
 
 ### Conditionaled on all other predictors
 pred_vars <- attr(terms(model_form), "term.labels")
@@ -37,7 +37,7 @@ effect_df <- lapply(pred_vars, function(x){
 	return(mod_df)
 })
 
-save(file = "garbage_condeffect_tmb.rda"
+save(file = "waterP_condeffect_tmb.rda"
 	, effect_df
 	, scale_mean
 	, scale_scale

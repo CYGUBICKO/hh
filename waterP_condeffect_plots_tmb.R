@@ -13,21 +13,22 @@ library(lme4)
 library(splines)
 
 source("funs/ggplot_theme.R"); ggtheme()
-load("garbage_condeffect_tmb.rda")
-load("garbage_anova.rda")
+load("waterP_condeffect_tmb.rda")
 load("labelEplots.rda")
+load("waterP_anova.rda")
+
 ### Plot all predictors
 pred_vars <- names(effect_df)
 
-# resp_scale : is set in labelEplots.R
+# Set resp_scale in labelEplots.R
 
 pred_effect_plots <- lapply(pred_vars, function(x){
-	plotEffects(effect_df[[x]], x, sigName(garbage_anova, x), scale = resp_scale)
+	plotEffects(effect_df[[x]], x, sigName(waterP_anova, x), scale = resp_scale)
 })
 
 print(pred_effect_plots)
 
-save(file = "garbage_condeffect_plots_tmb.rda"
+save(file = "waterP_condeffect_plots_tmb.rda"
 	, pred_effect_plots
 )
 

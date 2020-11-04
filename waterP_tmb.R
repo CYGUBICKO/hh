@@ -27,21 +27,21 @@ fixed_effects <- paste0(c("ns(age, 3)"
 		, "income"
 		, "foodeaten"
 		, "rentorown"
-		, "garbagedposalP"
+		, "watersourceP"
 	)
 	, collapse = "+"
 )
 rand_effects <- "(1|indid) + (1|hhid) + (1|year)" 
-model_form <- as.formula(paste0("garbagedposal ~ ", fixed_effects, "+", rand_effects))
+model_form <- as.formula(paste0("watersource ~ ", fixed_effects, "+", rand_effects))
 
 ## Fit glmtmb model
-garbageP_tmb_model <- glmmTMB(model_form
+waterP_tmb_model <- glmmTMB(model_form
 	, data = wash_consec_df
 	, family = binomial(link = "logit")
 )
 
-save(file = "garbageP_tmb.rda"
-	, garbageP_tmb_model
+save(file = "waterP_tmb.rda"
+	, waterP_tmb_model
 	, wash_consec_df
 	, model_form
 	, scale_mean
