@@ -10,6 +10,7 @@ library(tibble)
 library(purrr)
 library(broom.mixed)
 
+library(glmmTMB)
 library(splines)
 
 load("garbage_tmb.rda")
@@ -58,6 +59,8 @@ coefs_df2 <- (map(list(waterP = waterP, garbageP = garbageP, toiletP = toiletP)
 		, parameter = term
 		, parameter = gsub(".*\\(|\\).*|\\,.*", "", parameter)
 		, parameter_new = ifelse(parameter == "Intercept", "Intercept", "Coefs")
+		, term = ifelse(grepl("PImproved|PNot observed|PUnimproved", term), "StatusP", as.character(term))
+		, parameter = gsub("watersourceP|garbagedposalP|toilettypeP", "", parameter)
 	)
 	%>% mutate(term = reorder(term, estimate))
 )
@@ -68,6 +71,6 @@ extract_coefs_df <- (coefs_df1
 )
 print(extract_coefs_df, n = Inf, width = Inf)
 
-save(file = "garbage_tidy.rda"
+save(file = "tidy_coefs.rda"
 	, extract_coefs_df
 )
