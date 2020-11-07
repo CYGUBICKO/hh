@@ -14,6 +14,8 @@ load("waterP_tmb.rda")
 d1 <- Anova(waterP_tmb_model, type = anova_type)
 waterP_anova <- data.frame(d1)
 rownames(waterP_anova) <- gsub(".*\\:|.*\\(|\\,.*|\\).*", "", rownames(waterP_anova))
+waterP_anova$vars <- rownames(waterP_anova)
+waterP_anova$model <- "waterP"
 
 print(waterP_anova)
 

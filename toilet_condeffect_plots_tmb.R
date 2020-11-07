@@ -14,6 +14,7 @@ library(splines)
 
 source("funs/ggplot_theme.R"); ggtheme()
 load("toilet_condeffect_tmb.rda")
+load("toilet_condemm_tmb.rda")
 load("toilet_anova.rda")
 load("labelEplots.rda")
 
@@ -23,7 +24,8 @@ pred_vars <- names(effect_df)
 # Set resp_scale in labelEplots.R
 
 pred_effect_plots <- lapply(pred_vars, function(x){
-	plotEffects(effect_df[[x]], x, sigName(toilet_anova, x), scale = resp_scale)
+	dd <- bind_rows(effect_df[[x]], emmeans_df[[x]])
+	plotEffects(dd, x, sigName(toilet_anova, x), scale = resp_scale)
 })
 
 print(pred_effect_plots)

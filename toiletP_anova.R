@@ -14,6 +14,8 @@ load("toiletP_tmb.rda")
 d1 <- Anova(toiletP_tmb_model, type = anova_type)
 toiletP_anova <- data.frame(d1)
 rownames(toiletP_anova) <- gsub(".*\\:|.*\\(|\\,.*|\\).*", "", rownames(toiletP_anova))
+toiletP_anova$vars <- rownames(toiletP_anova)
+toiletP_anova$model <- "toiletP"
 
 print(toiletP_anova)
 

@@ -26,8 +26,8 @@ fixed_effects <- paste0(c("ns(age, 3)"
 		, "expenditure"
 		, "income"
 		, "foodeaten"
-		, "toilettypeP"
 		, "rentorown"
+		, "toilettypeP"
 	)
 	, collapse = "+"
 )

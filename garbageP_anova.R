@@ -14,6 +14,8 @@ load("garbageP_tmb.rda")
 d1 <- Anova(garbageP_tmb_model, type = anova_type)
 garbageP_anova <- data.frame(d1)
 rownames(garbageP_anova) <- gsub(".*\\:|.*\\(|\\,.*|\\).*", "", rownames(garbageP_anova))
+garbageP_anova$vars <- rownames(garbageP_anova)
+garbageP_anova$model <- "garbageP"
 
 print(garbageP_anova)
 

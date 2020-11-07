@@ -10,6 +10,7 @@ library(dplyr)
 source("funs/ggplot_theme.R"); ggtheme()
 
 load("tidy_coefs.rda")
+load("combineanova_tabs.rda")
 
 ### Function to plot for different model classes i.e., glm and glmer
 effectsizeFunc <- function(df, col_lab = ""){
@@ -40,18 +41,41 @@ effectsizeFunc <- function(df, col_lab = ""){
 	return(p1)
 }
 
+## Combine anova data with coefs for variable p-value
+var_pattern <- unique(anova_tabs$vars)
+var_pattern <- paste0(var_pattern, collapse = "|")
+var_pattern
+
 extract_coefs_df <- (extract_coefs_df 
 	%>% filter(effect != "ran_pars")
-	%>% mutate(vars = ifelse(grepl("StatusP", term), "StatusP", as.character(parameter)))
+	%>% mutate(term2 = ifelse(grepl("StatusP", term), "StatusP", as.character(parameter))
+		, vars1 = gsub(".*\\:|.*\\(|\\,.*|\\).*", "", term)
+		, vars = gsub(var_pattern, "", vars1)
+		, vars = ifelse(vars=="", vars1, stringr::str_remove(term2, vars))
+	)
+	%>% left_join(anova_tabs, by = c("model", "vars"))
+	%>% mutate(ll = sprintf("(P=%5.3f)", `Pr..Chisq.`)
+		, ll = sub("=0.000", "<0.001", ll)
+		, ll = paste(model, ll)
+		, ll = ifelse(`Pr..Chisq.` < 0.05, paste(ll, "*", sep="")
+			, ifelse(`Pr..Chisq.` < 0.01, paste(ll, "*", sep="")
+				, ll
+			)
+		)
+		, model = ifelse(!is.na(ll), ll, model) 
+	)
+	%>% select(-vars1, -ll)
+	%>% data.frame()
 )
+head(extract_coefs_df)
 
 ## All effect plots
-pred_names <- unique(extract_coefs_df$vars)
+pred_names <- unique(extract_coefs_df$term2)
 names(pred_names) <- pred_names
 
 pyreffectsize_plots <- lapply(pred_names, function(x){
 	dd <- (extract_coefs_df
-		%>% filter(vars == x)
+		%>% filter(term2 == x)
 	)
 	effectsizeFunc(dd, x)
 })

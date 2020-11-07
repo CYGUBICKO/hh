@@ -205,7 +205,10 @@ garbage_tmb.Rout: garbage_tmb.R
 garbage_anova.Rout: garbage_anova.R
 
 #### Conditional effects
+#### effects
 garbage_condeffect_tmb.Rout: garbage_condeffect_tmb.R
+##### emmeans
+garbage_condemm_tmb.Rout: garbage_condemm_tmb.R
 garbage_condeffect_plots_tmb.Rout: garbage_condeffect_plots_tmb.R
 
 #### Previous status included 
@@ -215,7 +218,10 @@ garbageP_tmb.Rout: garbageP_tmb.R
 garbageP_anova.Rout: garbageP_anova.R
 
 #### Conditional effects
+##### effects
 garbageP_condeffect_tmb.Rout: garbageP_condeffect_tmb.R
+##### emmeans
+garbageP_condemm_tmb.Rout: garbageP_condemm_tmb.R
 garbageP_condeffect_plots_tmb.Rout: garbageP_condeffect_plots_tmb.R
 
 ######################################################################
@@ -232,7 +238,10 @@ water_tmb.Rout: water_tmb.R
 water_anova.Rout: water_anova.R
 
 #### Conditional effects
+##### effects
 water_condeffect_tmb.Rout: water_condeffect_tmb.R
+##### emmeans
+water_condemm_tmb.Rout: water_condemm_tmb.R
 water_condeffect_plots_tmb.Rout: water_condeffect_plots_tmb.R
 
 #### Previous status included 
@@ -242,7 +251,10 @@ waterP_tmb.Rout: waterP_tmb.R
 waterP_anova.Rout: waterP_anova.R
 
 #### Conditional effects
+##### effects 
 waterP_condeffect_tmb.Rout: waterP_condeffect_tmb.R
+##### emmeans
+waterP_condemm_tmb.Rout: waterP_condemm_tmb.R
 waterP_condeffect_plots_tmb.Rout: waterP_condeffect_plots_tmb.R
 
 
@@ -260,7 +272,10 @@ toilet_tmb.Rout: toilet_tmb.R
 toilet_anova.Rout: toilet_anova.R
 
 #### Conditional effects
+##### effects
 toilet_condeffect_tmb.Rout: toilet_condeffect_tmb.R
+##### emmeans
+toilet_condemm_tmb.Rout: toilet_condemm_tmb.R
 toilet_condeffect_plots_tmb.Rout: toilet_condeffect_plots_tmb.R
 
 #### Previous status included 
@@ -270,7 +285,10 @@ toiletP_tmb.Rout: toiletP_tmb.R
 toiletP_anova.Rout: toiletP_anova.R
 
 #### Conditional effects
+##### effects
 toiletP_condeffect_tmb.Rout: toiletP_condeffect_tmb.R
+##### emmeans
+toiletP_condemm_tmb.Rout: toiletP_condemm_tmb.R
 toiletP_condeffect_plots_tmb.Rout: toiletP_condeffect_plots_tmb.R
 
 ######################################################################
@@ -278,6 +296,9 @@ toiletP_condeffect_plots_tmb.Rout: toiletP_condeffect_plots_tmb.R
 #### Combined plots
 
 ######################################################################
+
+# Anova tables
+combineanova_tabs.Rout: combineanova_tabs.R
 
 # Conditional predictions
 ## Plot all the three services side by side

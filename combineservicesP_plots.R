@@ -22,9 +22,9 @@ toilet_eplots <- pred_effect_plots
 
 nplots <- length(garbage_eplots)
 all_plots <- lapply(1:nplots, function(i){
-	p <- ((garbage_eplots[[i]] + labs(title = "garbage")) 
+	p <- ((garbage_eplots[[i]] + labs(title = "garbage") + theme(legend.position = "none")) 
 		+ (water_eplots[[i]] + labs(title = "water")) 
-		+ (toilet_eplots[[i]] + labs(y = "", title = "toilet")) 
+		+ (toilet_eplots[[i]] + labs(y = "", title = "toilet") + theme(legend.position = "none")) 
 		+ plot_layout(nrow = 2, byrow = FALSE)
 	)
 	return(p)

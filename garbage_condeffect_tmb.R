@@ -31,8 +31,10 @@ effect_df <- lapply(pred_vars, function(x){
 	mod <- Effect(x, xlevels = 50, mod = mod, latent = TRUE)
 	if(linearpredictor){
 		mod_df <- data.frame(mod$x, fit = mod$fit, lower = mod$lower, upper = mod$upper)
+		mod_df$method <- "effects"
 	} else {
 		mod_df <- as.data.frame(mod)
+		mod_df$method <- "effects"
 	}
 	return(mod_df)
 })
