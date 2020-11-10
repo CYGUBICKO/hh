@@ -27,12 +27,12 @@ emmeans_df <- lapply(pred_vars, function(x){
 	if(pred_class %in% c("numeric", "integer")){
 		new_x <- list(seq(min(predictor), max(predictor), length.out = 50))
 		names(new_x) <- x
-		mod_df <- emmip(mod, pred_form, at = new_x, CI = TRUE, plotit = FALSE, bias.adjust = TRUE)
+		mod_df <- emmip(mod, pred_form, at = new_x, cov.keep = x, CI = TRUE, plotit = FALSE, bias.adjust = TRUE)
 		mod_df <- data.frame(mod_df)
 		mod_df <- setnames(mod_df, c("yvar", "LCL", "UCL"), c("fit", "lower", "upper"))
 		mod_df$method <- "emmeans"
 	} else {
-		mod_df <- emmeans(mod, pred_form, CI = TRUE, plotit = FALSE, bias.adjust = TRUE)
+		mod_df <- emmeans(mod, pred_form, cov.keep = x, CI = TRUE, plotit = FALSE, bias.adjust = TRUE)
 		mod_df <- data.frame(mod_df)
 		mod_df <- setnames(mod_df, c("emmean", "lower.CL", "upper.CL"), c("fit", "lower", "upper"))
 		mod_df$method <- "emmeans"

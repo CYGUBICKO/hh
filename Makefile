@@ -346,6 +346,10 @@ simple_glm_plots.Rout: simple_glm_plots.R
 ### Own code for conditional prediction
 simple_predict_brms.Rout: simple_predict_brms.R
 
+
+### From Dr. Ben
+skinny_effects_plot.Rout: skinny_effects_plot.R
+
 ######################################################################
 
 ## Data documentation
