@@ -312,8 +312,6 @@ combineservicesP_plots.Rout: combineservicesP_plots.R
 tidy_coefs.Rout: tidy_coefs.R
 tidy_coefs_plots.Rout: tidy_coefs_plots.R
 
-
-
 ######################################################################
 
 ## Joint models
