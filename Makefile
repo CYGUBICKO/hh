@@ -18,6 +18,7 @@ pullup: funs.pull
 ######################################################################
 
 subdirs += makeR
+Ignore += $(subdirs)
 alldirs += $(subdirs)
 
 resources:dirname=households
