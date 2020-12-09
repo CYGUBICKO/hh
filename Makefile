@@ -17,6 +17,9 @@ pullup: funs.pull
 
 ######################################################################
 
+subdirs += makeR
+alldirs += $(subdirs)
+
 resources:dirname=households
 resources:
 	$(Droplink)
