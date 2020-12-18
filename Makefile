@@ -17,6 +17,16 @@ pullup: funs.pull
 
 ######################################################################
 
+subdirs += makeR
+Ignore += $(subdirs)
+alldirs += $(subdirs)
+
+resources:dirname=households
+resources:
+	$(Droplink)
+
+######################################################################
+
 now: git_push/descriptive_stats.Rout.pdf git_push/combineservicesP_plots.Rout.pdf git_push/combineservices_plots.Rout.pdf 
 
 ## Latex plot example
