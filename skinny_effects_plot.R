@@ -44,4 +44,38 @@ plot(e4 <- emmeans(m2, ~disp, cov.keep="disp", CIs=TRUE,
 g1 %+% as.data.frame(e4)
 
 
+## Not sure on how to extract parameter level variable names
+extract_assign <- function(mod, intercept = TRUE){
+	mat <- model.matrix(mod)
+	xnames <- colnames(mat)
+	mod_term <- terms(mod)
+	mod_form <- formula(delete.response(mod_term))
+	var_labs <- all.vars(mod_form)
+	assign <- attr(mat, "assign")
+	if(intercept) {
+		var_labs <- c("(Intercept)", var_labs)
+		assign <- assign + 1
+	}
+	assign <- setNames(var_labs[assign], xnames)
+	return(assign)
+}
 
+zero_vcov2 <- function(m, focal_params, intercept = TRUE) {
+	assign <- extract_assign(m, intercept)
+	focal_params <- names(assign)[assign %in% focal_params]
+	v <- vcov(m)
+	if(inherits(m, "glmmTMB")){
+		v <- v$cond
+	}
+	focal_var <- v[focal_params,focal_params]
+	v[] <- 0 ## set all to zero, preserving dims/names
+	v[focal_params, focal_params] <- focal_var
+	return(v)
+}
+
+d1 <- as.data.frame(p2)
+print(g2 <- ggplot(d1, aes(age, emmean))
+    + geom_line()
+    + geom_ribbon(aes(ymin=lower.CL, ymax=upper.CL),
+                  colour=NA, alpha=0.1)
+    )
