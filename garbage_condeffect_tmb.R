@@ -4,7 +4,7 @@
 #### ---- By: Steve and Jonathan ----
 #### ---- Date: 2020 Jan 11 (Sat) ----
 
-library(splines)
+library(rms)
 library(effects)
 library(glmmTMB)
 
@@ -41,7 +41,5 @@ effect_df <- lapply(pred_vars, function(x){
 
 save(file = "garbage_condeffect_tmb.rda"
 	, effect_df
-	, scale_mean
-	, scale_scale
 	, base_year
 )

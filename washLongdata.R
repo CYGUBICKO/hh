@@ -38,6 +38,12 @@ model_df <- model.frame(
 	+ income
 	+ foodeaten
 	+ rentorown
+	+ hhsize_scaled
+	+ year_scaled
+	+ age_scaled
+	+ selfrating_scaled
+	+ shocks_scaled
+	+ expenditure_scaled
 	+ statusP
 	+ hhid
 	, data = prev_df, na.action = na.exclude, drop.unused.levels = TRUE
@@ -46,8 +52,6 @@ head(model_df)
 
 save(file = "washLongdata.rda"
 	, model_df
-	, scale_mean
-	, scale_scale
 	, base_year
 )
 

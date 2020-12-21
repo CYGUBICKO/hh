@@ -48,7 +48,5 @@ head(wash_consec_df, n = 50)
 save(file = "washdataStatusPcats.rda"
 	, wash_consec_df
 	, wash_df
-	, scale_mean
-	, scale_scale
 	, base_year
 )

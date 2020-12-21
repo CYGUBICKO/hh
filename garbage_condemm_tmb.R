@@ -42,7 +42,5 @@ emmeans_df <- lapply(pred_vars, function(x){
 
 save(file = "garbage_condemm_tmb.rda"
 	, emmeans_df
-	, scale_mean
-	, scale_scale
 	, base_year
 )

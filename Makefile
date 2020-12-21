@@ -27,18 +27,6 @@ resources:
 
 ######################################################################
 
-now: git_push/descriptive_stats.Rout.pdf git_push/combineservicesP_plots.Rout.pdf git_push/combineservices_plots.Rout.pdf 
-
-## Latex plot example
-
-Sources += plots.tex
-plots.pdf: plots.tex
-
-plots.Rout: plots.R
-
-######################################################################
-
-
 ## Loading data and defining some important functions
 ## ln -s ~/Dropbox/aphrc/hh_amen_xtics/data/ data ##
 ## ln -s ~/Dropbox/aphrc/hh_amen_xtics/docs/ docs ##
@@ -54,9 +42,15 @@ funs:
 Ignore += funs
 alldirs += funs
 
-######################################################################
+## Effect functions
+Makefile: effects
+effects:
+	git clone https://github.com/mac-theobio/effects.git
+ms = makestuff
+Ignore += effects
+alldirs += effects
 
-test.Rout: test.R
+######################################################################
 
 ## Why do you need this?
 # Define all important R-functions in one file
@@ -210,6 +204,10 @@ labelEplots.Rout: labelEplots.R
 ## GLMER using TMB
 ### No previous status
 garbage_tmb.Rout: garbage_tmb.R
+
+### This temporary, just checking if splines could be the problem in 
+### marginal predictions using emmeans
+temp_condemm.Rout: temp_condemm.R
 
 #### Anova
 garbage_anova.Rout: garbage_anova.R
