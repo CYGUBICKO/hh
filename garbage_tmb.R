@@ -19,7 +19,7 @@ head(wash_df)
 #selfrating_knots <- attributes(rcs(wash_df$selfrating_scaled,3))$parms
 
 fixed_effects <- paste0(c("age_scaled"
-		, "log(hhsize)"
+		, "log_hhsize"
 		, "year"
 		, "gender"
 		, "slumarea"

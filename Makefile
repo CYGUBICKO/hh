@@ -57,6 +57,16 @@ alldirs += effects
 globalFunctions.Rout: globalFunctions.R
 simplePlotsRuncs.Rout: simplePlotsRuncs.R
 
+## Effect plot functions
+### Label effect plots
+###  Customized conditional effect plots for effects library
+labelEplots.Rout: labelEplots.R
+
+## BaseR-ish predict in varpred
+### Pulled from effects repo in mac-theobio
+jdeffects.Rout: jdeffects.R
+
+
 # Read raw data
 ## loadData.rda: loadData.R
 loadData.Rout: data/NUHDSS_hhamenitiescharacteristics_anon.dta loadData.R
@@ -196,11 +206,6 @@ garbageP_condeffect_plots.Rout: garbageP_condeffect_plots.R
 
 ######################################################################
 
-## Effect plot functions
-### Label effect plots
-###  Customized conditional effect plots for effects library
-labelEplots.Rout: labelEplots.R
-
 ## GLMER using TMB
 ### No previous status
 garbage_tmb.Rout: garbage_tmb.R
@@ -208,6 +213,8 @@ garbage_tmb.Rout: garbage_tmb.R
 ### This temporary, just checking if splines could be the problem in 
 ### marginal predictions using emmeans
 temp_condemm.Rout: temp_condemm.R
+temp_condjd.Rout: temp_condjd.R
+temp_condeffect_plots.Rout: temp_condeffect_plots.R
 
 #### Anova
 garbage_anova.Rout: garbage_anova.R

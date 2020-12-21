@@ -4,10 +4,12 @@
 #### ---- By: Steve and Jonathan ----
 #### ---- Date: 2020 Jan 11 (Sat) ----
 
+library(data.table)
 library(dplyr)
 library(emmeans)
 library(glmmTMB)
 
+source("jdeffects.R")
 load("garbage_tmb.rda")
 
 ## garbage glm model

@@ -26,6 +26,7 @@ wash_df <- (wash_df
 	)
 	%>% mutate(year = as.numeric(as.character(year)) - base_year
 		, hhsize_scaled = drop(scale(hhsize))
+		, log_hhsize = log(hhsize)
 		, year_scaled = drop(scale(year))
 		, age_scaled = drop(scale(age))
 		, selfrating_scaled = drop(scale(selfrating))
