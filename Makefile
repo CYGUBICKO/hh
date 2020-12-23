@@ -210,8 +210,9 @@ garbageP_condeffect_plots.Rout: garbageP_condeffect_plots.R
 ### No previous status
 garbage_tmb.Rout: garbage_tmb.R
 
-### This temporary, just checking if splines could be the problem in 
-### marginal predictions using emmeans
+### This temporary, just checking glmmTMB
+### marginal predictions using emmeans.
+### There was a bug but fixed in remotes::install_github("glmmTMB/glmmTMB/glmmTMB@extend_emmeans")
 temp_condemm.Rout: temp_condemm.R
 temp_condjd.Rout: temp_condjd.R
 temp_condeffect_plots.Rout: temp_condeffect_plots.R

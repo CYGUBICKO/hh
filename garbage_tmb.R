@@ -4,7 +4,6 @@
 #### ---- By: Steve and Jonathan ----
 #### ---- Date: 2019 Dec 24 (Tue) ----
 
-library(splines)
 library(glmmTMB)
 
 load("washdataStatusPcats.rda")
@@ -12,12 +11,11 @@ load("washdataStatusPcats.rda")
 ## Input files: wash_df - No previous status
 head(wash_df)
 
-## Model formula
-### Define spline knots: see ?rms::rcs
-#age_knots <- attributes(rcs(wash_df$age_scaled,3))$parms
-#year_knots <- attributes(rcs(wash_df$year,3))$parms
-#selfrating_knots <- attributes(rcs(wash_df$selfrating_scaled,3))$parms
+## Emmeans require knots to do marginal predictions
+# ndf <- 3
+# age_knots <- attr(rcs(wash_df$age_scaled, ndf), "parms")
 
+## Model formula
 fixed_effects <- paste0(c("age_scaled"
 		, "log_hhsize"
 		, "year"
@@ -49,8 +47,5 @@ save(file = "garbage_tmb.rda"
 	, wash_df
 	, model_form
 	, base_year
-#	, age_knots
-#	, year_knots
-#	, selfrating_knots
 )
 

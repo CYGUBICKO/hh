@@ -4,7 +4,6 @@
 #### ---- By: Steve and Jonathan ----
 #### ---- Date: 2019 Dec 24 (Tue) ----
 
-library(splines)
 library(glmmTMB)
 
 load("washdataStatusPcats.rda")
@@ -13,17 +12,17 @@ load("washdataStatusPcats.rda")
 head(wash_consec_df)
 
 ## Model formula
-fixed_effects <- paste0(c("ns(age, 3)"
-		, "log(hhsize)"
-		, "ns(year, 3)"
+fixed_effects <- paste0(c("age_scaled"
+		, "log_hhsize"
+		, "year"
 		, "gender"
 		, "slumarea"
-		, "ns(selfrating, 3)"
+		, "selfrating_scaled"
 		, "shocks_ever_bin"
 		, "materials"
 		, "ownhere"
 		, "ownelse"
-		, "expenditure"
+		, "expenditure_scaled"
 		, "income"
 		, "foodeaten"
 		, "rentorown"
@@ -44,8 +43,6 @@ save(file = "garbageP_tmb.rda"
 	, garbageP_tmb_model
 	, wash_consec_df
 	, model_form
-	, scale_mean
-	, scale_scale
 	, base_year
 )
 

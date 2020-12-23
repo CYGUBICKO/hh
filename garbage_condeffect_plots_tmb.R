@@ -13,17 +13,18 @@ library(lme4)
 library(splines)
 
 source("funs/ggplot_theme.R"); ggtheme()
-load("garbage_condeffect_tmb.rda")
+#load("garbage_condeffect_tmb.rda")
 load("garbage_condemm_tmb.rda")
 load("garbage_anova.rda")
 load("labelEplots.rda")
 ### Plot all predictors
-pred_vars <- names(effect_df)
+pred_vars <- names(emmeans_df)
 
 # resp_scale : is set in labelEplots.R
 
 pred_effect_plots <- lapply(pred_vars, function(x){
-	dd <- bind_rows(effect_df[[x]], emmeans_df[[x]])
+#	dd <- bind_rows(effect_df[[x]], emmeans_df[[x]])
+	dd <- emmeans_df[[x]]
 	plotEffects(dd, x, sigName(garbage_anova, x), scale = resp_scale)
 })
 

@@ -1,0 +1,84 @@
+
+R version 3.6.3 (2020-02-29) -- "Holding the Windsock"
+Copyright (C) 2020 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> #### ---- Project: APHRC Wash Data ----
+> #### ---- Task: Modeling real data ----
+> #### ---- Extract predicted effect sizes ----
+> #### ---- By: Steve and Jonathan ----
+> #### ---- Date: 2020 Jan 11 (Sat) ----
+> 
+> library(scales)
+> library(ggplot2)
+> 
+> library(dplyr)
+> library(effects)
+> library(lme4)
+> library(splines)
+> 
+> source("funs/ggplot_theme.R"); ggtheme()
+> #load("garbage_condeffect_tmb.rda")
+> load("garbage_condemm_tmb.rda")
+> load("garbage_anova.rda")
+> load("labelEplots.rda")
+> ### Plot all predictors
+> pred_vars <- names(emmeans_df)
+> 
+> # resp_scale : is set in labelEplots.R
+> 
+> pred_effect_plots <- lapply(pred_vars, function(x){
++ #	dd <- bind_rows(effect_df[[x]], emmeans_df[[x]])
++ 	dd <- emmeans_df[[x]]
++ 	plotEffects(dd, x, sigName(garbage_anova, x), scale = resp_scale)
++ })
+> 
+> print(pred_effect_plots)
+[[1]]
+
+[[2]]
+
+[[3]]
+
+[[4]]
+
+[[5]]
+
+[[6]]
+
+[[7]]
+
+[[8]]
+
+[[9]]
+
+[[10]]
+
+[[11]]
+
+[[12]]
+
+[[13]]
+
+[[14]]
+
+> 
+> save(file = "garbage_condeffect_plots_tmb.rda"
++ 	, pred_effect_plots
++ )
+> 
+> 
