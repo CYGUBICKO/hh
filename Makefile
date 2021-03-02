@@ -1,4 +1,4 @@
-# Household characteristics data
+## Household characteristics data
 ## Examining WASH raw data
 
 ### Hooks for the editor to set the default target
